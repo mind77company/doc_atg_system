@@ -1,0 +1,108 @@
+{
+  "entradas": [
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Fechamento: FAQ, glossário e revisão final",
+      "mudancas": [
+        "Página [[pagina:raiz/faq]] com 33 perguntas e respostas.",
+        "Glossário ampliado (de 52 para 94 termos) com os termos técnicos que as páginas usavam sem definição.",
+        "Verificador reforçado: links e âncoras reais nos HTML, recursos externos, termos sem glossário, dados pessoais e itens sem fonte.",
+        "Revisão final feita: 0 links quebrados, 0 recursos externos, 0 segredos, 0 dados pessoais; geração idêntica ao refazer do zero no mesmo dia."
+      ]
+    },
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Nono passo: Visão geral e Operação",
+      "mudancas": [
+        "Páginas novas de visão geral: [[pagina:visao-geral/visao-geral]], [[pagina:visao-geral/perfis-e-permissoes]], [[pagina:visao-geral/arquitetura]] e [[pagina:visao-geral/ambientes]].",
+        "Páginas novas de operação: [[pagina:operacao/infraestrutura]], [[pagina:operacao/variaveis-ambiente]], [[pagina:operacao/subir-atualizar-reverter]] e [[pagina:operacao/quando-algo-da-errado]]."
+      ]
+    },
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Oitavo passo: Integrações, tabelas de apoio e histórico de mudanças do banco",
+      "mudancas": [
+        "Páginas novas: as seis integrações ([[integracao:supabase]], [[integracao:n8n]], [[integracao:iclass]], [[integracao:omie]], [[integracao:gmail]] e [[integracao:uazapi]]), [[pagina:banco/historico-de-mudancas]] e 10 tabelas e views de apoio.",
+        "Novos pontos a validar V-036 e V-037."
+      ]
+    },
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Sétimo módulo: Produtos, Serviços, fluxos de preço, Geradores legado e Configurações",
+      "mudancas": [
+        "Páginas novas: [[modulo:produtos-e-servicos]], [[modulo:geradores-legado]], [[modulo:configuracoes]], [[fluxo:atualiza-produto]], [[fluxo:atualiza-servico]], [[fluxo:preco-produto-mensal]], [[fluxo:preco-servico-mensal]] e as tabelas [[tabela:Produtos]], [[tabela:Serviços]], [[tabela:geradores]] e [[tabela:omie]].",
+        "Novos pontos a validar V-033 a V-035 e achados A-024 a A-028."
+      ]
+    },
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Sexto módulo: Histórico, Dashboard, Ordens de Serviço, Orçamentos e receberorc",
+      "mudancas": [
+        "Páginas novas: [[modulo:historico-e-reverter]], [[modulo:dashboard]], [[modulo:ordens-de-servico]], [[modulo:orcamentos]], [[fluxo:receberorc]], [[tabela:ordens_servico]] e [[tabela:orcamentos]].",
+        "Novos pontos a validar V-030 a V-032 e achados A-020 a A-023."
+      ]
+    },
+    {
+      "data": "2026-11-12",
+      "commit": "8db54a9",
+      "titulo": "Quinto módulo: área administrativa e acesso",
+      "mudancas": [
+        "Páginas novas: [[modulo:login-e-acesso]], [[modulo:definir-senha]], [[modulo:usuarios-e-vendedores]], [[fluxo:manage-users]] e [[fluxo:convite-e-senha]].",
+        "Novos pontos: V-027 a V-029 e achados A-018 e A-019 (campo de pesquisa e notificações da barra superior sem uso real)."
+      ]
+    },
+    {
+      "data": "2026-11-11",
+      "commit": "8db54a9",
+      "titulo": "Relatório de Saúde commitado e documentação alinhada",
+      "mudancas": [
+        "As alterações do Relatório de Saúde (logo, WhatsApp, coluna Período, remoção da seção de pendências) foram commitadas e enviadas ao repositório.",
+        "A página [[modulo:relatorio-de-saude]] passou a apontar para o commit 8db54a9 e perdeu o aviso de código não commitado."
+      ]
+    },
+    {
+      "data": "2026-11-11",
+      "commit": "9d680f5",
+      "titulo": "Quarto módulo: Preditiva, Oxicatalisador, Relatório de Saúde e importação da planilha",
+      "mudancas": [
+        "Páginas novas: [[modulo:preditiva-e-oxicatalisador]], [[modulo:relatorio-de-saude]] e [[fluxo:importacao-preditivas]].",
+        "A página do relatório descreve o código local, que tem alterações ainda não commitadas; a verificação a aponta como desatualizada até o commit.",
+        "Novos pontos a validar: V-025 e V-026."
+      ]
+    },
+    {
+      "data": "2026-11-11",
+      "commit": "9d680f5",
+      "titulo": "Terceiro módulo: Gerador e Ficha de levantamento",
+      "mudancas": [
+        "Páginas novas: [[modulo:gerador]], [[modulo:ficha-de-levantamento]] e os fluxos [[fluxo:buscar-ativo]], [[fluxo:gerador-por-os]] e [[fluxo:buscar-os]].",
+        "Novos pontos a validar: V-020 a V-024, sobre divergências entre as telas e os fluxos exportados."
+      ]
+    },
+    {
+      "data": "2026-11-11",
+      "commit": "9d680f5",
+      "titulo": "Segundo módulo: Clientes, Novo Cliente e Corrigir cadastro iClass",
+      "mudancas": [
+        "Páginas novas: [[modulo:clientes-lista]], [[modulo:criar-cliente]], [[modulo:corrigir-iclass]] e o fluxo [[fluxo:buscar-cliente-iclass]].",
+        "Corrigido em [[tabela:omie_clientes]]: cliente inativo continua na lista (não é escondido).",
+        "Novos pontos: V-019 e A-017. Regra de atualização da documentação gravada no `CLAUDE.md` da raiz."
+      ]
+    },
+    {
+      "data": "2026-11-11",
+      "commit": "9d680f5",
+      "titulo": "Criação da base da documentação e do primeiro módulo",
+      "mudancas": [
+        "Base criada: tema, menu lateral, busca offline, glossário, páginas de controle e scripts de extração, geração e verificação.",
+        "Primeiro módulo documentado: banco de dados do núcleo (clientes, geradores, vendedores, preditivas, oxicatalisador, histórico, controle de limite do iClass, duas views, 19 funções) e o fluxo [[fluxo:criar-cliente]].",
+        "O código local tem alterações ainda não commitadas em `src/pages/RelatorioGerador.tsx` (Relatório de Saúde). Elas não afetam as páginas escritas até agora."
+      ]
+    }
+  ]
+}

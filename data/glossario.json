@@ -1,0 +1,768 @@
+{
+  "termos": [
+    {
+      "id": "omie",
+      "termo": "Omie",
+      "categoria": "negocio",
+      "definicao": "Sistema de gestão (ERP) usado pela ATG para cadastro de clientes, produtos, serviços e orçamentos. A plataforma conversa com ele por uma API."
+    },
+    {
+      "id": "iclass",
+      "termo": "iClass",
+      "categoria": "negocio",
+      "definicao": "Sistema de gestão de serviços em campo usado pela ATG. Guarda clientes, ativos (equipamentos), ordens de serviço e fichas de levantamento. A plataforma conversa com ele por uma API."
+    },
+    {
+      "id": "gerador",
+      "termo": "Gerador",
+      "apelidos": [
+        "geradores",
+        "grupo gerador"
+      ],
+      "categoria": "negocio",
+      "definicao": "Equipamento de geração de energia de um cliente, que a ATG mantém. Na plataforma, cada gerador é um registro ligado a um cliente e a um ativo do iClass."
+    },
+    {
+      "id": "ativo",
+      "termo": "Ativo (iClass)",
+      "apelidos": [
+        "ativos do iClass"
+      ],
+      "categoria": "negocio",
+      "definicao": "Um equipamento cadastrado no iClass. Um gerador da plataforma é ligado ao seu ativo pelo número do ativo (campo ativo_id)."
+    },
+    {
+      "id": "ficha-levantamento",
+      "termo": "Ficha de levantamento",
+      "apelidos": [
+        "ficha"
+      ],
+      "categoria": "negocio",
+      "definicao": "Formulário técnico (checklist de uma ordem de serviço do iClass) com dados do motor, bateria, filtros e outros componentes do gerador. A plataforma busca essa ficha no iClass e guarda uma cópia no gerador."
+    },
+    {
+      "id": "preditiva",
+      "termo": "Preditiva",
+      "apelidos": [
+        "manutenção preditiva",
+        "preditivas"
+      ],
+      "categoria": "negocio",
+      "definicao": "Acompanhamento de itens de manutenção do gerador (troca de óleo e filtros, bateria, mangueiras, limpezas) com data realizada e data de vencimento. A plataforma mostra o que está em dia, a vencer ou vencido."
+    },
+    {
+      "id": "oxicatalisador",
+      "termo": "Oxicatalisador",
+      "categoria": "negocio",
+      "definicao": "Componente do sistema de escapamento do gerador. A plataforma registra se o gerador possui e qual a bitola, mas não controla datas dele."
+    },
+    {
+      "id": "os",
+      "termo": "Ordem de Serviço (O.S.)",
+      "apelidos": [
+        "O.S.",
+        "OS",
+        "ordem de serviço",
+        "ordens de serviço"
+      ],
+      "categoria": "negocio",
+      "definicao": "Registro de um serviço a executar ou executado. Existe no iClass e também em uma tabela da plataforma."
+    },
+    {
+      "id": "orcamento",
+      "termo": "Orçamento",
+      "apelidos": [
+        "orçamentos"
+      ],
+      "categoria": "negocio",
+      "definicao": "Proposta de preço de produtos e serviços para um cliente."
+    },
+    {
+      "id": "relatorio-saude",
+      "termo": "Relatório de Saúde",
+      "categoria": "negocio",
+      "definicao": "Documento em PDF, gerado pela plataforma, que resume a situação de manutenção de um gerador: itens em dia, a vencer e vencidos."
+    },
+    {
+      "id": "perfil",
+      "termo": "Perfil de usuário",
+      "apelidos": [
+        "perfis"
+      ],
+      "categoria": "negocio",
+      "definicao": "Tipo de acesso de quem entra na plataforma: administrador, usuário comum ou vendedor. O perfil define o que a pessoa pode ver e fazer."
+    },
+    {
+      "id": "vendedor",
+      "termo": "Vendedor",
+      "apelidos": [
+        "vendedores"
+      ],
+      "categoria": "negocio",
+      "definicao": "Pessoa responsável comercial por clientes. Pode ter um login com perfil vendedor para ver os próprios clientes."
+    },
+    {
+      "id": "inativar",
+      "termo": "Inativar cliente",
+      "apelidos": [
+        "inativar",
+        "reativar"
+      ],
+      "categoria": "negocio",
+      "definicao": "Marcar um cliente como inativo sem apagar nada e sem mexer no Omie nem no iClass. O cliente pode ser reativado depois, reaproveitando os mesmos cadastros."
+    },
+    {
+      "id": "conferencia",
+      "termo": "Conferência",
+      "apelidos": [
+        "status de conferência"
+      ],
+      "categoria": "negocio",
+      "definicao": "Comparação entre o cadastro do cliente e o que existe no iClass, que gera um status (OK, DIVERGENCIA ou NAO_ENCONTRADO). A lógica que decide esse status não está no código da plataforma; o código só exibe o valor e grava OK depois de uma correção manual."
+    },
+    {
+      "id": "validado",
+      "termo": "Validado",
+      "apelidos": [
+        "validação"
+      ],
+      "categoria": "negocio",
+      "definicao": "Marca de que uma pessoa conferiu o cadastro de um cliente ou gerador e o aprovou."
+    },
+    {
+      "id": "arquivar",
+      "termo": "Arquivar",
+      "apelidos": [
+        "arquivado"
+      ],
+      "categoria": "negocio",
+      "definicao": "Esconder um gerador das listas sem apagá-lo do banco (exclusão lógica). O registro continua guardado."
+    },
+    {
+      "id": "cnpj-limpo",
+      "termo": "CNPJ limpo",
+      "categoria": "negocio",
+      "definicao": "O CNPJ (ou CPF) escrito só com números, sem pontos, barra ou traço. É usado para ligar registros entre tabelas."
+    },
+    {
+      "id": "codigo-integracao",
+      "termo": "Código de integração",
+      "categoria": "negocio",
+      "definicao": "Código criado pela plataforma ao cadastrar um cliente (ATG_ seguido do CNPJ) para reconhecer o mesmo cliente no Omie e no iClass."
+    },
+    {
+      "id": "planilha-preditivas",
+      "termo": "Planilha de preditivas",
+      "categoria": "negocio",
+      "definicao": "Planilha de origem dos dados de manutenção preditiva. Foi importada para o banco, e o sistema tenta ligar cada linha a um gerador comparando nomes."
+    },
+    {
+      "id": "front-end",
+      "termo": "Front-end",
+      "apelidos": [
+        "front"
+      ],
+      "categoria": "tecnico",
+      "definicao": "A parte da plataforma que roda no navegador do usuário (telas, botões, formulários)."
+    },
+    {
+      "id": "supabase",
+      "termo": "Supabase",
+      "categoria": "tecnico",
+      "definicao": "Serviço que fornece o banco de dados (PostgreSQL), o login dos usuários e funções no servidor para a plataforma."
+    },
+    {
+      "id": "postgresql",
+      "termo": "PostgreSQL",
+      "apelidos": [
+        "Postgres"
+      ],
+      "categoria": "tecnico",
+      "definicao": "O banco de dados usado pela plataforma, dentro do Supabase."
+    },
+    {
+      "id": "n8n",
+      "termo": "n8n",
+      "categoria": "tecnico",
+      "definicao": "Ferramenta de automação em que os fluxos da ATG foram montados. Recebe chamadas da plataforma, conversa com Omie, iClass, Gmail e WhatsApp, e responde."
+    },
+    {
+      "id": "webhook",
+      "termo": "Webhook",
+      "categoria": "tecnico",
+      "definicao": "Endereço na internet que dispara um fluxo quando recebe uma chamada. A plataforma chama os webhooks do n8n para criar clientes, buscar ativos e outras tarefas."
+    },
+    {
+      "id": "fluxo",
+      "termo": "Fluxo",
+      "apelidos": [
+        "fluxos",
+        "automação"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Sequência de etapas automáticas montada no n8n, com condições e ramificações."
+    },
+    {
+      "id": "no-n8n",
+      "termo": "Nó (n8n)",
+      "apelidos": [
+        "nó",
+        "nós"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Uma etapa de um fluxo do n8n, como chamar uma API, decidir entre dois caminhos ou esperar alguns segundos."
+    },
+    {
+      "id": "api",
+      "termo": "API",
+      "categoria": "tecnico",
+      "definicao": "Forma de um sistema pedir dados ou ações a outro por meio de chamadas padronizadas. O Omie e o iClass oferecem APIs."
+    },
+    {
+      "id": "rpc",
+      "termo": "RPC (função do banco)",
+      "apelidos": [
+        "RPC",
+        "RPCs"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Função escrita dentro do banco que a plataforma chama pelo nome. Faz um conjunto de passos de uma vez, como criar um gerador e registrar o histórico."
+    },
+    {
+      "id": "edge-function",
+      "termo": "Edge Function",
+      "categoria": "tecnico",
+      "definicao": "Programa que roda no servidor do Supabase. Aqui é usada para gerenciar usuários (convidar, trocar senha, ativar e desativar), tarefas que o navegador não pode fazer com segurança."
+    },
+    {
+      "id": "rls",
+      "termo": "RLS (segurança por linha)",
+      "apelidos": [
+        "RLS",
+        "Row Level Security"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Recurso do banco que decide, linha a linha, quem pode ler ou gravar. Quando está desligado numa tabela, quem tem permissão na tabela acessa todas as linhas."
+    },
+    {
+      "id": "politica-acesso",
+      "termo": "Política de acesso",
+      "apelidos": [
+        "política",
+        "políticas"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Regra de RLS que diz quem pode ler ou gravar numa tabela e sob qual condição."
+    },
+    {
+      "id": "anon",
+      "termo": "Papel anon e authenticated",
+      "apelidos": [
+        "anon",
+        "authenticated"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Os dois papéis que o Supabase usa para quem chama o banco: anon é quem não fez login e authenticated é quem fez login."
+    },
+    {
+      "id": "service-role",
+      "termo": "service_role",
+      "apelidos": [
+        "chave service_role"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Chave de acesso total ao Supabase, que ignora as regras de segurança. Só deve existir em ambientes de servidor e nunca em arquivos compartilhados."
+    },
+    {
+      "id": "security-definer",
+      "termo": "SECURITY DEFINER",
+      "categoria": "tecnico",
+      "definicao": "Modo de uma função do banco em que ela roda com a permissão do seu dono, e não de quem a chamou. Por isso ignora as regras de segurança por linha."
+    },
+    {
+      "id": "trigger",
+      "termo": "Gatilho (trigger)",
+      "apelidos": [
+        "gatilho",
+        "gatilhos",
+        "trigger",
+        "triggers"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Regra do banco que executa uma função sozinha quando uma linha é inserida ou alterada."
+    },
+    {
+      "id": "view",
+      "termo": "View (visão)",
+      "apelidos": [
+        "view",
+        "views",
+        "visão"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Consulta guardada no banco que se comporta como uma tabela de leitura. Combina dados de várias tabelas e calcula campos."
+    },
+    {
+      "id": "view-materializada",
+      "termo": "View materializada",
+      "categoria": "tecnico",
+      "definicao": "View cujo resultado fica guardado no banco e só é atualizado quando alguém manda (refresh)."
+    },
+    {
+      "id": "chave-primaria",
+      "termo": "Chave primária",
+      "apelidos": [
+        "PK"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Campo (ou conjunto de campos) que identifica cada linha de uma tabela de forma única."
+    },
+    {
+      "id": "chave-estrangeira",
+      "termo": "Chave estrangeira",
+      "apelidos": [
+        "FK"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Campo que aponta para a chave primária de outra tabela e garante que a ligação existe."
+    },
+    {
+      "id": "cascata",
+      "termo": "Exclusão em cascata",
+      "apelidos": [
+        "em cascata",
+        "CASCADE"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Regra de uma chave estrangeira: ao apagar o registro principal, os registros ligados a ele são apagados junto."
+    },
+    {
+      "id": "indice",
+      "termo": "Índice",
+      "apelidos": [
+        "índices"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Estrutura do banco que acelera buscas por um campo, como o índice remissivo de um livro."
+    },
+    {
+      "id": "migration",
+      "termo": "Migration",
+      "apelidos": [
+        "migrations"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Arquivo que descreve uma mudança na estrutura do banco, para que ela possa ser repetida e registrada em ordem."
+    },
+    {
+      "id": "jsonb",
+      "termo": "JSON / JSONB",
+      "apelidos": [
+        "JSONB",
+        "JSON"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Formato de texto estruturado para guardar dados com vários campos dentro de um único campo do banco."
+    },
+    {
+      "id": "pg-trgm",
+      "termo": "pg_trgm (similaridade de texto)",
+      "apelidos": [
+        "pg_trgm",
+        "trigrama"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Extensão do banco que mede o quanto dois textos se parecem, comparando pedaços de 3 letras. Usada para ligar nomes de clientes parecidos."
+    },
+    {
+      "id": "rate-limit",
+      "termo": "Limite de chamadas (rate limit)",
+      "apelidos": [
+        "rate limit",
+        "sobrecarregado",
+        "limite de chamadas"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Número máximo de chamadas que um sistema aceita por minuto. O iClass limita as chamadas, e a plataforma controla esse limite com uma contagem no banco para não ultrapassar."
+    },
+    {
+      "id": "staging",
+      "termo": "Tabela de rascunho (staging)",
+      "apelidos": [
+        "staging"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Tabela onde os dados de uma planilha são colocados exatamente como vieram, antes de serem tratados e gravados nas tabelas definitivas."
+    },
+    {
+      "id": "dado-pessoal",
+      "termo": "Dado pessoal",
+      "categoria": "tecnico",
+      "definicao": "Informação que identifica uma pessoa, como nome, telefone, e-mail ou documento. Na documentação do banco, esses campos recebem esta etiqueta."
+    },
+    {
+      "id": "hash-routing",
+      "termo": "Rota por hash",
+      "categoria": "tecnico",
+      "definicao": "Forma de navegar entre telas em que o endereço termina em # e o nome da tela, sem recarregar a página.",
+      "apelidos": [
+        "hash"
+      ]
+    },
+    {
+      "id": "log-edicoes",
+      "termo": "Histórico de edições",
+      "apelidos": [
+        "log de edições"
+      ],
+      "categoria": "plataforma",
+      "definicao": "Registro de quem fez o quê, quando e com quais valores antes e depois. Permite reverter alterações feitas por tela."
+    },
+    {
+      "id": "mock",
+      "termo": "Resposta simulada (mock)",
+      "apelidos": [
+        "mock",
+        "simulada"
+      ],
+      "categoria": "plataforma",
+      "definicao": "Resposta de mentira que o sistema usa quando uma função do banco ainda não existe, para a tela não quebrar. A plataforma avisa com uma mensagem amarela."
+    },
+    {
+      "id": "match-nomes",
+      "termo": "Comparação de nomes (match)",
+      "apelidos": [
+        "match",
+        "conciliação de nomes"
+      ],
+      "categoria": "plataforma",
+      "definicao": "Processo que compara o nome de cliente da planilha de preditivas com os geradores do banco e dá uma nota de semelhança. Resulta em auto, revisar ou sem_match."
+    },
+    {
+      "id": "cnpj-cpf",
+      "termo": "CNPJ e CPF",
+      "apelidos": [
+        "CNPJ",
+        "CPF"
+      ],
+      "categoria": "negocio",
+      "definicao": "Números de registro de empresas (CNPJ) e de pessoas (CPF) na Receita Federal. A plataforma usa o CNPJ ou CPF para reconhecer um cliente e ligar registros entre si."
+    },
+    {
+      "id": "contrato-iclass",
+      "termo": "Contrato (iClass)",
+      "apelidos": [
+        "código do contrato",
+        "contrato ativo"
+      ],
+      "categoria": "negocio",
+      "definicao": "Código com que o iClass identifica o cadastro de um cliente. Na plataforma aparece como código do contrato ou código do iClass. Na planilha de preditivas, a coluna \"ativo\" diz se o contrato está ativo."
+    },
+    {
+      "id": "erp",
+      "termo": "ERP",
+      "categoria": "negocio",
+      "definicao": "Sistema de gestão de uma empresa (cadastros, vendas, faturamento). O Omie é o ERP da ATG."
+    },
+    {
+      "id": "bitola",
+      "termo": "Bitola",
+      "categoria": "negocio",
+      "definicao": "Medida do oxicatalisador de um gerador. A plataforma só registra o valor informado."
+    },
+    {
+      "id": "qta",
+      "termo": "QTA",
+      "categoria": "negocio",
+      "definicao": "Sigla de um dos itens de manutenção preditiva (\"limpeza do QTA\"). O significado da sigla não está no código da plataforma."
+    },
+    {
+      "id": "cfop",
+      "termo": "CFOP",
+      "categoria": "negocio",
+      "definicao": "Código fiscal da operação: identifica o tipo de venda ou circulação de um produto em documentos fiscais."
+    },
+    {
+      "id": "ncm",
+      "termo": "NCM",
+      "categoria": "negocio",
+      "definicao": "Código de classificação fiscal de um produto, usado em notas e impostos."
+    },
+    {
+      "id": "lc116",
+      "termo": "LC 116",
+      "categoria": "negocio",
+      "definicao": "Lista de serviços da Lei Complementar 116, que classifica cada serviço para o imposto municipal. O Omie guarda esse código em cada serviço."
+    },
+    {
+      "id": "supabase-auth",
+      "termo": "Supabase Auth",
+      "apelidos": [
+        "Auth"
+      ],
+      "categoria": "tecnico",
+      "definicao": "A parte do Supabase que cuida de quem pode entrar: guarda e-mails, senhas, convites e o perfil de cada pessoa."
+    },
+    {
+      "id": "app-metadata",
+      "termo": "app_metadata",
+      "apelidos": [
+        "user_metadata"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Dois campos do cadastro de login no Supabase. O primeiro só o servidor consegue alterar e guarda o perfil e as páginas liberadas; o segundo a própria pessoa consegue editar e serve só para o nome."
+    },
+    {
+      "id": "token",
+      "termo": "Token",
+      "categoria": "tecnico",
+      "definicao": "Código temporário ou secreto que prova quem você é ao falar com um sistema, sem precisar enviar a senha toda vez."
+    },
+    {
+      "id": "jwt",
+      "termo": "JWT",
+      "categoria": "tecnico",
+      "definicao": "Tipo de token usado no login do Supabase: um texto assinado que diz quem é o usuário e qual o perfil dele. Vai junto com cada pedido que o navegador faz."
+    },
+    {
+      "id": "oauth",
+      "termo": "OAuth",
+      "categoria": "tecnico",
+      "definicao": "Forma de autorizar um sistema a usar uma conta (como o Gmail) sem entregar a senha da conta a ele."
+    },
+    {
+      "id": "credencial",
+      "termo": "Credencial (n8n)",
+      "apelidos": [
+        "credencial",
+        "credenciais"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Acesso guardado dentro do n8n (um token, uma chave ou uma conta autorizada) para um fluxo falar com um serviço. É o jeito seguro de guardar segredos; quando a chave está escrita dentro do fluxo, ela fica exposta."
+    },
+    {
+      "id": "sessao",
+      "termo": "Sessão",
+      "categoria": "tecnico",
+      "definicao": "O período em que a pessoa está logada. Fica guardada no navegador até ela sair ou expirar."
+    },
+    {
+      "id": "sql",
+      "termo": "SQL",
+      "categoria": "tecnico",
+      "definicao": "Linguagem usada para consultar e alterar um banco de dados."
+    },
+    {
+      "id": "upsert",
+      "termo": "Upsert",
+      "categoria": "tecnico",
+      "definicao": "Gravar \"inserir ou atualizar\" de uma vez: se a linha já existe, atualiza; se não existe, cria."
+    },
+    {
+      "id": "rest",
+      "termo": "API REST",
+      "apelidos": [
+        "REST"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Forma comum de um sistema receber pedidos por endereços de internet. O Supabase oferece uma para ler e gravar as tabelas."
+    },
+    {
+      "id": "http",
+      "termo": "HTTP",
+      "categoria": "tecnico",
+      "definicao": "Protocolo da internet para pedir e receber dados. Os códigos de resposta indicam o resultado (por exemplo, 200 deu certo, 500 deu erro no servidor)."
+    },
+    {
+      "id": "url",
+      "termo": "URL",
+      "apelidos": [
+        "endereço do webhook"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Endereço de uma página ou serviço na internet."
+    },
+    {
+      "id": "uuid",
+      "termo": "UUID",
+      "categoria": "tecnico",
+      "definicao": "Identificador longo e único gerado automaticamente (como 123e4567-e89b-...), usado em algumas tabelas no lugar de um número sequencial."
+    },
+    {
+      "id": "idf",
+      "termo": "IDF (peso da palavra)",
+      "apelidos": [
+        "IDF"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Medida de quão rara é uma palavra entre os nomes cadastrados. Palavras raras pesam mais na comparação de nomes."
+    },
+    {
+      "id": "diagrama-er",
+      "termo": "Diagrama ER",
+      "apelidos": [
+        "ER"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Desenho das tabelas do banco e das ligações entre elas."
+    },
+    {
+      "id": "tempo-limite",
+      "termo": "Tempo limite (timeout)",
+      "apelidos": [
+        "tempo limite",
+        "timeout"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Quanto tempo uma chamada espera uma resposta antes de desistir."
+    },
+    {
+      "id": "paginacao",
+      "termo": "Paginação",
+      "categoria": "tecnico",
+      "definicao": "Mostrar ou buscar uma lista grande em partes (páginas), em vez de tudo de uma vez."
+    },
+    {
+      "id": "cache",
+      "termo": "Cache",
+      "categoria": "tecnico",
+      "definicao": "Cópia guardada pelo navegador ou por uma rede para abrir mais rápido. Às vezes mantém a versão antiga de uma página ou de um dado até ser recarregada."
+    },
+    {
+      "id": "proxy",
+      "termo": "Proxy",
+      "categoria": "tecnico",
+      "definicao": "Computador intermediário entre o usuário e a internet, comum em redes de empresas. Pode guardar respostas antigas ou bloquear endereços."
+    },
+    {
+      "id": "cdn",
+      "termo": "CDN",
+      "categoria": "tecnico",
+      "definicao": "Rede que distribui arquivos de sites a partir de vários locais, para carregarem mais rápido."
+    },
+    {
+      "id": "fallback",
+      "termo": "Reserva (fallback)",
+      "apelidos": [
+        "fallback"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Plano B do sistema quando algo falha. Nos catálogos de produtos e serviços, a reserva é uma lista de exemplo embutida no código."
+    },
+    {
+      "id": "backup",
+      "termo": "Backup",
+      "categoria": "tecnico",
+      "definicao": "Cópia de segurança dos dados, para recuperar se algo for perdido ou alterado por engano."
+    },
+    {
+      "id": "pg-cron",
+      "termo": "pg_cron",
+      "categoria": "tecnico",
+      "definicao": "Extensão do banco que agenda tarefas automáticas dentro dele. Não está instalada neste projeto."
+    },
+    {
+      "id": "build",
+      "termo": "Build (montagem)",
+      "apelidos": [
+        "build"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Etapa que transforma o código do programador nos arquivos finais do site, prontos para publicar."
+    },
+    {
+      "id": "git",
+      "termo": "Git",
+      "apelidos": [
+        "GitHub",
+        "repositório"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Ferramenta que guarda todas as versões do código, com quem mudou o quê e quando. O GitHub é o serviço onde o repositório fica guardado."
+    },
+    {
+      "id": "commit",
+      "termo": "Commit",
+      "apelidos": [
+        "commits"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Um registro de mudança no Git, com um código curto (por exemplo, 8db54a9) e uma descrição. Permite voltar atrás."
+    },
+    {
+      "id": "vercel",
+      "termo": "Vercel",
+      "categoria": "tecnico",
+      "definicao": "Serviço de hospedagem de sites. A equipe informou que o site da plataforma é publicado nele."
+    },
+    {
+      "id": "easypanel",
+      "termo": "Easypanel",
+      "categoria": "tecnico",
+      "definicao": "Painel de hospedagem onde o servidor do n8n roda."
+    },
+    {
+      "id": "vite-react",
+      "termo": "React, Vite, TypeScript e Tailwind",
+      "apelidos": [
+        "React",
+        "Vite",
+        "TypeScript",
+        "Tailwind"
+      ],
+      "categoria": "tecnico",
+      "definicao": "As tecnologias com que o site foi construído: React monta as telas, TypeScript ajuda a evitar erros no código, Vite prepara o site para publicar e Tailwind cuida da aparência."
+    },
+    {
+      "id": "npm",
+      "termo": "npm e Node.js",
+      "apelidos": [
+        "npm",
+        "Node.js"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Ferramentas usadas por quem programa para instalar as peças do projeto e rodá-lo no computador."
+    },
+    {
+      "id": "excel-xlsx",
+      "termo": "Exportação para Excel",
+      "apelidos": [
+        "xlsx",
+        "Excel"
+      ],
+      "categoria": "plataforma",
+      "definicao": "Geração, no navegador, de uma planilha .xlsx com o que está na tela. Usa a biblioteca xlsx (SheetJS)."
+    },
+    {
+      "id": "ci",
+      "termo": "Integração contínua (CI)",
+      "apelidos": [
+        "CI",
+        "Docker"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Verificação automática do código a cada mudança (testes e montagem). O projeto não tem. Docker é outra ferramenta de empacotamento que também não é usada aqui."
+    },
+    {
+      "id": "hmr",
+      "termo": "HMR",
+      "categoria": "tecnico",
+      "definicao": "Atualização automática da tela de quem programa, sem recarregar, enquanto edita o código."
+    },
+    {
+      "id": "log-tecnico",
+      "termo": "Log",
+      "apelidos": [
+        "logs"
+      ],
+      "categoria": "tecnico",
+      "definicao": "Registro automático do que um sistema fez. Não confundir com o Histórico de edições, que é o diário de negócio da plataforma."
+    },
+    {
+      "id": "uazapi",
+      "termo": "UazAPI",
+      "categoria": "tecnico",
+      "definicao": "Serviço que permite a um sistema enviar mensagens de WhatsApp. É usado pelo n8n no fluxo de orçamentos."
+    }
+  ]
+}

@@ -1,0 +1,2374 @@
+{
+  "meta": {
+    "gerado_em": "2026-11-12",
+    "commit": "8db54a9",
+    "alteracoes_nao_commitadas": true
+  },
+  "fluxos": [
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Adicionar_Gerador___Via_num_O_S.json",
+      "nome": "Adicionar Gerador : Via num O.S",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "gerador-por-os"
+      },
+      "quantidade_nos": 13,
+      "nos": [
+        {
+          "nome": "Guardar dados (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Buscar Equipamento)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Buscar Equipamento)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Buscar Equipamento)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Buscar Equipamento)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Rate limit excedido (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Extrair ativo",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Achou o ativo?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Nao encontrado",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responder ao front",
+          "tipo": "respondToWebhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Webhook1",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "gerador-por-os"
+        },
+        {
+          "nome": "iClass - buscar equipamento",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/serviceorders",
+          "metodo": "GET"
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Guardar dados (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Checar rate limit (Buscar Equipamento)"
+        },
+        {
+          "de": "Checar rate limit (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Buscar Equipamento)"
+        },
+        {
+          "de": "Ler resultado rate limit (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Permitido? (Buscar Equipamento)"
+        },
+        {
+          "de": "Permitido? (Buscar Equipamento)",
+          "saida": 0,
+          "para": "iClass - buscar equipamento"
+        },
+        {
+          "de": "Permitido? (Buscar Equipamento)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Buscar Equipamento)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Aguardar (Buscar Equipamento)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar Equipamento)",
+          "saida": 1,
+          "para": "Rate limit excedido (Buscar Equipamento)"
+        },
+        {
+          "de": "Aguardar (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Guardar dados (Buscar Equipamento)"
+        },
+        {
+          "de": "Rate limit excedido (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Extrair ativo",
+          "saida": 0,
+          "para": "Achou o ativo?"
+        },
+        {
+          "de": "Achou o ativo?",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Achou o ativo?",
+          "saida": 1,
+          "para": "Nao encontrado"
+        },
+        {
+          "de": "Nao encontrado",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Webhook1",
+          "saida": 0,
+          "para": "Guardar dados (Buscar Equipamento)"
+        },
+        {
+          "de": "iClass - buscar equipamento",
+          "saida": 0,
+          "para": "Extrair ativo"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [
+        "consumir_rate_limit_iclass"
+      ],
+      "tipos_credencial": [
+        "httpBearerAuth"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_Pre_o_de_Produto_Mensal.json",
+      "nome": "Atualização Automática de Preço de Produto Mensal",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "agenda",
+        "regra": {
+          "interval": [
+            {
+              "daysInterval": 30
+            }
+          ]
+        }
+      },
+      "quantidade_nos": 16,
+      "nos": [
+        {
+          "nome": "Split Out",
+          "tipo": "splitOut",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "MENSAL",
+          "tipo": "scheduleTrigger",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Avisa que atualizou a tabela de preços",
+          "tipo": "gmail",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Atualiza Preço",
+          "tipo": "supabase",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "tabela": "Produtos",
+          "operacao": "update"
+        },
+        {
+          "nome": "Merge",
+          "tipo": "merge",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "No Operation, do nothing",
+          "tipo": "noOp",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "PG 10",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueErrorOutput",
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 9",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 8",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 7",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 6",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 5",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 4",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 3",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 2",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "PG 1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Split Out",
+          "saida": 0,
+          "para": "Atualiza Preço"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 6"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 1"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 2"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 3"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 4"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 5"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 7"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 8"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 9"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "PG 10"
+        },
+        {
+          "de": "Atualiza Preço",
+          "saida": 0,
+          "para": "Avisa que atualizou a tabela de preços"
+        },
+        {
+          "de": "PG 10",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 10",
+          "saida": 1,
+          "para": "No Operation, do nothing"
+        },
+        {
+          "de": "PG 9",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 8",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 7",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 6",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 5",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 4",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 3",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 2",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "PG 1",
+          "saida": 0,
+          "para": "Merge"
+        },
+        {
+          "de": "Merge",
+          "saida": 0,
+          "para": "Split Out"
+        }
+      ],
+      "hosts": [
+        "app.omie.com.br"
+      ],
+      "tabelas_supabase": [
+        "Produtos"
+      ],
+      "rpcs_chamadas": [],
+      "tipos_credencial": [
+        "gmailOAuth2",
+        "supabaseApi"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_pre_o_do_Servi_o_Mensal.json",
+      "nome": "Atualização Automática de preço do Serviço Mensal",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "agenda",
+        "regra": {
+          "interval": [
+            {
+              "daysInterval": 30
+            }
+          ]
+        }
+      },
+      "quantidade_nos": 5,
+      "nos": [
+        {
+          "nome": "Supabase",
+          "tipo": "supabase",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "tabela": "Serviços",
+          "operacao": "update"
+        },
+        {
+          "nome": "Split Out",
+          "tipo": "splitOut",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Lista Serviços",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/servicos/servico",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Avisa que atualizou a tabela de preços",
+          "tipo": "gmail",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "MENSAL",
+          "tipo": "scheduleTrigger",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Split Out",
+          "saida": 0,
+          "para": "Supabase"
+        },
+        {
+          "de": "Lista Serviços",
+          "saida": 0,
+          "para": "Split Out"
+        },
+        {
+          "de": "Supabase",
+          "saida": 0,
+          "para": "Avisa que atualizou a tabela de preços"
+        },
+        {
+          "de": "MENSAL",
+          "saida": 0,
+          "para": "Lista Serviços"
+        }
+      ],
+      "hosts": [
+        "app.omie.com.br"
+      ],
+      "tabelas_supabase": [
+        "Serviços"
+      ],
+      "rpcs_chamadas": [],
+      "tipos_credencial": [
+        "gmailOAuth2",
+        "supabaseApi"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json",
+      "nome": "Atualização Forçada de Preço de Produto",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "atualiza-produto"
+      },
+      "quantidade_nos": 11,
+      "nos": [
+        {
+          "nome": "Sticky Note",
+          "tipo": "stickyNote",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Webhook Atualizar Produtos",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "atualiza-produto"
+        },
+        {
+          "nome": "Inicializa Paginacao",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Omie - ListarProdutos",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": 3,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Parse Produtos",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Supabase - Upsert Produtos",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": 3,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/Produtos",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Controle de Paginas",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Tem Mais Paginas?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguarda 2s",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resumo Final",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Notifica ADM por E-mail",
+          "tipo": "gmail",
+          "desativado": true,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook Atualizar Produtos",
+          "saida": 0,
+          "para": "Inicializa Paginacao"
+        },
+        {
+          "de": "Inicializa Paginacao",
+          "saida": 0,
+          "para": "Omie - ListarProdutos"
+        },
+        {
+          "de": "Omie - ListarProdutos",
+          "saida": 0,
+          "para": "Parse Produtos"
+        },
+        {
+          "de": "Parse Produtos",
+          "saida": 0,
+          "para": "Supabase - Upsert Produtos"
+        },
+        {
+          "de": "Supabase - Upsert Produtos",
+          "saida": 0,
+          "para": "Controle de Paginas"
+        },
+        {
+          "de": "Controle de Paginas",
+          "saida": 0,
+          "para": "Tem Mais Paginas?"
+        },
+        {
+          "de": "Tem Mais Paginas?",
+          "saida": 0,
+          "para": "Aguarda 2s"
+        },
+        {
+          "de": "Tem Mais Paginas?",
+          "saida": 1,
+          "para": "Resumo Final"
+        },
+        {
+          "de": "Aguarda 2s",
+          "saida": 0,
+          "para": "Omie - ListarProdutos"
+        },
+        {
+          "de": "Resumo Final",
+          "saida": 0,
+          "para": "Notifica ADM por E-mail"
+        }
+      ],
+      "hosts": [
+        "app.omie.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [
+        "Produtos"
+      ],
+      "rpcs_chamadas": [],
+      "tipos_credencial": [
+        "gmailOAuth2"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json",
+      "nome": "Atualização Forçada de preço do Serviço",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "atualiza-servico"
+      },
+      "quantidade_nos": 11,
+      "nos": [
+        {
+          "nome": "Webhook Atualizar Servicos",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "atualiza-servico"
+        },
+        {
+          "nome": "Inicializa Paginacao",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Omie - ListarCadastroServico",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": 3,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/servicos/servico",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Parse Servicos",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Supabase - Upsert Servicos",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": 3,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/Servi%C3%A7os",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Controle de Paginas",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Tem Mais Paginas?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguarda 2s",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resumo Final",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responde ao Front End",
+          "tipo": "respondToWebhook",
+          "desativado": true,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Notifica ADM por E-mail",
+          "tipo": "gmail",
+          "desativado": true,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook Atualizar Servicos",
+          "saida": 0,
+          "para": "Inicializa Paginacao"
+        },
+        {
+          "de": "Inicializa Paginacao",
+          "saida": 0,
+          "para": "Omie - ListarCadastroServico"
+        },
+        {
+          "de": "Omie - ListarCadastroServico",
+          "saida": 0,
+          "para": "Parse Servicos"
+        },
+        {
+          "de": "Parse Servicos",
+          "saida": 0,
+          "para": "Supabase - Upsert Servicos"
+        },
+        {
+          "de": "Supabase - Upsert Servicos",
+          "saida": 0,
+          "para": "Controle de Paginas"
+        },
+        {
+          "de": "Controle de Paginas",
+          "saida": 0,
+          "para": "Tem Mais Paginas?"
+        },
+        {
+          "de": "Tem Mais Paginas?",
+          "saida": 0,
+          "para": "Aguarda 2s"
+        },
+        {
+          "de": "Tem Mais Paginas?",
+          "saida": 1,
+          "para": "Resumo Final"
+        },
+        {
+          "de": "Aguarda 2s",
+          "saida": 0,
+          "para": "Omie - ListarCadastroServico"
+        },
+        {
+          "de": "Resumo Final",
+          "saida": 0,
+          "para": "Responde ao Front End"
+        },
+        {
+          "de": "Responde ao Front End",
+          "saida": 0,
+          "para": "Notifica ADM por E-mail"
+        }
+      ],
+      "hosts": [
+        "app.omie.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [],
+      "tipos_credencial": [
+        "gmailOAuth2"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Cadastrar_cliente_Iclass.json",
+      "nome": "Cadastrar cliente Iclass",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "criar-cliente"
+      },
+      "quantidade_nos": 29,
+      "nos": [
+        {
+          "nome": "Webhook",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "criar-cliente"
+        },
+        {
+          "nome": "Preparar dados",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Dados completos?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Criar no Omie",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/clientes",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Avaliar Omie",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Omie OK?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Guardar dados (Criar iClass)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Criar iClass)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Criar iClass)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Criar iClass)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Criar iClass)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Criar iClass)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resposta iClass pendente (rate limit)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Criar no iClass",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/customers",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Avaliar iClass",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "iClass OK?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Guardar dados (Pegar ID)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Pegar ID)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Pegar ID)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Pegar ID)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Pegar ID)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Pegar ID)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resposta iClass sem ID (rate limit)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Pegar ID iClass",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/customers",
+          "metodo": "GET"
+        },
+        {
+          "nome": "Montar resposta completa",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resposta iClass pendente",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resposta falha Omie",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Resposta campos faltando",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responder ao front",
+          "tipo": "respondToWebhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook",
+          "saida": 0,
+          "para": "Preparar dados"
+        },
+        {
+          "de": "Preparar dados",
+          "saida": 0,
+          "para": "Dados completos?"
+        },
+        {
+          "de": "Dados completos?",
+          "saida": 0,
+          "para": "Criar no Omie"
+        },
+        {
+          "de": "Dados completos?",
+          "saida": 1,
+          "para": "Resposta campos faltando"
+        },
+        {
+          "de": "Criar no Omie",
+          "saida": 0,
+          "para": "Avaliar Omie"
+        },
+        {
+          "de": "Avaliar Omie",
+          "saida": 0,
+          "para": "Omie OK?"
+        },
+        {
+          "de": "Omie OK?",
+          "saida": 0,
+          "para": "Guardar dados (Criar iClass)"
+        },
+        {
+          "de": "Omie OK?",
+          "saida": 1,
+          "para": "Resposta falha Omie"
+        },
+        {
+          "de": "Guardar dados (Criar iClass)",
+          "saida": 0,
+          "para": "Checar rate limit (Criar iClass)"
+        },
+        {
+          "de": "Checar rate limit (Criar iClass)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Criar iClass)"
+        },
+        {
+          "de": "Ler resultado rate limit (Criar iClass)",
+          "saida": 0,
+          "para": "Permitido? (Criar iClass)"
+        },
+        {
+          "de": "Permitido? (Criar iClass)",
+          "saida": 0,
+          "para": "Criar no iClass"
+        },
+        {
+          "de": "Permitido? (Criar iClass)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Criar iClass)"
+        },
+        {
+          "de": "Ainda vale tentar? (Criar iClass)",
+          "saida": 0,
+          "para": "Aguardar (Criar iClass)"
+        },
+        {
+          "de": "Ainda vale tentar? (Criar iClass)",
+          "saida": 1,
+          "para": "Resposta iClass pendente (rate limit)"
+        },
+        {
+          "de": "Aguardar (Criar iClass)",
+          "saida": 0,
+          "para": "Guardar dados (Criar iClass)"
+        },
+        {
+          "de": "Resposta iClass pendente (rate limit)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Criar no iClass",
+          "saida": 0,
+          "para": "Avaliar iClass"
+        },
+        {
+          "de": "Avaliar iClass",
+          "saida": 0,
+          "para": "iClass OK?"
+        },
+        {
+          "de": "iClass OK?",
+          "saida": 0,
+          "para": "Guardar dados (Pegar ID)"
+        },
+        {
+          "de": "iClass OK?",
+          "saida": 1,
+          "para": "Resposta iClass pendente"
+        },
+        {
+          "de": "Guardar dados (Pegar ID)",
+          "saida": 0,
+          "para": "Checar rate limit (Pegar ID)"
+        },
+        {
+          "de": "Checar rate limit (Pegar ID)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Pegar ID)"
+        },
+        {
+          "de": "Ler resultado rate limit (Pegar ID)",
+          "saida": 0,
+          "para": "Permitido? (Pegar ID)"
+        },
+        {
+          "de": "Permitido? (Pegar ID)",
+          "saida": 0,
+          "para": "Pegar ID iClass"
+        },
+        {
+          "de": "Permitido? (Pegar ID)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Pegar ID)"
+        },
+        {
+          "de": "Ainda vale tentar? (Pegar ID)",
+          "saida": 0,
+          "para": "Aguardar (Pegar ID)"
+        },
+        {
+          "de": "Ainda vale tentar? (Pegar ID)",
+          "saida": 1,
+          "para": "Resposta iClass sem ID (rate limit)"
+        },
+        {
+          "de": "Aguardar (Pegar ID)",
+          "saida": 0,
+          "para": "Guardar dados (Pegar ID)"
+        },
+        {
+          "de": "Resposta iClass sem ID (rate limit)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Pegar ID iClass",
+          "saida": 0,
+          "para": "Montar resposta completa"
+        },
+        {
+          "de": "Montar resposta completa",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Resposta iClass pendente",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Resposta falha Omie",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Resposta campos faltando",
+          "saida": 0,
+          "para": "Responder ao front"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "app.omie.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [
+        "consumir_rate_limit_iclass"
+      ],
+      "tipos_credencial": [
+        "httpBearerAuth"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/Recebe_Or_amentos_no_OMIE.json",
+      "nome": "Recebe Orçamentos no OMIE",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "receberorc"
+      },
+      "quantidade_nos": 19,
+      "nos": [
+        {
+          "nome": "Webhook",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "receberorc"
+        },
+        {
+          "nome": "HTTP Request",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/produtos/pedido",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Cria o orçamento",
+          "tipo": "set",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "HTTP Request1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/geral/clientes",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Transforma wpp",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Envio de orçamento no Whatsapp Cliente",
+          "tipo": "n8n-nodes-uazapi.uazApi",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Envia orçamento por E-mail",
+          "tipo": "gmail",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Atualiza o BD de Orçamentos",
+          "tipo": "supabase",
+          "desativado": true,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Verifica se pode gerar orçamento",
+          "tipo": "switch",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "No Operation, do nothing",
+          "tipo": "noOp",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Wait",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Verifica se localizou o pedido",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Avisa time Mind que deu erro na execução",
+          "tipo": "n8n-nodes-uazapi.uazApi",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Informa erro ao time da ATG",
+          "tipo": "gmail",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Verifica se terminou o preenchimento",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Segunda verificação no pedido criado",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "app.omie.com.br",
+          "caminho": "/api/v1/produtos/pedido",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Wait1",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Informa ATG tempo limite",
+          "tipo": "gmail",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "HTTP Request2",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/serviceorders",
+          "metodo": "GET"
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook",
+          "saida": 0,
+          "para": "Atualiza o BD de Orçamentos"
+        },
+        {
+          "de": "HTTP Request",
+          "saida": 0,
+          "para": "Verifica se pode gerar orçamento"
+        },
+        {
+          "de": "Cria o orçamento",
+          "saida": 0,
+          "para": "HTTP Request1"
+        },
+        {
+          "de": "HTTP Request1",
+          "saida": 0,
+          "para": "Transforma wpp"
+        },
+        {
+          "de": "Transforma wpp",
+          "saida": 0,
+          "para": "Envio de orçamento no Whatsapp Cliente"
+        },
+        {
+          "de": "Envio de orçamento no Whatsapp Cliente",
+          "saida": 0,
+          "para": "Envia orçamento por E-mail"
+        },
+        {
+          "de": "Atualiza o BD de Orçamentos",
+          "saida": 0,
+          "para": "HTTP Request"
+        },
+        {
+          "de": "Verifica se pode gerar orçamento",
+          "saida": 0,
+          "para": "Cria o orçamento"
+        },
+        {
+          "de": "Verifica se pode gerar orçamento",
+          "saida": 1,
+          "para": "No Operation, do nothing"
+        },
+        {
+          "de": "Verifica se pode gerar orçamento",
+          "saida": 2,
+          "para": "Wait"
+        },
+        {
+          "de": "Verifica se pode gerar orçamento",
+          "saida": 3,
+          "para": "Verifica se localizou o pedido"
+        },
+        {
+          "de": "Verifica se localizou o pedido",
+          "saida": 0,
+          "para": "Informa erro ao time da ATG"
+        },
+        {
+          "de": "Verifica se localizou o pedido",
+          "saida": 1,
+          "para": "Avisa time Mind que deu erro na execução"
+        },
+        {
+          "de": "Wait",
+          "saida": 0,
+          "para": "Segunda verificação no pedido criado"
+        },
+        {
+          "de": "Segunda verificação no pedido criado",
+          "saida": 0,
+          "para": "Verifica se terminou o preenchimento"
+        },
+        {
+          "de": "Verifica se terminou o preenchimento",
+          "saida": 0,
+          "para": "Verifica se pode gerar orçamento"
+        },
+        {
+          "de": "Verifica se terminou o preenchimento",
+          "saida": 1,
+          "para": "Wait1"
+        },
+        {
+          "de": "Wait1",
+          "saida": 0,
+          "para": "Informa ATG tempo limite"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "app.omie.com.br"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [],
+      "tipos_credencial": [
+        "gmailOAuth2",
+        "httpBearerAuth",
+        "supabaseApi",
+        "uazApiApi"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/buscar_ativo.json",
+      "nome": "buscar-ativo",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "buscar-ativo"
+      },
+      "quantidade_nos": 24,
+      "nos": [
+        {
+          "nome": "Webhook",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "buscar-ativo"
+        },
+        {
+          "nome": "Guardar dados (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Buscar Equipamento)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Buscar Equipamento)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Buscar Equipamento)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Buscar Equipamento)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Rate limit excedido (Buscar Equipamento)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "iClass - buscar equipamento",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/equipments",
+          "metodo": "GET"
+        },
+        {
+          "nome": "Extrair ativo",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Achou o ativo?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Tem OS?",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Guardar dados (Buscar OS)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Buscar OS)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Buscar OS)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Buscar OS)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Buscar OS)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Buscar OS)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ativo sem cliente (rate limit)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "iClass - ordens de servico",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "",
+          "metodo": "GET"
+        },
+        {
+          "nome": "Escolher cliente",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ativo sem OS",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Nao encontrado",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responder ao front",
+          "tipo": "respondToWebhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook",
+          "saida": 0,
+          "para": "Guardar dados (Buscar Equipamento)"
+        },
+        {
+          "de": "Guardar dados (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Checar rate limit (Buscar Equipamento)"
+        },
+        {
+          "de": "Checar rate limit (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Buscar Equipamento)"
+        },
+        {
+          "de": "Ler resultado rate limit (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Permitido? (Buscar Equipamento)"
+        },
+        {
+          "de": "Permitido? (Buscar Equipamento)",
+          "saida": 0,
+          "para": "iClass - buscar equipamento"
+        },
+        {
+          "de": "Permitido? (Buscar Equipamento)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Buscar Equipamento)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Aguardar (Buscar Equipamento)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar Equipamento)",
+          "saida": 1,
+          "para": "Rate limit excedido (Buscar Equipamento)"
+        },
+        {
+          "de": "Aguardar (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Guardar dados (Buscar Equipamento)"
+        },
+        {
+          "de": "Rate limit excedido (Buscar Equipamento)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "iClass - buscar equipamento",
+          "saida": 0,
+          "para": "Extrair ativo"
+        },
+        {
+          "de": "Extrair ativo",
+          "saida": 0,
+          "para": "Achou o ativo?"
+        },
+        {
+          "de": "Achou o ativo?",
+          "saida": 0,
+          "para": "Tem OS?"
+        },
+        {
+          "de": "Achou o ativo?",
+          "saida": 1,
+          "para": "Nao encontrado"
+        },
+        {
+          "de": "Tem OS?",
+          "saida": 0,
+          "para": "Guardar dados (Buscar OS)"
+        },
+        {
+          "de": "Tem OS?",
+          "saida": 1,
+          "para": "Ativo sem OS"
+        },
+        {
+          "de": "Guardar dados (Buscar OS)",
+          "saida": 0,
+          "para": "Checar rate limit (Buscar OS)"
+        },
+        {
+          "de": "Checar rate limit (Buscar OS)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Buscar OS)"
+        },
+        {
+          "de": "Ler resultado rate limit (Buscar OS)",
+          "saida": 0,
+          "para": "Permitido? (Buscar OS)"
+        },
+        {
+          "de": "Permitido? (Buscar OS)",
+          "saida": 0,
+          "para": "iClass - ordens de servico"
+        },
+        {
+          "de": "Permitido? (Buscar OS)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Buscar OS)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar OS)",
+          "saida": 0,
+          "para": "Aguardar (Buscar OS)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar OS)",
+          "saida": 1,
+          "para": "Ativo sem cliente (rate limit)"
+        },
+        {
+          "de": "Aguardar (Buscar OS)",
+          "saida": 0,
+          "para": "Guardar dados (Buscar OS)"
+        },
+        {
+          "de": "Ativo sem cliente (rate limit)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "iClass - ordens de servico",
+          "saida": 0,
+          "para": "Escolher cliente"
+        },
+        {
+          "de": "Escolher cliente",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Ativo sem OS",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "Nao encontrado",
+          "saida": 0,
+          "para": "Responder ao front"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [
+        "consumir_rate_limit_iclass"
+      ],
+      "tipos_credencial": [
+        "httpBearerAuth"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/buscar_cliente_iclass.json",
+      "nome": "buscar-cliente-iclass",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "buscar-cliente-iclass"
+      },
+      "quantidade_nos": 16,
+      "nos": [
+        {
+          "nome": "Guardar dados",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Webhook1",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "buscar-cliente-iclass"
+        },
+        {
+          "nome": "Preparar busca1",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit iClass1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit1",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido?1",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Qual criterio?1",
+          "tipo": "switch",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "iClass por codigo1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/customers",
+          "metodo": "GET"
+        },
+        {
+          "nome": "iClass por CNPJ1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/customers",
+          "metodo": "GET"
+        },
+        {
+          "nome": "iClass por nome1",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/customers",
+          "metodo": "GET"
+        },
+        {
+          "nome": "Extrair clientes1",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Entrada invalida1",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responder ao front1",
+          "tipo": "respondToWebhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar?1",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar e tentar de novo1",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Rate limit excedido1",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Guardar dados",
+          "saida": 0,
+          "para": "Checar rate limit iClass1"
+        },
+        {
+          "de": "Webhook1",
+          "saida": 0,
+          "para": "Preparar busca1"
+        },
+        {
+          "de": "Preparar busca1",
+          "saida": 0,
+          "para": "Guardar dados"
+        },
+        {
+          "de": "Checar rate limit iClass1",
+          "saida": 0,
+          "para": "Ler resultado rate limit1"
+        },
+        {
+          "de": "Ler resultado rate limit1",
+          "saida": 0,
+          "para": "Permitido?1"
+        },
+        {
+          "de": "Permitido?1",
+          "saida": 0,
+          "para": "Qual criterio?1"
+        },
+        {
+          "de": "Permitido?1",
+          "saida": 1,
+          "para": "Ainda vale tentar?1"
+        },
+        {
+          "de": "Qual criterio?1",
+          "saida": 0,
+          "para": "Entrada invalida1"
+        },
+        {
+          "de": "Qual criterio?1",
+          "saida": 1,
+          "para": "iClass por codigo1"
+        },
+        {
+          "de": "Qual criterio?1",
+          "saida": 2,
+          "para": "iClass por CNPJ1"
+        },
+        {
+          "de": "Qual criterio?1",
+          "saida": 3,
+          "para": "iClass por nome1"
+        },
+        {
+          "de": "iClass por codigo1",
+          "saida": 0,
+          "para": "Extrair clientes1"
+        },
+        {
+          "de": "iClass por CNPJ1",
+          "saida": 0,
+          "para": "Extrair clientes1"
+        },
+        {
+          "de": "iClass por nome1",
+          "saida": 0,
+          "para": "Extrair clientes1"
+        },
+        {
+          "de": "Extrair clientes1",
+          "saida": 0,
+          "para": "Responder ao front1"
+        },
+        {
+          "de": "Entrada invalida1",
+          "saida": 0,
+          "para": "Responder ao front1"
+        },
+        {
+          "de": "Ainda vale tentar?1",
+          "saida": 0,
+          "para": "Aguardar e tentar de novo1"
+        },
+        {
+          "de": "Ainda vale tentar?1",
+          "saida": 1,
+          "para": "Rate limit excedido1"
+        },
+        {
+          "de": "Aguardar e tentar de novo1",
+          "saida": 0,
+          "para": "Guardar dados"
+        },
+        {
+          "de": "Rate limit excedido1",
+          "saida": 0,
+          "para": "Responder ao front1"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [
+        "consumir_rate_limit_iclass"
+      ],
+      "tipos_credencial": [
+        "httpBearerAuth"
+      ]
+    },
+    {
+      "arquivo_privado": "docs/_fontes_privadas/n8n/buscar_os.json",
+      "nome": "buscar-os",
+      "ativo": true,
+      "gatilho": {
+        "tipo": "webhook",
+        "metodo": "POST",
+        "caminho": "buscar-os"
+      },
+      "quantidade_nos": 11,
+      "nos": [
+        {
+          "nome": "Webhook",
+          "tipo": "webhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "caminho": "buscar-os"
+        },
+        {
+          "nome": "Guardar dados (Buscar OS)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Checar rate limit (Buscar OS)",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null,
+          "host": "supabase.co (projeto ATG)",
+          "caminho": "/rest/v1/rpc/consumir_rate_limit_iclass",
+          "metodo": "POST"
+        },
+        {
+          "nome": "Ler resultado rate limit (Buscar OS)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Permitido? (Buscar OS)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Ainda vale tentar? (Buscar OS)",
+          "tipo": "if",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Aguardar (Buscar OS)",
+          "tipo": "wait",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Rate limit excedido (Buscar OS)",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "iClass - checklist",
+          "tipo": "httpRequest",
+          "desativado": false,
+          "ao_falhar": "continueRegularOutput",
+          "tentativas": null,
+          "host": "api-v2.iclass.com.br",
+          "caminho": "/serviceorders",
+          "metodo": "GET"
+        },
+        {
+          "nome": "Traduzir checklist",
+          "tipo": "code",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        },
+        {
+          "nome": "Responder ao front",
+          "tipo": "respondToWebhook",
+          "desativado": false,
+          "ao_falhar": null,
+          "tentativas": null
+        }
+      ],
+      "ligacoes": [
+        {
+          "de": "Webhook",
+          "saida": 0,
+          "para": "Guardar dados (Buscar OS)"
+        },
+        {
+          "de": "Guardar dados (Buscar OS)",
+          "saida": 0,
+          "para": "Checar rate limit (Buscar OS)"
+        },
+        {
+          "de": "Checar rate limit (Buscar OS)",
+          "saida": 0,
+          "para": "Ler resultado rate limit (Buscar OS)"
+        },
+        {
+          "de": "Ler resultado rate limit (Buscar OS)",
+          "saida": 0,
+          "para": "Permitido? (Buscar OS)"
+        },
+        {
+          "de": "Permitido? (Buscar OS)",
+          "saida": 0,
+          "para": "iClass - checklist"
+        },
+        {
+          "de": "Permitido? (Buscar OS)",
+          "saida": 1,
+          "para": "Ainda vale tentar? (Buscar OS)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar OS)",
+          "saida": 0,
+          "para": "Aguardar (Buscar OS)"
+        },
+        {
+          "de": "Ainda vale tentar? (Buscar OS)",
+          "saida": 1,
+          "para": "Rate limit excedido (Buscar OS)"
+        },
+        {
+          "de": "Aguardar (Buscar OS)",
+          "saida": 0,
+          "para": "Guardar dados (Buscar OS)"
+        },
+        {
+          "de": "Rate limit excedido (Buscar OS)",
+          "saida": 0,
+          "para": "Responder ao front"
+        },
+        {
+          "de": "iClass - checklist",
+          "saida": 0,
+          "para": "Traduzir checklist"
+        },
+        {
+          "de": "Traduzir checklist",
+          "saida": 0,
+          "para": "Responder ao front"
+        }
+      ],
+      "hosts": [
+        "api-v2.iclass.com.br",
+        "supabase.co (projeto ATG)"
+      ],
+      "tabelas_supabase": [],
+      "rpcs_chamadas": [
+        "consumir_rate_limit_iclass"
+      ],
+      "tipos_credencial": [
+        "httpBearerAuth"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2597 @@
+{
+  "_ajuda": "Descrições escritas à mão. O extrator (extrair.mjs) NUNCA altera este arquivo. Campo sem descrição aparece como 'Finalidade não identificada' e entra nos pontos a validar. Textos aceitam [[tabela:x]], [[fluxo:x]], {{nc}}, {{fi}} e `código`.",
+  "objetos": {
+    "omie_clientes": {
+      "documentar": true,
+      "grupo": "Núcleo: clientes e geradores",
+      "ordem": 1,
+      "titulo": "Clientes (cadastro vindo do Omie, ligado ao iClass)",
+      "resumo": "É a lista de clientes da ATG. Cada linha é um cliente, com o código dele no Omie, o código dele no iClass e o resultado da conferência entre os dois. É a tabela principal: geradores, vendedor e histórico se ligam a ela.",
+      "descricao": [
+        "Um cliente entra aqui de dois jeitos: pelo botão de novo cliente da plataforma (fluxo [[fluxo:criar-cliente]]) ou pela carga inicial da base existente. {{nc}} A carga inicial não está no repositório; deduzida pelo fato de existirem 541 clientes e campos de conferência que o código nunca grava."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno do cliente, gerado automaticamente. É a chave usada por [[tabela:geradores_atg]] (`omie_cliente_id`)."
+        },
+        "nome_fantasia": {
+          "d": "Nome pelo qual o cliente é conhecido. Aparece nas listas e buscas.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "razao_social": {
+          "d": "Nome jurídico do cliente (ou nome da pessoa, no caso de pessoa física).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_raw": {
+          "d": "CNPJ ou CPF com pontuação, como é mostrado na tela (exemplo fictício: 00.000.000/0000-00). Na criação pela plataforma, é montado a partir dos números digitados.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "codigo_omie": {
+          "d": "Código do cliente no Omie, guardado como texto. Na criação pela plataforma vem da resposta do Omie."
+        },
+        "cnpj_limpo": {
+          "d": "O mesmo documento só com números. Serve para ligar registros (geradores, planilha de preditivas) e para buscas. Tem índice próprio.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "codigo_iclass_raw": {
+          "d": "Código do cliente no iClass como veio da planilha de origem (a view [[tabela:vw_cliente_card]] não o usa; a `vw_conferencia_iclass` o chama de `codigo_iclass_planilha`). O código do front não lê nem grava este campo. {{nc}}"
+        },
+        "iclass_id_encontrado": {
+          "d": "Número do cliente dentro do iClass. Quando está vazio, o cliente é considerado **sem iClass** (estado `SEM_ICLASS` na view). É gravado na criação do cliente e na tela de corrigir o cadastro do iClass."
+        },
+        "iclass_codigo_encontrado": {
+          "d": "Código (texto) do cliente no iClass, devolvido na criação ou escolhido na correção do vínculo."
+        },
+        "status_conferencia": {
+          "d": "Resultado da conferência entre o cadastro e o iClass. O código só mostra o valor e grava `OK` ao concluir a correção do vínculo (para o cartão não ficar preso em `DIVERGENCIA`). Quem grava os demais valores {{nc}}."
+        },
+        "observacao": {
+          "d": "Observação da conferência. O código do front não lê nem grava. {{nc}}"
+        },
+        "conferido_em": {
+          "d": "Data e hora da conferência. O código do front não lê nem grava. {{nc}}"
+        },
+        "ativoId": {
+          "d": "Número de um ativo do iClass associado ao cliente na conferência. Só é referenciado em `src/pages/Clientes.tsx` e `atgBackend.ts` em contexto de busca de ativo; não é gravado aqui pelo front. {{nc}}",
+          "tags": [
+            "legado"
+          ]
+        },
+        "numeroSerieAtivo": {
+          "d": "Número de série do ativo associado na conferência. O front não usa. {{nc}}",
+          "tags": [
+            "legado"
+          ]
+        },
+        "statusativo": {
+          "d": "Situação do ativo na conferência. Valores existentes: `ATIVO`, `NAO_ENCONTRADO` e vazio (447 de 541). O front não usa.",
+          "tags": [
+            "fi"
+          ]
+        },
+        "observacao_ativo": {
+          "d": "Observação sobre o ativo na conferência. O front não usa neste cadastro (é gravado em [[tabela:geradores_atg]]).",
+          "tags": [
+            "legado"
+          ]
+        },
+        "validado": {
+          "d": "Marca de que uma pessoa conferiu e aprovou o cadastro do cliente. Entra na regra do estado `VALIDADO` da view."
+        },
+        "validado_por": {
+          "d": "Quem validou (identificação do usuário, que o código preenche com o e-mail).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "validado_em": {
+          "d": "Quando foi validado."
+        },
+        "inativo": {
+          "d": "Cliente inativado pela tela (botão Inativar Cliente). Inativar não apaga nem altera nada no Omie ou no iClass; o cartão continua na lista, mais claro e com o selo \"Inativo\". Reativar volta o valor para `false`."
+        },
+        "iclass_nome": {
+          "d": "Nome do cliente como está cadastrado no iClass. Mostrado na tela para comparar com o nome do Omie."
+        },
+        "iclass_pendente": {
+          "d": "Verdadeiro quando o cliente foi criado no Omie mas o cadastro no iClass ficou para ser completado manualmente (status `iclass_pendente` do fluxo). Aparece como selo \"Pendente iClass\" na lista. O código só grava este campo na criação do cliente; a correção do vínculo não o zera. {{nc}}"
+        },
+        "vendedor_id": {
+          "d": "Vendedor responsável pelo cliente. Aponta para [[tabela:vendedores]]. Vazio significa cliente sem vendedor atribuído."
+        }
+      },
+      "valores": {
+        "status_conferencia": {
+          "OK": "Cadastro conferido; é o valor que a plataforma grava ao concluir a correção do vínculo com o iClass. {{nc}} Significado exato na origem da conferência.",
+          "DIVERGENCIA": "O cadastro diverge do iClass (pelo nome do valor). {{nc}} O critério de divergência não está no código da plataforma.",
+          "NAO_ENCONTRADO": "Cliente não encontrado no iClass (pelo nome do valor). {{nc}}"
+        },
+        "statusativo": {
+          "ATIVO": "Ativo encontrado e ativo. {{nc}}",
+          "NAO_ENCONTRADO": "Ativo não encontrado. {{nc}}"
+        }
+      },
+      "regras": [
+        "Ao apagar um cliente, **todos os geradores dele são apagados junto** (chave estrangeira com exclusão em cascata em [[tabela:geradores_atg]]). As preditivas e o oxicatalisador desses geradores perdem a ligação, mas as linhas continuam (ver tabelas de cada um).",
+        "Ao apagar um vendedor, o cliente continua e o campo `vendedor_id` fica vazio."
+      ],
+      "relacoes_logicas": [
+        "`iclass_id_encontrado` e `codigo_omie` apontam para sistemas externos (iClass e Omie); o banco não valida essa ligação.",
+        "A regra \"vendedor só vê os próprios clientes\" é aplicada só na tela (filtro no `src/pages/Clientes.tsx`); o banco não a impõe."
+      ],
+      "fontes": [
+        "src/components/Clientes/CriarClienteWizard.tsx",
+        "src/components/Clientes/CorrigirIclassWizard.tsx",
+        "src/pages/Clientes.tsx",
+        "src/types.ts"
+      ]
+    },
+    "geradores_atg": {
+      "documentar": true,
+      "grupo": "Núcleo: clientes e geradores",
+      "ordem": 2,
+      "titulo": "Geradores dos clientes",
+      "resumo": "Cada linha é um gerador de um cliente: dados do equipamento (série, modelo, fabricante), o número dele no iClass, a ficha de levantamento e as marcas de validação. É a base das preditivas e do Relatório de Saúde.",
+      "campos": {
+        "id": {
+          "d": "Número interno do gerador, gerado automaticamente. É o que as preditivas, o oxicatalisador e o Relatório de Saúde usam."
+        },
+        "omie_cliente_id": {
+          "d": "Cliente dono do gerador. Aponta para [[tabela:omie_clientes]]. Obrigatório."
+        },
+        "nome_fantasia": {
+          "d": "Cópia do nome fantasia do cliente no momento em que o gerador foi criado (a função `criar_gerador` copia). Também é o campo comparado na importação de preditivas.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "razao_social": {
+          "d": "Cópia da razão social do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_limpo": {
+          "d": "Cópia do CNPJ/CPF do cliente, só números. Liga o gerador à planilha de preditivas.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "iclass_id_cliente": {
+          "d": "Número do cliente no iClass, copiado do cliente na criação."
+        },
+        "iclass_codigo_cliente": {
+          "d": "Código do cliente no iClass, copiado do cliente na criação."
+        },
+        "num_serie": {
+          "d": "Número de série do gerador, como está no ativo do iClass."
+        },
+        "num_patrimonio": {
+          "d": "Número de patrimônio do ativo no iClass."
+        },
+        "descricao": {
+          "d": "Descrição do ativo no iClass. É usada como título do gerador nas telas."
+        },
+        "fabricante": {
+          "d": "Fabricante do gerador, vindo do ativo no iClass."
+        },
+        "modelo": {
+          "d": "Modelo do gerador, vindo do ativo no iClass."
+        },
+        "ativo_id": {
+          "d": "Número do ativo (equipamento) no iClass. Obrigatório para criar um gerador pela função `criar_gerador`. Não há trava no banco contra dois geradores com o mesmo `ativo_id`."
+        },
+        "status_ativo": {
+          "d": "Situação do ativo na busca feita no iClass quando o gerador foi adicionado."
+        },
+        "tipo_equipamento": {
+          "d": "Tipo do equipamento no iClass (exemplos presentes nos dados: GRUPO GERADOR, GERADOR - ATIVO ATG LOCAÇÕES, CLIENTE NOVO). 93 linhas estão vazias."
+        },
+        "observacao_ativo": {
+          "d": "Observação do ativo no iClass, gravada ao adicionar o gerador."
+        },
+        "processado_em": {
+          "d": "Quando o ativo foi buscado e gravado. Preenchido na criação."
+        },
+        "atualizado_em": {
+          "d": "Última atualização. É preenchido pelo código das telas de adicionar gerador; não há gatilho no banco que o atualize sozinho (não consta gatilho nesta tabela)."
+        },
+        "codigo_os_ficha_levantamento": {
+          "d": "Código da ordem de serviço do iClass de onde veio a ficha de levantamento."
+        },
+        "observacao_os_ficha_levantamento": {
+          "d": "Observação da ordem de serviço da ficha."
+        },
+        "checklist_pesquisa_id": {
+          "d": "Número da pesquisa (checklist) no iClass de onde a ficha foi lida."
+        },
+        "ficha_levantamento": {
+          "d": "A ficha de levantamento inteira, guardada em formato JSON, organizada em seções (motor, bateria, filtros, gerador, alternador, mangueiras, controlador, escapamento, bomba injetora e outros). Um gerador tem ficha quando este campo não está vazio."
+        },
+        "checklist_status": {
+          "d": "Resultado da busca da ficha no iClass. Valores nos dados: `OK`, `NAO_ENCONTRADO` e vazio (310)."
+        },
+        "checklist_processado_em": {
+          "d": "Quando a ficha foi buscada."
+        },
+        "validado": {
+          "d": "Marca de que uma pessoa conferiu e aprovou o gerador. Entra no estado `VALIDADO` da view de clientes."
+        },
+        "validado_por": {
+          "d": "Quem validou o gerador (e-mail do usuário).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "validado_em": {
+          "d": "Quando foi validado."
+        },
+        "ficha_validada_por_humano": {
+          "d": "Marca de que uma pessoa revisou a ficha de levantamento."
+        },
+        "ficha_validada_por": {
+          "d": "Quem revisou a ficha (e-mail do usuário).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "ficha_validada_em": {
+          "d": "Quando a ficha foi revisada."
+        },
+        "arquivado": {
+          "d": "Esconde o gerador das listas sem apagá-lo. As telas filtram `arquivado = false`. A plataforma só grava `false` ao criar; não encontrei tela que arquive. {{nc}}"
+        },
+        "arquivado_por": {
+          "d": "Quem arquivou.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "arquivado_em": {
+          "d": "Quando foi arquivado."
+        },
+        "inativo": {
+          "d": "Campo existente no banco e ausente do tipo `GeradorAtg` em `src/types.ts`. Nenhum arquivo de `src/` o usa.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "valores": {
+        "status_ativo": {
+          "ATIVO": "Ativo encontrado no iClass.",
+          "NAO_ENCONTRADO": "Ativo não encontrado no iClass na busca. {{nc}} Pelo nome do valor."
+        },
+        "tipo_equipamento": {
+          "GRUPO GERADOR": "Equipamento do tipo grupo gerador, como cadastrado no iClass.",
+          "GERADOR - ATIVO ATG LOCAÇÕES": "Tipo de equipamento do iClass. {{nc}} Relação com um negócio de locação da ATG.",
+          "CLIENTE NOVO": "Tipo de equipamento do iClass. {{nc}} Finalidade não identificada."
+        },
+        "checklist_status": {
+          "OK": "Ficha encontrada e gravada.",
+          "NAO_ENCONTRADO": "Ficha não encontrada. {{nc}} Pelo nome do valor."
+        }
+      },
+      "regras": [
+        "A função `criar_gerador` exige o `ativo_id`, copia nome, CNPJ e dados do iClass do cliente e registra a ação `criou_gerador` no histórico.",
+        "O botão de excluir gerador apaga a linha de verdade (DELETE) e registra `excluiu_definitivamente`; essa ação não pode ser revertida pela tela de histórico.",
+        "Ao apagar um gerador, as preditivas dele ficam sem gerador (`gerador_id` vazio) e o oxicatalisador também; as linhas continuam no banco."
+      ],
+      "relacoes_logicas": [
+        "`ativo_id` aponta para o ativo no iClass (sistema externo), sem chave estrangeira.",
+        "O histórico em [[tabela:log_edicoes]] aponta para esta tabela por `entidade_id` quando a entidade é `gerador` ou `ficha` (ligação lógica, sem chave estrangeira)."
+      ],
+      "fontes": [
+        "src/components/Clientes/AdicionarGeradorWizard.tsx",
+        "src/components/Clientes/AdicionarGeradorPorOsWizard.tsx",
+        "src/components/Clientes/GeradorModal.tsx",
+        "src/types.ts"
+      ]
+    },
+    "vendedores": {
+      "documentar": true,
+      "grupo": "Núcleo: clientes e geradores",
+      "ordem": 3,
+      "titulo": "Vendedores",
+      "resumo": "Lista de vendedores da ATG. Cada cliente pode ter um vendedor responsável, e um vendedor pode ter um login para ver os próprios clientes.",
+      "campos": {
+        "id": {
+          "d": "Número interno do vendedor."
+        },
+        "nome": {
+          "d": "Nome do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "email": {
+          "d": "E-mail do vendedor. Único (sem diferenciar maiúsculas) quando preenchido.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "omie_vendedor_id": {
+          "d": "Código do vendedor no Omie, quando o cadastro foi copiado da tabela `vendedores omie`. Vazio quer dizer cadastro manual."
+        },
+        "auth_user_id": {
+          "d": "Login (usuário do Supabase Auth) ligado a este vendedor. Único quando preenchido. Se o login for apagado, este campo fica vazio."
+        },
+        "ativo": {
+          "d": "Se o vendedor está ativo. Por padrão, sim."
+        },
+        "criado_em": {
+          "d": "Quando foi cadastrado."
+        }
+      },
+      "regras": [
+        "Um login só pode estar ligado a um vendedor, e um e-mail só pode aparecer uma vez (índices únicos parciais)."
+      ],
+      "relacoes_logicas": [
+        "`omie_vendedor_id` corresponde ao código de vendedor do Omie, sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/components/Usuarios/VendedoresSection.tsx",
+        "supabase/functions/manage-users/index.ts",
+        "src/types.ts"
+      ]
+    },
+    "preditiva_itens": {
+      "documentar": true,
+      "grupo": "Núcleo: preditiva",
+      "ordem": 10,
+      "titulo": "Catálogo de itens de preditiva",
+      "resumo": "A lista fixa dos 7 itens de manutenção que a ATG acompanha em cada gerador (óleo e filtros, bateria, mangueiras, limpezas), com o prazo de cada um em meses.",
+      "campos": {
+        "codigo": {
+          "d": "Código curto do item (exemplos: `oleo_filtros`, `bateria`, `limpeza_radiador`). É a chave usada por [[tabela:preditivas_atg]]."
+        },
+        "nome": {
+          "d": "Nome do item como aparece nas telas e no relatório."
+        },
+        "periodicidade_meses": {
+          "d": "De quantos em quantos meses o item deve ser trocado ou limpo. Usado para calcular a data de vencimento a partir da data realizada (e o inverso na importação)."
+        },
+        "ordem": {
+          "d": "Posição do item nas listas."
+        }
+      },
+      "regras": [
+        "Tem RLS ligado com uma única política de leitura para usuários logados (`pol_itens_auth`)."
+      ],
+      "fontes": [
+        "src/components/Clientes/PreditivaTab.tsx",
+        "docs/scripts/extracao_banco.sql"
+      ]
+    },
+    "preditivas_atg": {
+      "documentar": true,
+      "grupo": "Núcleo: preditiva",
+      "ordem": 11,
+      "titulo": "Itens de preditiva por gerador",
+      "resumo": "Uma linha para cada item de manutenção de cada gerador: quando foi feito e quando vence. A situação (em dia, a vencer, vencido) é calculada pela view vw_preditivas, não guardada aqui.",
+      "descricao": [
+        "As linhas nascem de duas formas: pela importação da planilha de preditivas (função `processar_preditivas`) ou pelo botão de cadastrar a preditiva padrão de um gerador, que cria os 7 itens vazios com `editado_manual = true` e `linha_planilha = 0`."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "import_id": {
+          "d": "Identificador do lote de importação. Linhas criadas pela tela recebem um identificador aleatório próprio."
+        },
+        "linha_planilha": {
+          "d": "Número da linha na planilha original. Vale 0 nas linhas criadas pela tela."
+        },
+        "numero_planilha": {
+          "d": "Coluna \"numero\" da planilha. Significado de negócio {{nc}}.",
+          "tags": [
+            "fi"
+          ]
+        },
+        "cliente_planilha": {
+          "d": "Nome do cliente como estava escrito na planilha. É o texto comparado com os geradores para achar o par.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "vendedor": {
+          "d": "Nome do vendedor como estava na planilha (texto, sem ligação com a tabela de vendedores).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "contrato_ativo": {
+          "d": "Verdadeiro quando a coluna \"ativo\" da planilha começa com \"sim\". O código das telas não usa este campo."
+        },
+        "gerador_id": {
+          "d": "Gerador a que o item pertence. Só vem preenchido quando a comparação de nomes foi automática (`auto`) ou o vínculo foi feito à mão. Se o gerador for apagado, o campo fica vazio."
+        },
+        "omie_cliente_id": {
+          "d": "Cliente encontrado na comparação de nomes. Não tem chave estrangeira."
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ do cliente encontrado, só números.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "match_score": {
+          "d": "Nota de 0 a 1 de semelhança entre o nome da planilha e o gerador escolhido."
+        },
+        "match_status": {
+          "d": "Resultado da comparação de nomes. Veja os valores abaixo. Padrão: `sem_match`."
+        },
+        "match_candidatos": {
+          "d": "Até 3 geradores candidatos com a nota de cada um (JSON), para a revisão humana."
+        },
+        "item_codigo": {
+          "d": "Qual item de preditiva é. Aponta para [[tabela:preditiva_itens]]."
+        },
+        "data_realizada": {
+          "d": "Data em que o item foi feito pela última vez."
+        },
+        "data_vencimento": {
+          "d": "Data em que o item vence. Na importação, se faltar, é calculada como realizada + periodicidade."
+        },
+        "sem_data": {
+          "d": "Verdadeiro quando o item se aplica mas não tem data de vencimento."
+        },
+        "nao_aplica": {
+          "d": "Verdadeiro quando o item não se aplica àquele gerador. Quando marcado, as datas são limpas na importação."
+        },
+        "observacao": {
+          "d": "Observação do item. Na importação, radiador e tanque juntam duas colunas da planilha com \" | \"."
+        },
+        "status_planilha": {
+          "d": "Texto de status como estava na planilha (Vencido, OK, Não aplica). Só informativo; o status oficial é calculado pela view."
+        },
+        "editado_manual": {
+          "d": "Verdadeiro quando a linha foi criada ou alterada pela tela. A função `salvar_preditiva` sempre marca."
+        },
+        "origem_planilha": {
+          "d": "A linha original da planilha em JSON, guardada para conferência. O código das telas não a lê.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "criado_em": {
+          "d": "Quando a linha foi criada."
+        },
+        "atualizado_em": {
+          "d": "Última alteração. Atualizado automaticamente por um gatilho do banco."
+        }
+      },
+      "valores": {
+        "match_status": {
+          "auto": "A comparação de nomes teve nota 0,90 ou mais e o CNPJ tem exatamente um gerador: a linha foi ligada ao gerador sozinha.",
+          "revisar": "Há candidato, mas precisa de revisão: nota entre 0,75 e 0,90, CNPJ com mais de um gerador ou nome com sufixo G1/G2.",
+          "sem_match": "Nenhum candidato chegou a 0,75. Também é o valor padrão do campo.",
+          "manual": "Permitido pela regra do banco, mas nenhuma linha usa hoje. {{nc}} Provavelmente reservado para vínculo manual.",
+          "sem_planilha": "Permitido e usado em 1.281 linhas. {{nc}} Não há código que grave este valor; a origem e o significado exato não estão no repositório."
+        },
+        "status_planilha": {
+          "Vencido": "Texto original da planilha: item vencido.",
+          "OK": "Texto original da planilha: item em dia.",
+          "Não aplica": "Texto original da planilha: item que não se aplica ao gerador."
+        }
+      },
+      "regras": [
+        "Cada gerador só pode ter uma linha por item (restrição `preditivas_atg_gerador_item_unique`; há também o índice único parcial `uq_pred_gerador_item`, que faz a mesma coisa).",
+        "Cada linha da planilha só pode ocorrer uma vez por lote (`import_id`, `linha_planilha`, `item_codigo`).",
+        "RLS ligado, com uma política que libera tudo para usuários logados (`pol_pred_auth`).",
+        "O item tem restrição de valores no `match_status` (auto, revisar, sem_match, manual, sem_planilha)."
+      ],
+      "relacoes_logicas": [
+        "`omie_cliente_id` e `cnpj_limpo` repetem informação do cliente encontrado, sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/components/Clientes/PreditivaTab.tsx",
+        "src/utils/atgBackend.ts",
+        "docs/scripts/extracao_banco.sql"
+      ]
+    },
+    "oxicatalisador_atg": {
+      "documentar": true,
+      "grupo": "Núcleo: preditiva",
+      "ordem": 12,
+      "titulo": "Oxicatalisador por gerador",
+      "resumo": "Informa se o gerador possui oxicatalisador e qual a bitola. Não tem datas de manutenção.",
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "import_id": {
+          "d": "Lote de importação da planilha (aleatório para linhas criadas pela tela)."
+        },
+        "linha_planilha": {
+          "d": "Linha da planilha original (0 para linhas criadas pela tela)."
+        },
+        "cliente_planilha": {
+          "d": "Nome do cliente como estava na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "gerador_id": {
+          "d": "Gerador a que pertence (chave estrangeira para [[tabela:geradores_atg]]; vazio se o gerador for apagado)."
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ do cliente encontrado.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "match_score": {
+          "d": "Nota de semelhança de nomes da importação."
+        },
+        "match_status": {
+          "d": "Resultado da comparação de nomes (auto, revisar, sem_match, sem_planilha). Mesmo significado de [[tabela:preditivas_atg]]. Padrão `sem_match`."
+        },
+        "possui": {
+          "d": "Verdadeiro se o gerador possui oxicatalisador, falso se não, vazio se não se sabe."
+        },
+        "situacao": {
+          "d": "Situação textual da planilha: sim, nao, pendencia ou sem_informacao."
+        },
+        "bitola": {
+          "d": "Medida (bitola) do oxicatalisador, quando informada."
+        },
+        "bitola_pendente": {
+          "d": "Verdadeiro quando a planilha dizia que a bitola estava pendente."
+        },
+        "editado_manual": {
+          "d": "Verdadeiro quando a linha foi criada ou alterada pela tela."
+        },
+        "criado_em": {
+          "d": "Quando a linha foi criada."
+        },
+        "atualizado_em": {
+          "d": "Última alteração (atualizado por gatilho do banco)."
+        }
+      },
+      "valores": {
+        "situacao": {
+          "sim": "Possui oxicatalisador.",
+          "nao": "Não possui.",
+          "pendencia": "Planilha marcou pendência.",
+          "sem_informacao": "Planilha sem informação."
+        },
+        "match_status": {
+          "auto": "Ligado ao gerador automaticamente.",
+          "revisar": "Precisa de revisão.",
+          "sem_match": "Sem gerador correspondente.",
+          "sem_planilha": "{{nc}} Mesmo valor sem gravação no código; ver [[tabela:preditivas_atg]]."
+        }
+      },
+      "regras": [
+        "Cada linha da planilha só ocorre uma vez por lote (`import_id`, `linha_planilha`).",
+        "RLS ligado com política que libera tudo para usuários logados (`pol_oxi_auth`)."
+      ],
+      "fontes": [
+        "src/components/Clientes/PreditivaTab.tsx",
+        "docs/scripts/extracao_banco.sql"
+      ]
+    },
+    "preditivas_staging": {
+      "documentar": true,
+      "grupo": "Núcleo: preditiva",
+      "ordem": 13,
+      "titulo": "Planilha de preditivas (rascunho da importação)",
+      "resumo": "Guarda as linhas da planilha de preditivas exatamente como vieram, antes de serem tratadas. A função de processamento lê esta tabela e grava o resultado em preditivas_atg e oxicatalisador_atg.",
+      "descricao": [
+        "Todas as colunas de data e status são texto, porque a planilha mistura formatos (data, \"00/00/0000\", \"Não aplica\", \"REF\"). A função `parse_data_pred` converte depois. {{nc}} Quem carrega esta tabela (o upload da planilha) não está no repositório."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "import_id": {
+          "d": "Lote de importação. A função `processar_preditivas` recebe este valor."
+        },
+        "linha_planilha": {
+          "d": "Número da linha na planilha."
+        },
+        "numero": {
+          "d": "Coluna \"numero\" da planilha. {{nc}}",
+          "tags": [
+            "fi"
+          ]
+        },
+        "cliente": {
+          "d": "Nome do cliente na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "ativo": {
+          "d": "Coluna \"ativo\" da planilha (contrato ativo; começa com \"sim\" quando ativo)."
+        },
+        "vendedor": {
+          "d": "Nome do vendedor na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "oleo_realizada": {
+          "d": "Troca de óleo e filtros: data realizada."
+        },
+        "oleo_obs": {
+          "d": "Troca de óleo e filtros: observação."
+        },
+        "oleo_vencimento": {
+          "d": "Troca de óleo e filtros: data de vencimento."
+        },
+        "oleo_status": {
+          "d": "Troca de óleo e filtros: status."
+        },
+        "bat_realizada": {
+          "d": "Bateria: data realizada."
+        },
+        "bat_obs": {
+          "d": "Bateria: observação."
+        },
+        "bat_vencimento": {
+          "d": "Bateria: vencimento."
+        },
+        "bat_status": {
+          "d": "Bateria: status."
+        },
+        "mcomb_realizada": {
+          "d": "Mangueira de combustível: data realizada."
+        },
+        "mcomb_obs": {
+          "d": "Mangueira de combustível: observação."
+        },
+        "mcomb_vencimento": {
+          "d": "Mangueira de combustível: vencimento."
+        },
+        "mcomb_status": {
+          "d": "Mangueira de combustível: status."
+        },
+        "qta_realizada": {
+          "d": "Limpeza do QTA: data realizada. {{nc}} Significado da sigla QTA."
+        },
+        "qta_obs": {
+          "d": "Limpeza do QTA: observação."
+        },
+        "qta_vencimento": {
+          "d": "Limpeza do QTA: vencimento."
+        },
+        "qta_status": {
+          "d": "Limpeza do QTA: status."
+        },
+        "mpre_realizada": {
+          "d": "Mangueira de pré-aquecimento: data realizada."
+        },
+        "mpre_obs": {
+          "d": "Mangueira de pré-aquecimento: observação."
+        },
+        "mpre_vencimento": {
+          "d": "Mangueira de pré-aquecimento: vencimento."
+        },
+        "mpre_status": {
+          "d": "Mangueira de pré-aquecimento: status."
+        },
+        "rad_realizada": {
+          "d": "Limpeza do radiador: data realizada."
+        },
+        "rad_obs": {
+          "d": "Limpeza do radiador: observação (1)."
+        },
+        "rad_obs2": {
+          "d": "Limpeza do radiador: observação (2). Juntada com a primeira por \" | \"."
+        },
+        "rad_vencimento": {
+          "d": "Limpeza do radiador: vencimento."
+        },
+        "rad_status": {
+          "d": "Limpeza do radiador: status."
+        },
+        "tanq_realizada": {
+          "d": "Limpeza do tanque: data realizada."
+        },
+        "tanq_obs": {
+          "d": "Limpeza do tanque: observação (1)."
+        },
+        "tanq_obs2": {
+          "d": "Limpeza do tanque: observação (2)."
+        },
+        "tanq_vencimento": {
+          "d": "Limpeza do tanque: vencimento."
+        },
+        "tanq_status": {
+          "d": "Limpeza do tanque: status."
+        },
+        "criado_em": {
+          "d": "Quando a linha foi carregada."
+        },
+        "oxi_tem": {
+          "d": "Coluna do oxicatalisador: possui (sim, não, pendência, sem informação)."
+        },
+        "oxi_bitola": {
+          "d": "Coluna do oxicatalisador: bitola (ou \"pendente\")."
+        }
+      },
+      "regras": [
+        "RLS ligado com política que libera tudo para usuários logados (`pol_stg_auth`).",
+        "É lida pela função `processar_preditivas`; o código do front não a acessa."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04, função processar_preditivas)"
+      ]
+    },
+    "log_edicoes": {
+      "documentar": true,
+      "grupo": "Núcleo: histórico",
+      "ordem": 20,
+      "titulo": "Histórico de edições",
+      "resumo": "O diário da plataforma: guarda quem fez cada alteração importante, quando, em qual cliente ou gerador, e o que mudou. A tela de Histórico lê esta tabela e permite reverter algumas alterações.",
+      "campos": {
+        "id": {
+          "d": "Número interno do registro."
+        },
+        "entidade": {
+          "d": "O tipo de coisa alterada: `cliente`, `gerador`, `ficha`, `oxicatalisador`, `preditiva` ou `vendedor`. Define em qual tabela a reversão atua."
+        },
+        "entidade_id": {
+          "d": "Número (id) do registro alterado, na tabela que corresponde à entidade. Sem chave estrangeira."
+        },
+        "acao": {
+          "d": "O que foi feito (editou, vinculou_ficha, atribuiu_vendedor, criou_gerador, excluiu_definitivamente, inativou e outras; ver valores abaixo)."
+        },
+        "usuario": {
+          "d": "Quem fez (e-mail do usuário logado).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "detalhe": {
+          "d": "Conteúdo enviado pelas funções `salvar_preditiva` e `criar_gerador` (os dados brutos recebidos, e não um antes e depois). O Histórico usa como reserva."
+        },
+        "criado_em": {
+          "d": "Quando a ação aconteceu."
+        },
+        "valor_antes": {
+          "d": "Só os campos que mudaram, com o valor de antes (JSON). A reversão reaplica este conteúdo como atualização parcial na tabela da entidade."
+        },
+        "valor_depois": {
+          "d": "Só os campos que mudaram, com o valor de depois (JSON)."
+        }
+      },
+      "valores": {
+        "entidade": {
+          "preditiva": "Itens de preditiva ([[tabela:preditivas_atg]]).",
+          "cliente": "Cliente ([[tabela:omie_clientes]]).",
+          "gerador": "Gerador ([[tabela:geradores_atg]]).",
+          "ficha": "Ficha de levantamento (guardada em [[tabela:geradores_atg]]).",
+          "oxicatalisador": "Oxicatalisador ([[tabela:oxicatalisador_atg]]).",
+          "vendedor": "Vendedor ([[tabela:vendedores]])."
+        },
+        "acao": {
+          "editou": "Edição de campos (a maioria é de preditiva).",
+          "vinculou_ficha": "Ficha de levantamento vinculada a um gerador.",
+          "atribuiu_vendedor": "Vendedor atribuído a um cliente.",
+          "editou_oxicatalisador": "Alteração do oxicatalisador.",
+          "criou_gerador": "Gerador criado (pela função `criar_gerador`).",
+          "excluiu_definitivamente": "Exclusão real de um cliente ou gerador. Não pode ser revertida pela tela.",
+          "cadastrou_preditiva_padrao": "Criação dos 7 itens padrão de preditiva para um gerador.",
+          "desativou_vendedor": "Vendedor desativado.",
+          "editou_vendedor": "Dados de vendedor alterados.",
+          "corrigiu_iclass": "Vínculo do cliente com o iClass corrigido.",
+          "editou_ficha": "Ficha de levantamento editada.",
+          "criou_vendedor": "Vendedor criado.",
+          "arquivou": "Gerador arquivado. {{nc}} Não há tela que arquive; origem não confirmada.",
+          "inativou": "Cliente inativado.",
+          "vinculou_login": "Login ligado a um vendedor.",
+          "ativou_vendedor": "Vendedor reativado."
+        }
+      },
+      "regras": [
+        "A plataforma grava este registro depois da ação principal. Se a gravação do histórico falhar, a ação continua valendo e só aparece um aviso no console do navegador.",
+        "Reverter reaplica `valor_antes` na tabela da entidade e grava uma nova linha com a ação `reverteu`. Cobre as entidades cliente, gerador, ficha, oxicatalisador, vendedor e a tabela legada geradores. A entidade `preditiva` não consta do mapa de reversão do código. {{nc}} Verificar se a reversão de preditiva é feita de outra forma.",
+        "Há uma política de RLS `pol_log_auth` que libera tudo para usuários logados, mas o RLS está desligado nesta tabela, então ela não tem efeito hoje."
+      ],
+      "relacoes_logicas": [
+        "`entidade` + `entidade_id` apontam para linhas de várias tabelas (ligação polimórfica), sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/utils/logEdicoes.ts",
+        "src/pages/Historico.tsx",
+        "docs/scripts/extracao_banco.sql (Q06)"
+      ]
+    },
+    "rate_limit_iclass": {
+      "documentar": true,
+      "grupo": "Núcleo: suporte",
+      "ordem": 30,
+      "titulo": "Controle de limite de chamadas ao iClass",
+      "resumo": "Uma única linha que conta quantas chamadas ao iClass foram feitas no minuto atual, para não passar do limite que o iClass aceita.",
+      "campos": {
+        "id": {
+          "d": "Sempre 1: a tabela só pode ter uma linha (regra `singleton`)."
+        },
+        "janela_inicio": {
+          "d": "Quando começou a janela de contagem atual."
+        },
+        "contagem": {
+          "d": "Quantas chamadas já foram feitas nesta janela."
+        }
+      },
+      "regras": [
+        "A função `consumir_rate_limit_iclass` usa esta linha: permite até 25 chamadas por janela de 60 segundos, com trava de linha para duas chamadas simultâneas não passarem juntas. Se o limite estoura, devolve quantos segundos esperar.",
+        "RLS ligado e sem nenhuma política; acesso por quem chama a função."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04, consumir_rate_limit_iclass)",
+        "docs/_fontes_privadas/n8n (fluxos que a chamam)"
+      ]
+    },
+    "vw_cliente_card": {
+      "documentar": true,
+      "grupo": "Núcleo: views",
+      "ordem": 40,
+      "titulo": "Cartão do cliente (view)",
+      "resumo": "É a lista de clientes que a tela de Clientes mostra: cada cliente com a contagem dos geradores dele e um \"estado\" que diz o que falta fazer (sem iClass, sem gerador, sem ficha, completo, validado).",
+      "campos": {
+        "id": {
+          "d": "Número do cliente ([[tabela:omie_clientes]].id)."
+        },
+        "razao_social": {
+          "d": "Razão social do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "nome_fantasia": {
+          "d": "Nome fantasia do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_raw": {
+          "d": "CNPJ/CPF formatado.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ/CPF só números.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "codigo_omie": {
+          "d": "Código do cliente no Omie."
+        },
+        "iclass_id_encontrado": {
+          "d": "Número do cliente no iClass."
+        },
+        "iclass_codigo_encontrado": {
+          "d": "Código do cliente no iClass."
+        },
+        "status_conferencia": {
+          "d": "Valor guardado em `omie_clientes.status_conferencia` (a view apenas copia, não recalcula)."
+        },
+        "cliente_validado": {
+          "d": "Copia `omie_clientes.validado`."
+        },
+        "cliente_validado_por": {
+          "d": "Copia `omie_clientes.validado_por`.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "n_geradores": {
+          "d": "Quantidade de geradores do cliente que não estão arquivados.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "n_com_ativo": {
+          "d": "Quantos desses geradores têm `ativo_id` preenchido.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "n_com_ficha": {
+          "d": "Quantos têm ficha de levantamento preenchida.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "n_validados": {
+          "d": "Quantos estão validados.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "primeiro_gerador": {
+          "d": "Nome fantasia do gerador de menor id, usado como exemplo na lista.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "estado": {
+          "d": "Situação do cliente, decidida nesta ordem: sem iClass; sem gerador; sem ficha (algum gerador sem ficha); validado (cliente e todos os geradores validados); senão completo.",
+          "tags": [
+            "calculado"
+          ]
+        }
+      },
+      "valores": {
+        "estado": {
+          "SEM_ICLASS": "Cliente sem número do iClass (`iclass_id_encontrado` vazio).",
+          "SEM_GERADOR": "Tem iClass, mas nenhum gerador não arquivado.",
+          "SEM_FICHA": "Tem geradores, mas ao menos um sem ficha de levantamento.",
+          "COMPLETO": "Tem iClass, geradores e fichas, mas ainda não validado por completo.",
+          "VALIDADO": "Cliente validado e todos os geradores validados."
+        }
+      },
+      "regras": [
+        "A view não traz `inativo`, `iclass_nome`, `iclass_pendente` nem `vendedor_id`; a tela busca esses campos em `omie_clientes` e junta no navegador."
+      ],
+      "fontes": [
+        "src/pages/Clientes.tsx",
+        "src/types.ts",
+        "docs/scripts/extracao_banco.sql (Q03)"
+      ]
+    },
+    "vw_preditivas": {
+      "documentar": true,
+      "grupo": "Núcleo: views",
+      "ordem": 41,
+      "titulo": "Preditivas com situação calculada (view)",
+      "resumo": "Junta cada item de preditiva com o nome do item, os dados do gerador e a situação do item (em dia, a vencer, vencido, sem data ou não se aplica). É daqui que saem a aba Preditiva e o Relatório de Saúde.",
+      "campos": {
+        "id": {
+          "d": "Número da linha de [[tabela:preditivas_atg]]."
+        },
+        "import_id": {
+          "d": "Lote de importação."
+        },
+        "linha_planilha": {
+          "d": "Linha da planilha."
+        },
+        "cliente_planilha": {
+          "d": "Nome do cliente na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "vendedor": {
+          "d": "Vendedor na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "contrato_ativo": {
+          "d": "Contrato ativo na planilha."
+        },
+        "gerador_id": {
+          "d": "Gerador do item (vazio quando a linha não foi ligada a um gerador)."
+        },
+        "nome_fantasia": {
+          "d": "Nome fantasia do gerador (de [[tabela:geradores_atg]]).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "razao_social": {
+          "d": "Razão social do gerador.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "num_serie": {
+          "d": "Série do gerador."
+        },
+        "modelo": {
+          "d": "Modelo do gerador."
+        },
+        "fabricante": {
+          "d": "Fabricante do gerador."
+        },
+        "match_score": {
+          "d": "Nota de semelhança da importação."
+        },
+        "match_status": {
+          "d": "Resultado da comparação de nomes."
+        },
+        "match_candidatos": {
+          "d": "Candidatos da comparação (JSON)."
+        },
+        "item_codigo": {
+          "d": "Código do item."
+        },
+        "item_nome": {
+          "d": "Nome do item (de [[tabela:preditiva_itens]])."
+        },
+        "periodicidade_meses": {
+          "d": "Prazo do item em meses."
+        },
+        "ordem": {
+          "d": "Posição do item."
+        },
+        "data_realizada": {
+          "d": "Última realização."
+        },
+        "data_vencimento": {
+          "d": "Vencimento."
+        },
+        "dias_para_vencer": {
+          "d": "Dias entre hoje (horário de São Paulo) e o vencimento. Negativo quando já venceu. Vazio sem data.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "status": {
+          "d": "Situação do item, decidida nesta ordem: não se aplica; sem data; vencido (vencimento antes de hoje); a vencer (até 30 dias); em dia.",
+          "tags": [
+            "calculado"
+          ]
+        },
+        "status_planilha": {
+          "d": "Status que estava na planilha (informativo)."
+        },
+        "sem_data": {
+          "d": "Item sem data de vencimento."
+        },
+        "nao_aplica": {
+          "d": "Item que não se aplica."
+        },
+        "observacao": {
+          "d": "Observação do item."
+        },
+        "editado_manual": {
+          "d": "Linha criada ou alterada pela tela."
+        },
+        "atualizado_em": {
+          "d": "Última alteração."
+        }
+      },
+      "valores": {
+        "status": {
+          "nao_aplica": "O item não se aplica ao gerador.",
+          "sem_data": "Aplica-se, mas não há data de vencimento.",
+          "vencido": "A data de vencimento é anterior a hoje.",
+          "a_vencer": "Vence em até 30 dias a partir de hoje.",
+          "ok": "Vence daqui a mais de 30 dias."
+        }
+      },
+      "regras": [
+        "Inclui também os itens sem gerador, porque a ligação com o gerador é opcional (`LEFT JOIN`). Por isso a view tem 6.573 linhas, as mesmas de `preditivas_atg`.",
+        "O limite de 30 dias para \"a vencer\" e o fuso America/Sao_Paulo estão escritos dentro da definição da view."
+      ],
+      "fontes": [
+        "src/utils/saudeGerador.ts",
+        "src/components/Clientes/PreditivaTab.tsx",
+        "docs/scripts/extracao_banco.sql (Q03)"
+      ]
+    },
+    "ordens_servico": {
+      "documentar": true,
+      "grupo": "Ordens de serviço e orçamentos",
+      "ordem": 50,
+      "titulo": "Ordens de serviço (cópia na plataforma)",
+      "resumo": "Guarda as ordens de serviço que a plataforma acompanha: o código, se foi processada ou teve erro, e o orçamento ligado. Hoje a tabela está vazia e nenhuma tela da plataforma cria linhas nela.",
+      "descricao": [
+        "A plataforma só **lê e edita** estas linhas (telas [[modulo:ordens-de-servico]] e [[modulo:dashboard]]); nenhum arquivo de `src/` insere. {{nc}} Quem deveria alimentar a tabela não está claro: o fluxo [[fluxo:receberorc]], que tem um nó de atualização do banco, está com esse nó desativado."
+      ],
+      "campos": {
+        "id": {
+          "d": "Identificador da ordem de serviço, gerado automaticamente (UUID)."
+        },
+        "cod_os": {
+          "d": "Código da O.S. como aparece nas telas (por exemplo, no formato OS-AAAA-NNN dos exemplos do código). Único."
+        },
+        "cliente_id": {
+          "d": "Identificador (UUID) do cliente. **Não aponta para nenhuma tabela**: não é o `id` de [[tabela:omie_clientes]] (que é numérico). As telas mostram \"Cliente\" mais os 8 primeiros caracteres do identificador. {{nc}} Origem do valor."
+        },
+        "processada": {
+          "d": "Se a O.S. foi processada com sucesso. Falso por padrão."
+        },
+        "orcamento_id": {
+          "d": "Orçamento ligado à O.S. Aponta para [[tabela:orcamentos]]; se o orçamento for apagado, o campo fica vazio."
+        },
+        "tipo_erro": {
+          "d": "Motivo do erro, quando a O.S. não foi processada. A tela oferece 5 opções: Inconsistência de valores, Gerador não localizado, Erro de faturamento, Assinatura digital ausente e Dados cadastrais incompletos. O banco aceita qualquer texto."
+        },
+        "criado_em": {
+          "d": "Quando a O.S. entrou. É por esta data que as telas filtram por período."
+        },
+        "atualizado_em": {
+          "d": "Última alteração. Atualizado automaticamente por um gatilho do banco."
+        }
+      },
+      "regras": [
+        "As telas exigem o tipo de erro quando a O.S. é marcada como não processada, mas essa regra só existe na tela: o banco não a impõe.",
+        "O vínculo entre O.S. e orçamento existe nos dois sentidos (`ordens_servico.orcamento_id` e `orcamentos.os_id`) e as telas atualizam só o lado que estão editando."
+      ],
+      "relacoes_logicas": [
+        "`cliente_id` é um UUID sem tabela de destino: as O.S. não estão ligadas ao cadastro de clientes da plataforma."
+      ],
+      "fontes": [
+        "src/pages/OrdensServico.tsx",
+        "src/pages/Dashboard.tsx",
+        "src/types.ts"
+      ]
+    },
+    "orcamentos": {
+      "documentar": true,
+      "grupo": "Ordens de serviço e orçamentos",
+      "ordem": 51,
+      "titulo": "Orçamentos (cópia na plataforma)",
+      "resumo": "Guarda os orçamentos que a plataforma acompanha: o código, se já foi enviado para faturamento e a O.S. ligada. Hoje a tabela está vazia e nenhuma tela da plataforma cria linhas nela.",
+      "descricao": [
+        "Como em [[tabela:ordens_servico]], a plataforma só lê e edita estas linhas; nenhum arquivo de `src/` insere. {{nc}} Quem alimenta a tabela não está claro."
+      ],
+      "campos": {
+        "id": {
+          "d": "Identificador do orçamento, gerado automaticamente (UUID)."
+        },
+        "cod_orcamento": {
+          "d": "Código do orçamento como aparece nas telas. Único."
+        },
+        "cliente_id": {
+          "d": "Identificador (UUID) do cliente, sem tabela de destino (ver [[tabela:ordens_servico]]). {{nc}}"
+        },
+        "processada": {
+          "d": "Se o orçamento foi enviado para faturamento. As telas dizem \"Faturado\" (verdadeiro) ou \"Aberto\" (falso). Falso por padrão. O botão \"Enviar para Faturamento\" só altera este campo: não chama nenhum fluxo."
+        },
+        "os_id": {
+          "d": "O.S. ligada ao orçamento. Aponta para [[tabela:ordens_servico]]; se a O.S. for apagada, o campo fica vazio."
+        },
+        "criado_em": {
+          "d": "Quando o orçamento entrou. É por esta data que as telas filtram por período."
+        },
+        "atualizado_em": {
+          "d": "Última alteração. Atualizado automaticamente por um gatilho do banco."
+        }
+      },
+      "regras": [
+        "Veja as regras de vínculo em [[tabela:ordens_servico]]."
+      ],
+      "relacoes_logicas": [
+        "`cliente_id` é um UUID sem tabela de destino."
+      ],
+      "fontes": [
+        "src/pages/Orcamentos.tsx",
+        "src/pages/Dashboard.tsx",
+        "src/types.ts"
+      ]
+    },
+    "Produtos": {
+      "documentar": true,
+      "grupo": "Catálogo de produtos e serviços",
+      "ordem": 60,
+      "titulo": "Catálogo de produtos (cópia do Omie)",
+      "resumo": "A lista de produtos (peças, insumos e equipamentos) que vem do Omie, com código, nome, preço e outras características. É o que a tela de Produtos mostra.",
+      "descricao": [
+        "A tabela é alimentada pelos fluxos do n8n que leem o Omie ([[fluxo:atualiza-produto]] e [[fluxo:preco-produto-mensal]]). A tela de Produtos também permite editar nome, valor, categoria e CFOP à mão e inativar produtos, mas **essas edições podem ser sobrescritas na próxima atualização vinda do Omie** (ver A-024)."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno do produto na plataforma."
+        },
+        "created_at": {
+          "d": "Quando a linha foi criada. Padrão: agora."
+        },
+        "cod_produto": {
+          "d": "Código do produto no Omie. Único. É a chave usada pelos fluxos para saber qual linha atualizar."
+        },
+        "nome_produto": {
+          "d": "Descrição do produto. A atualização vinda do Omie **sobrescreve** este campo."
+        },
+        "valor_unitario": {
+          "d": "Preço unitário. Vazio ou zero aparece como \"Sob consulta\" na tela. A atualização vinda do Omie sobrescreve este campo."
+        },
+        "categora_item": {
+          "d": "Categoria numérica do produto (o nome do campo mantém o erro de digitação \"categora\", igual ao banco). Guardada como texto. Nenhum fluxo a preenche: vem da carga original ou de edição manual. {{nc}} Significado de cada número."
+        },
+        "CFOP": {
+          "d": "Código fiscal da operação do produto (texto). Nenhum fluxo o preenche. {{nc}}"
+        },
+        "codigo_interno": {
+          "d": "Código interno do produto no Omie (campo `codigo`). Preenchido pelo fluxo forçado."
+        },
+        "familia": {
+          "d": "Descrição da família do produto no Omie. Preenchido pelo fluxo forçado."
+        },
+        "codigo_familia": {
+          "d": "Código da família no Omie. Preenchido pelo fluxo forçado."
+        },
+        "unidade": {
+          "d": "Unidade de medida (por exemplo, UN). Preenchido pelo fluxo forçado."
+        },
+        "ncm": {
+          "d": "Código NCM do produto (classificação fiscal). Preenchido pelo fluxo forçado."
+        },
+        "inativo": {
+          "d": "Produto inativo. O fluxo forçado grava verdadeiro quando o Omie marca o produto como inativo ou bloqueado, e **falso** nos demais, o que sobrescreve a marcação feita na tela de Produtos."
+        },
+        "caracteristicas": {
+          "d": "As características do produto no Omie, em JSON (nome da característica e conteúdo). Preenchido pelo fluxo forçado."
+        },
+        "termos_compatibilidade": {
+          "d": "Lista de termos extraídos do conteúdo das características (separados por \";\", em maiúsculas), para busca por compatibilidade. Tem índice próprio. {{nc}} Quem consome essa lista não está no código da tela."
+        },
+        "caract_sync_em": {
+          "d": "Quando as características foram sincronizadas pela última vez."
+        },
+        "nome_normalizado": {
+          "d": "Versão padronizada do nome, com índice de similaridade de texto. {{nc}} Nenhum fluxo nem arquivo do código a preenche; pode ser calculada no banco.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "`cod_produto` é único; os fluxos gravam por essa chave.",
+        "RLS desligado e privilégios totais para `anon` e `authenticated` (A-003)."
+      ],
+      "relacoes_logicas": [
+        "`cod_produto` corresponde ao código do produto no Omie (sistema externo), sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/components/Products/ProductList.tsx",
+        "src/types.ts",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json"
+      ]
+    },
+    "Serviços": {
+      "documentar": true,
+      "grupo": "Catálogo de produtos e serviços",
+      "ordem": 61,
+      "titulo": "Catálogo de serviços (cópia do Omie)",
+      "resumo": "A lista de serviços que a ATG presta, com código, descrição e valor, copiada do Omie. É o que a tela de Serviços mostra.",
+      "descricao": [
+        "Alimentada pelos fluxos [[fluxo:atualiza-servico]] e [[fluxo:preco-servico-mensal]]. A tela só permite inativar e reativar; não edita preço."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno do serviço."
+        },
+        "created_at": {
+          "d": "Quando a linha foi criada."
+        },
+        "nCodServ": {
+          "d": "Código do serviço no Omie. Único. É a chave usada pelos fluxos."
+        },
+        "cDescricao": {
+          "d": "Descrição do serviço. Os dois fluxos a preenchem com textos diferentes: o mensal usa a descrição completa; o forçado usa a descrição curta (ver A-025)."
+        },
+        "nValorDesc": {
+          "d": "Valor do serviço **mostrado na tela**. Só o fluxo mensal o atualiza; o fluxo forçado grava em `preco_unitario` (A-025)."
+        },
+        "codigo_interno": {
+          "d": "Código interno do serviço no Omie. Preenchido pelo fluxo forçado."
+        },
+        "descricao_completa": {
+          "d": "Descrição completa do serviço no Omie. Preenchida pelo fluxo forçado."
+        },
+        "preco_unitario": {
+          "d": "Preço unitário do cadastro do Omie. Padrão 0. Preenchido só pelo fluxo forçado; a tela não o lê."
+        },
+        "codigo_lc116": {
+          "d": "Código do serviço na lista da LC 116 (tributação municipal de serviços), vindo do Omie. Preenchido pelo fluxo forçado."
+        },
+        "inativo": {
+          "d": "Serviço inativo. O fluxo forçado grava o valor do Omie, o que sobrescreve a marcação feita na tela."
+        },
+        "sync_em": {
+          "d": "Quando foi sincronizado pelo fluxo forçado."
+        },
+        "nome_normalizado": {
+          "d": "Versão padronizada do nome, com índice de similaridade. {{nc}} Quem a preenche não está no código.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "`nCodServ` é único.",
+        "RLS desligado e privilégios totais para `anon` e `authenticated` (A-003)."
+      ],
+      "relacoes_logicas": [
+        "`nCodServ` corresponde ao código do serviço no Omie, sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/components/Services/ServiceList.tsx",
+        "src/types.ts",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json"
+      ]
+    },
+    "omie": {
+      "documentar": true,
+      "grupo": "Catálogo de produtos e serviços",
+      "ordem": 62,
+      "titulo": "Lista de clientes do Omie (consulta)",
+      "resumo": "Uma lista de consulta com nome, CNPJ e código de clientes do Omie. É usada só na busca de código Omie da página legada de Geradores.",
+      "descricao": [
+        "Não é o cadastro de clientes da plataforma (esse é [[tabela:omie_clientes]]). {{nc}} Quem carrega esta lista não está no repositório."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "nome": {
+          "d": "Nome do cliente no Omie.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj": {
+          "d": "CNPJ do cliente no Omie.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cod_omie": {
+          "d": "Código do cliente no Omie."
+        }
+      },
+      "regras": [
+        "RLS **ligado e sem nenhuma política**: pela configuração, usuários comuns da API não enxergam nenhuma linha (ver V-033)."
+      ],
+      "fontes": [
+        "src/components/Geradores/OmieSearchModal.tsx",
+        "docs/scripts/extracao_banco.sql (Q06)"
+      ]
+    },
+    "geradores": {
+      "documentar": true,
+      "grupo": "Catálogo de produtos e serviços",
+      "ordem": 63,
+      "selos": [
+        "legado"
+      ],
+      "titulo": "Geradores (tabela legada, ficha em colunas)",
+      "resumo": "A versão antiga do cadastro de geradores, em que a ficha técnica é guardada em mais de cem colunas. Só a página legada de Geradores a usa. O cadastro atual é geradores_atg.",
+      "descricao": [
+        "Cada linha é uma ficha de levantamento, identificada por `os_ficha_id` (única). A página [[modulo:geradores-legado]] lista e edita essas linhas. O fluxo atual de clientes e geradores usa [[tabela:geradores_atg]], com a ficha guardada em um único campo JSON, e não lê esta tabela.",
+        "Os nomes de campo seguem o padrão `seção_item_detalhe` (por exemplo `filtro_ar_prim_codigo`). As descrições abaixo foram montadas a partir desses nomes. O tipo `GeradorFicha` de `src/types.ts` lista cerca de 65 das 118 colunas."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "os_ficha_id": {
+          "d": "Identificador da O.S. ou ficha de origem do levantamento. Único."
+        },
+        "ativo_id_iclass": {
+          "d": "Número do ativo (equipamento) no iClass. Não editável na tela."
+        },
+        "equipamento_codigo_iclass": {
+          "d": "Código do equipamento no iClass. Não editável na tela."
+        },
+        "equipamento_descricao": {
+          "d": "Descrição do equipamento no iClass."
+        },
+        "cliente_codigo_id_iclass": {
+          "d": "Código do cliente no iClass. O tipo do código da tela chama este campo de `cliente_codigo_iclass`."
+        },
+        "cliente_codigo_omie": {
+          "d": "Código do cliente no Omie. É o que a busca de Omie da tela preenche."
+        },
+        "cliente_nome": {
+          "d": "Nome do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cliente_nome_fantasia": {
+          "d": "Nome fantasia do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cliente_razao_social": {
+          "d": "Razão social do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cliente_cnpj": {
+          "d": "CNPJ do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "gerador_fabricante": {
+          "d": "Grupo gerador: fabricante."
+        },
+        "gerador_ano": {
+          "d": "Grupo gerador: ano."
+        },
+        "gerador_potencia": {
+          "d": "Grupo gerador: potência."
+        },
+        "gerador_tensao": {
+          "d": "Grupo gerador: tensão."
+        },
+        "gerador_numero_montagem": {
+          "d": "Grupo gerador: número de montagem."
+        },
+        "motor_fabricante": {
+          "d": "Motor: fabricante."
+        },
+        "motor_modelo": {
+          "d": "Motor: modelo."
+        },
+        "motor_numero_serie": {
+          "d": "Motor: número de série."
+        },
+        "motor_oleo_baldes": {
+          "d": "Motor: capacidade de óleo lubrificante (baldes)."
+        },
+        "alternador_fabricante": {
+          "d": "Alternador: fabricante."
+        },
+        "alternador_modelo": {
+          "d": "Alternador: modelo."
+        },
+        "alternador_numero_serie": {
+          "d": "Alternador: número de série."
+        },
+        "controlador_fabricante": {
+          "d": "Controlador: fabricante."
+        },
+        "controlador_modelo": {
+          "d": "Controlador: modelo."
+        },
+        "bomba_injetora_possui": {
+          "d": "Bomba injetora: possui? (sim ou não)."
+        },
+        "bomba_injetora_fabricante": {
+          "d": "Bomba injetora: fabricante."
+        },
+        "bomba_injetora_modelo": {
+          "d": "Bomba injetora: modelo."
+        },
+        "bomba_injetora_numero": {
+          "d": "Bomba injetora: número."
+        },
+        "bateria_quantidade": {
+          "d": "Bateria: quantidade."
+        },
+        "bateria_capacidade": {
+          "d": "Bateria: capacidade."
+        },
+        "filtro_combustivel_prim_qtd": {
+          "d": "Filtro de combustível, primário: quantidade."
+        },
+        "filtro_combustivel_prim_codigo": {
+          "d": "Filtro de combustível, primário: código."
+        },
+        "filtro_combustivel_prim_fabricante": {
+          "d": "Filtro de combustível, primário: fabricante."
+        },
+        "filtro_combustivel_sec_qtd": {
+          "d": "Filtro de combustível, secundário: quantidade."
+        },
+        "filtro_combustivel_sec_codigo": {
+          "d": "Filtro de combustível, secundário: código."
+        },
+        "filtro_combustivel_sec_fabricante": {
+          "d": "Filtro de combustível, secundário: fabricante."
+        },
+        "filtro_lubrificante_prim_qtd": {
+          "d": "Filtro de lubrificante, primário: quantidade."
+        },
+        "filtro_lubrificante_prim_codigo": {
+          "d": "Filtro de lubrificante, primário: código."
+        },
+        "filtro_lubrificante_prim_fabricante": {
+          "d": "Filtro de lubrificante, primário: fabricante."
+        },
+        "filtro_lubrificante_sec_qtd": {
+          "d": "Filtro de lubrificante, secundário: quantidade."
+        },
+        "filtro_lubrificante_sec_codigo": {
+          "d": "Filtro de lubrificante, secundário: código."
+        },
+        "filtro_lubrificante_sec_fabricante": {
+          "d": "Filtro de lubrificante, secundário: fabricante."
+        },
+        "filtro_agua_prim_qtd": {
+          "d": "Filtro de água, primário: quantidade."
+        },
+        "filtro_agua_prim_codigo": {
+          "d": "Filtro de água, primário: código."
+        },
+        "filtro_agua_prim_fabricante": {
+          "d": "Filtro de água, primário: fabricante."
+        },
+        "filtro_agua_sec_qtd": {
+          "d": "Filtro de água, secundário: quantidade."
+        },
+        "filtro_agua_sec_codigo": {
+          "d": "Filtro de água, secundário: código."
+        },
+        "filtro_agua_sec_fabricante": {
+          "d": "Filtro de água, secundário: fabricante."
+        },
+        "filtro_separador_prim_qtd": {
+          "d": "Filtro de separador, primário: quantidade."
+        },
+        "filtro_separador_prim_codigo": {
+          "d": "Filtro de separador, primário: código."
+        },
+        "filtro_separador_prim_fabricante": {
+          "d": "Filtro de separador, primário: fabricante."
+        },
+        "filtro_separador_sec_qtd": {
+          "d": "Filtro de separador, secundário: quantidade."
+        },
+        "filtro_separador_sec_codigo": {
+          "d": "Filtro de separador, secundário: código."
+        },
+        "filtro_separador_sec_fabricante": {
+          "d": "Filtro de separador, secundário: fabricante."
+        },
+        "filtro_ar_prim_qtd": {
+          "d": "Filtro de ar, primário: quantidade."
+        },
+        "filtro_ar_prim_codigo": {
+          "d": "Filtro de ar, primário: código."
+        },
+        "filtro_ar_prim_fabricante": {
+          "d": "Filtro de ar, primário: fabricante."
+        },
+        "filtro_ar_sec_qtd": {
+          "d": "Filtro de ar, secundário: quantidade."
+        },
+        "filtro_ar_sec_codigo": {
+          "d": "Filtro de ar, secundário: código."
+        },
+        "filtro_ar_sec_fabricante": {
+          "d": "Filtro de ar, secundário: fabricante."
+        },
+        "radiador_medidas": {
+          "d": "Medidas do radiador."
+        },
+        "status_preenchimento": {
+          "d": "Situação do preenchimento da ficha: `COMPLETO` ou `PENDENTE_ADM` (pendente do administrador). Índice parcial para os pendentes."
+        },
+        "pendencias": {
+          "d": "Texto livre com as pendências da ficha."
+        },
+        "created_at": {
+          "d": "Quando a linha foi criada."
+        },
+        "updated_at": {
+          "d": "Última alteração. Atualizado por gatilho do banco."
+        },
+        "data_vencimento_oleo_filtros": {
+          "d": "Data de vencimento do item \"oleo filtros\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_bateria": {
+          "d": "Data de vencimento do item \"bateria\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_mangueira_combustivel": {
+          "d": "Data de vencimento do item \"mangueira combustivel\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_limpeza_qta": {
+          "d": "Data de vencimento do item \"limpeza qta\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_mangueira_pre_aquecimento": {
+          "d": "Data de vencimento do item \"mangueira pre aquecimento\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_limpeza_quimica_radiador": {
+          "d": "Data de vencimento do item \"limpeza quimica radiador\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_limpeza_quimica_tanque_combustivel": {
+          "d": "Data de vencimento do item \"limpeza quimica tanque combustivel\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "data_vencimento_oxicatalisador": {
+          "d": "Data de vencimento do item \"oxicatalisador\" (guardada como texto). {{nc}} Sem uso no código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "controlador_comando_manual": {
+          "d": "Controlador: comando manual?."
+        },
+        "controlador_comando_automatico": {
+          "d": "Controlador: comando automático?."
+        },
+        "qta_transferencia": {
+          "d": "QTA: transferência."
+        },
+        "qta_outros_possui": {
+          "d": "QTA: outros: possui?."
+        },
+        "qta_outros_qtd": {
+          "d": "QTA: outros: quantidade."
+        },
+        "filtro_ar_tipo": {
+          "d": "Tipo do filtro de ar. {{nc}} Não usado pelo código."
+        },
+        "mangueira_combustivel_tipo": {
+          "d": "Mangueira de combustível: tipo."
+        },
+        "mangueira_combustivel_alimentacao_metros": {
+          "d": "Mangueira de combustível: alimentação (metros)."
+        },
+        "mangueira_combustivel_alimentacao_polegadas": {
+          "d": "Mangueira de combustível: alimentação (polegadas)."
+        },
+        "mangueira_combustivel_retorno_metros": {
+          "d": "Mangueira de combustível: retorno (metros)."
+        },
+        "mangueira_combustivel_retorno_polegadas": {
+          "d": "Mangueira de combustível: retorno (polegadas)."
+        },
+        "pre_aquecimento_possui": {
+          "d": "Pré-aquecimento: possui? (sim ou não)."
+        },
+        "pre_aquecimento_descricao": {
+          "d": "Pré-aquecimento: descrição."
+        },
+        "pre_aquecimento_entrada_metros": {
+          "d": "Pré-aquecimento: entrada (metros)."
+        },
+        "pre_aquecimento_entrada_polegadas": {
+          "d": "Pré-aquecimento: entrada (polegadas)."
+        },
+        "pre_aquecimento_saida_metros": {
+          "d": "Pré-aquecimento: saída (metros)."
+        },
+        "pre_aquecimento_saida_polegadas": {
+          "d": "Pré-aquecimento: saída (polegadas)."
+        },
+        "tanque_diario_capacidade": {
+          "d": "Tanque diário: capacidade."
+        },
+        "tanque_diario_orientacao": {
+          "d": "Tanque diário: orientação."
+        },
+        "tanque_diario_tipo": {
+          "d": "Tanque diário: tipo."
+        },
+        "tanque_diario_possui_registro": {
+          "d": "Tanque diário: possui registro?."
+        },
+        "tanque_diario_tampa_inspecao": {
+          "d": "Tanque diário: tem tampa de inspeção?."
+        },
+        "tanque_principal_capacidade": {
+          "d": "Tanque principal: capacidade."
+        },
+        "tanque_principal_orientacao": {
+          "d": "Tanque principal: orientação."
+        },
+        "tanque_principal_tipo": {
+          "d": "Tanque principal: tipo."
+        },
+        "tanque_principal_possui_registro": {
+          "d": "Tanque principal: possui registro?."
+        },
+        "contencao_possui": {
+          "d": "Contenção: possui? (sim ou não)."
+        },
+        "contencao_tipo": {
+          "d": "Contenção: tipo."
+        },
+        "instalacao_carenagem": {
+          "d": "Instalação: tem carenagem?."
+        },
+        "instalacao_tipo": {
+          "d": "Instalação: tipo."
+        },
+        "instalacao_sala_silenciada": {
+          "d": "Instalação: sala silenciada?."
+        },
+        "escapamento_diametro_polegadas": {
+          "d": "Escapamento: diâmetro (polegadas)."
+        },
+        "escapamento_comprimento_metros": {
+          "d": "Escapamento: comprimento (metros)."
+        },
+        "escapamento_curvas_qtd": {
+          "d": "Escapamento: quantidade de curvas."
+        },
+        "escapamento_pecas_90": {
+          "d": "Escapamento: peças de 90º."
+        },
+        "escapamento_pecas_45": {
+          "d": "Escapamento: peças de 45º."
+        },
+        "escapamento_isolamento_termico": {
+          "d": "Escapamento: tem isolamento térmico?."
+        },
+        "escapamento_saida": {
+          "d": "Escapamento: saída."
+        },
+        "oxicatalisador_possui": {
+          "d": "Oxicatalisador: possui? (sim ou não)."
+        },
+        "oxicatalisador_espaco_instalacao": {
+          "d": "Oxicatalisador: há espaço de instalação?."
+        },
+        "dados_ficha_json": {
+          "d": "A ficha em JSON. {{nc}} Não é usado pelo código; provavelmente a cópia bruta da ficha.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "codigo_contrato_iclass": {
+          "d": "Código do contrato no iClass. {{nc}} Não usado pelo código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "contrato_id_iclass": {
+          "d": "Número do contrato no iClass. {{nc}} Não usado pelo código.",
+          "tags": [
+            "naousado"
+          ]
+        },
+        "inativo": {
+          "d": "Campo existente sem uso identificado no código.",
+          "tags": [
+            "naousado"
+          ]
+        }
+      },
+      "valores": {
+        "status_preenchimento": {
+          "COMPLETO": "Ficha completa.",
+          "PENDENTE_ADM": "Ficha com pendência a resolver por um administrador."
+        }
+      },
+      "regras": [
+        "`os_ficha_id` é único.",
+        "Gatilho `set_updated_at` atualiza `updated_at` a cada alteração.",
+        "Há 8 índices (série do motor e do alternador, ativo, CNPJ e pendentes), com `idx_geradores_ativo` e `idx_geradores_ativo_id` repetidos (A-011)."
+      ],
+      "relacoes_logicas": [
+        "`ativo_id_iclass` aponta para o ativo no iClass; `cliente_codigo_omie` para o cliente no Omie. Sem chaves estrangeiras."
+      ],
+      "fontes": [
+        "src/pages/Geradores.tsx",
+        "src/types.ts",
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv"
+      ]
+    },
+    "iclass_clientes": {
+      "documentar": true,
+      "grupo": "Apoio: iClass e Omie",
+      "ordem": 70,
+      "titulo": "Cópia de clientes do iClass",
+      "resumo": "Uma lista de clientes do iClass (1.223 linhas) com identificador, código, nome, CNPJ, e-mail e telefone. A única coisa do banco que a lê é a view vw_conferencia_iclass.",
+      "descricao": [
+        "{{nc}} Quem carrega esta tabela e para que ela é consultada não estão no repositório. Pelo nome da view que a lê, serve para a **conferência** entre o cadastro e o iClass ([[tabela:vw_conferencia_iclass]]). Nenhum arquivo de `src/` nem fluxo do n8n a acessa."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "iclass_id": {
+          "d": "Identificador do cliente no iClass. Único."
+        },
+        "iclass_codigo": {
+          "d": "Código do cliente no iClass. Tem índice."
+        },
+        "nome": {
+          "d": "Nome do cliente no iClass.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cpf_cnpj_raw": {
+          "d": "CPF ou CNPJ como está no iClass (com pontuação).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_limpo": {
+          "d": "O mesmo documento só com números, para ligações e buscas. Tem índice.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "segmentacao": {
+          "d": "Segmentação do cliente no iClass. {{nc}} Significado e valores não identificados.",
+          "tags": [
+            "fi"
+          ]
+        },
+        "email": {
+          "d": "E-mail do cliente no iClass.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "telefone": {
+          "d": "Telefone do cliente no iClass.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "criado_em": {
+          "d": "Quando a linha foi criada."
+        },
+        "atualizado_em": {
+          "d": "Última alteração. Não há gatilho que a atualize sozinha."
+        }
+      },
+      "regras": [
+        "RLS desligado e privilégios totais para `anon` e `authenticated` (A-003): uma cópia de dados pessoais de clientes sem restrição por linha."
+      ],
+      "relacoes_logicas": [
+        "`iclass_id` corresponde a `omie_clientes.iclass_id_encontrado` (ligação usada pela view de conferência), sem chave estrangeira."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q03, Q08)",
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv"
+      ]
+    },
+    "usuarios iclass": {
+      "documentar": true,
+      "grupo": "Apoio: iClass e Omie",
+      "ordem": 71,
+      "titulo": "Usuários do iClass",
+      "resumo": "Uma lista pequena (25 linhas) com nome, e-mail e código de pessoas do iClass. Nenhuma tela, função ou fluxo a usa.",
+      "descricao": [
+        "{{fi}} Finalidade não identificada. Pode ser a lista de técnicos ou usuários do iClass; isso é só uma suposição pelo nome. O dado é pessoal."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "nome": {
+          "d": "Nome da pessoa.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "email": {
+          "d": "E-mail da pessoa.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "codigo": {
+          "d": "Código da pessoa. {{nc}} Código de qual sistema não está indicado.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "RLS ligado e sem nenhuma política: pela configuração, só funções com permissão de dono acessam as linhas. Os privilégios de tabela dados a `anon` e `authenticated` ficam sem efeito prático por causa disso."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q06, Q08)",
+        "docs/data/codigo.gerado.json"
+      ]
+    },
+    "vendedores omie": {
+      "documentar": true,
+      "grupo": "Apoio: iClass e Omie",
+      "ordem": 72,
+      "titulo": "Vendedores do Omie (origem da cópia)",
+      "resumo": "A lista de vendedores como veio do Omie (17 linhas). Serviu de origem para o cadastro de vendedores da plataforma.",
+      "descricao": [
+        "O tipo `Vendedor` do código diz que `vendedores.omie_vendedor_id` tem \"origem: cópia de vendedores omie\". A cópia foi feita fora das telas. {{nc}} O processo da cópia não está no repositório e nenhuma tela lê esta tabela."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "Celular": {
+          "d": "Celular do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "Email": {
+          "d": "E-mail do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "Nome": {
+          "d": "Nome do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "Telefone": {
+          "d": "Telefone do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "Codigo": {
+          "d": "Código do vendedor no Omie. {{nc}} Provavelmente o valor copiado para `vendedores.omie_vendedor_id`."
+        },
+        "ult-cod-cont": {
+          "d": "Código do último contrato. {{nc}} Finalidade não identificada.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "RLS ligado e sem política (acesso só por funções com permissão de dono)."
+      ],
+      "relacoes_logicas": [
+        "`Codigo` corresponde a `vendedores.omie_vendedor_id`, sem chave estrangeira."
+      ],
+      "fontes": [
+        "src/types.ts",
+        "docs/scripts/extracao_banco.sql (Q06, Q08)"
+      ]
+    },
+    "mv_idf_tokens": {
+      "documentar": true,
+      "grupo": "Apoio: preditivas",
+      "ordem": 80,
+      "titulo": "Pesos das palavras dos nomes (view materializada)",
+      "resumo": "Uma tabela de apoio com cada palavra que aparece nos nomes de clientes e o quanto ela é rara (808 palavras). Quanto mais rara, mais peso ela tem quando o sistema compara nomes na importação das preditivas.",
+      "descricao": [
+        "É lida pela função [[funcao:idf]]. Por ser uma view materializada, o conteúdo fica guardado e só muda quando alguém manda atualizar. {{nc}} A definição da view e quem a atualiza não estão no repositório (V-005)."
+      ],
+      "campos": {
+        "token": {
+          "d": "A palavra (já padronizada pelas funções de nome: maiúsculas, sem acento). Única."
+        },
+        "df": {
+          "d": "Em quantos nomes a palavra aparece (frequência de documentos)."
+        },
+        "idf": {
+          "d": "Peso da palavra: maior para as mais raras. Palavra que não está aqui vale 6,5 na função `idf`."
+        }
+      },
+      "regras": [
+        "Índice único em `token`."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q02, Q04, Q08)"
+      ]
+    },
+    "preditivas_conflito": {
+      "documentar": true,
+      "grupo": "Apoio: preditivas",
+      "ordem": 81,
+      "titulo": "Preditivas arquivadas ou em conflito",
+      "resumo": "Tem a mesma estrutura de preditivas_atg, mais um campo de arquivamento (259 linhas). Nenhuma função, tela ou fluxo a usa.",
+      "descricao": [
+        "{{fi}} Finalidade não identificada. A estrutura sugere que guarda linhas retiradas de `preditivas_atg` (por exemplo, quando duas linhas da planilha caíam no mesmo gerador e item, o que a restrição de unicidade impede); isso é uma dedução, sem confirmação. Os campos têm o mesmo significado de [[tabela:preditivas_atg]]."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "import_id": {
+          "d": "Identificador do lote de importação. Linhas criadas pela tela recebem um identificador aleatório próprio."
+        },
+        "linha_planilha": {
+          "d": "Número da linha na planilha original. Vale 0 nas linhas criadas pela tela."
+        },
+        "numero_planilha": {
+          "d": "Coluna \"numero\" da planilha. Significado de negócio {{nc}}.",
+          "tags": [
+            "fi"
+          ]
+        },
+        "cliente_planilha": {
+          "d": "Nome do cliente como estava escrito na planilha. É o texto comparado com os geradores para achar o par.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "vendedor": {
+          "d": "Nome do vendedor como estava na planilha (texto, sem ligação com a tabela de vendedores).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "contrato_ativo": {
+          "d": "Verdadeiro quando a coluna \"ativo\" da planilha começa com \"sim\". O código das telas não usa este campo."
+        },
+        "gerador_id": {
+          "d": "Gerador a que o item pertence. Só vem preenchido quando a comparação de nomes foi automática (`auto`) ou o vínculo foi feito à mão. Se o gerador for apagado, o campo fica vazio."
+        },
+        "omie_cliente_id": {
+          "d": "Cliente encontrado na comparação de nomes. Não tem chave estrangeira."
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ do cliente encontrado, só números.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "match_score": {
+          "d": "Nota de 0 a 1 de semelhança entre o nome da planilha e o gerador escolhido."
+        },
+        "match_status": {
+          "d": "Resultado da comparação de nomes. Veja os valores abaixo. Padrão: `sem_match`."
+        },
+        "match_candidatos": {
+          "d": "Até 3 geradores candidatos com a nota de cada um (JSON), para a revisão humana."
+        },
+        "item_codigo": {
+          "d": "Qual item de preditiva é. Aponta para [[tabela:preditiva_itens]]."
+        },
+        "data_realizada": {
+          "d": "Data em que o item foi feito pela última vez."
+        },
+        "data_vencimento": {
+          "d": "Data em que o item vence. Na importação, se faltar, é calculada como realizada + periodicidade."
+        },
+        "sem_data": {
+          "d": "Verdadeiro quando o item se aplica mas não tem data de vencimento."
+        },
+        "nao_aplica": {
+          "d": "Verdadeiro quando o item não se aplica àquele gerador. Quando marcado, as datas são limpas na importação."
+        },
+        "observacao": {
+          "d": "Observação do item. Na importação, radiador e tanque juntam duas colunas da planilha com \" | \"."
+        },
+        "status_planilha": {
+          "d": "Texto de status como estava na planilha (Vencido, OK, Não aplica). Só informativo; o status oficial é calculado pela view."
+        },
+        "editado_manual": {
+          "d": "Verdadeiro quando a linha foi criada ou alterada pela tela. A função `salvar_preditiva` sempre marca."
+        },
+        "origem_planilha": {
+          "d": "A linha original da planilha em JSON, guardada para conferência. O código das telas não a lê.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "criado_em": {
+          "d": "Quando a linha foi criada."
+        },
+        "atualizado_em": {
+          "d": "Última alteração. Atualizado automaticamente por um gatilho do banco."
+        },
+        "arquivado_em": {
+          "d": "Quando a linha foi arquivada. {{nc}} Quem arquiva não está identificado.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "RLS desligado e privilégios totais para `anon` e `authenticated` (A-003)."
+      ],
+      "fontes": [
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv",
+        "docs/data/codigo.gerado.json"
+      ]
+    },
+    "oxicatalisador_conflito": {
+      "documentar": true,
+      "grupo": "Apoio: preditivas",
+      "ordem": 82,
+      "titulo": "Oxicatalisador arquivado ou em conflito",
+      "resumo": "Tem a mesma estrutura de oxicatalisador_atg, mais um campo de arquivamento (37 linhas). Nenhuma função, tela ou fluxo a usa.",
+      "descricao": [
+        "{{fi}} Finalidade não identificada, nos mesmos termos de [[tabela:preditivas_conflito]]. Os campos têm o significado de [[tabela:oxicatalisador_atg]]."
+      ],
+      "campos": {
+        "id": {
+          "d": "Número interno da linha."
+        },
+        "import_id": {
+          "d": "Lote de importação da planilha (aleatório para linhas criadas pela tela)."
+        },
+        "linha_planilha": {
+          "d": "Linha da planilha original (0 para linhas criadas pela tela)."
+        },
+        "cliente_planilha": {
+          "d": "Nome do cliente como estava na planilha.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "gerador_id": {
+          "d": "Gerador a que pertence (chave estrangeira para [[tabela:geradores_atg]]; vazio se o gerador for apagado)."
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ do cliente encontrado.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "match_score": {
+          "d": "Nota de semelhança de nomes da importação."
+        },
+        "match_status": {
+          "d": "Resultado da comparação de nomes (auto, revisar, sem_match, sem_planilha). Mesmo significado de [[tabela:preditivas_atg]]. Padrão `sem_match`."
+        },
+        "possui": {
+          "d": "Verdadeiro se o gerador possui oxicatalisador, falso se não, vazio se não se sabe."
+        },
+        "situacao": {
+          "d": "Situação textual da planilha: sim, nao, pendencia ou sem_informacao."
+        },
+        "bitola": {
+          "d": "Medida (bitola) do oxicatalisador, quando informada."
+        },
+        "bitola_pendente": {
+          "d": "Verdadeiro quando a planilha dizia que a bitola estava pendente."
+        },
+        "editado_manual": {
+          "d": "Verdadeiro quando a linha foi criada ou alterada pela tela."
+        },
+        "criado_em": {
+          "d": "Quando a linha foi criada."
+        },
+        "atualizado_em": {
+          "d": "Última alteração (atualizado por gatilho do banco)."
+        },
+        "arquivado_em": {
+          "d": "Quando a linha foi arquivada. {{nc}} Quem arquiva não está identificado.",
+          "tags": [
+            "fi"
+          ]
+        }
+      },
+      "regras": [
+        "RLS desligado e privilégios totais para `anon` e `authenticated` (A-003)."
+      ],
+      "fontes": [
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv",
+        "docs/data/codigo.gerado.json"
+      ]
+    },
+    "vw_conferencia_iclass": {
+      "documentar": true,
+      "grupo": "Apoio: iClass e Omie",
+      "ordem": 73,
+      "titulo": "Conferência com o iClass (view)",
+      "resumo": "Junta cada cliente do cadastro com os dados do cliente correspondente no iClass, para comparar. Nenhuma tela a usa.",
+      "campos": {
+        "id": {
+          "d": "Número do cliente ([[tabela:omie_clientes]].id)."
+        },
+        "nome_fantasia": {
+          "d": "Nome fantasia do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "razao_social": {
+          "d": "Razão social do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_limpo": {
+          "d": "CNPJ só números.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "codigo_iclass_planilha": {
+          "d": "Código do iClass como veio da planilha (`omie_clientes.codigo_iclass_raw`)."
+        },
+        "id_iclass_encontrado": {
+          "d": "Identificador do iClass encontrado no cliente (`iclass_id_encontrado`)."
+        },
+        "codigo_iclass_encontrado": {
+          "d": "Código do iClass encontrado no cliente."
+        },
+        "nome_iclass": {
+          "d": "Nome do cliente na cópia do iClass ([[tabela:iclass_clientes]]).",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_iclass": {
+          "d": "CPF/CNPJ do cliente na cópia do iClass.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "status_conferencia": {
+          "d": "Status de conferência do cliente."
+        },
+        "observacao": {
+          "d": "Observação da conferência."
+        }
+      },
+      "regras": [
+        "Liga cada cliente a `iclass_clientes` pelo identificador do iClass, com `LEFT JOIN` (clientes sem iClass aparecem com campos vazios). Tem 541 linhas, uma por cliente."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q03)"
+      ]
+    },
+    "vw_geradores_atg": {
+      "documentar": true,
+      "grupo": "Apoio: iClass e Omie",
+      "ordem": 74,
+      "titulo": "Lista de geradores com total por cliente (view)",
+      "resumo": "Mostra os geradores com os dados principais e quantos geradores o cliente tem. Nenhuma tela a usa. Inclui geradores arquivados.",
+      "campos": {
+        "id": {
+          "d": "Copia o campo `id` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "omie_cliente_id": {
+          "d": "Copia o campo `omie_cliente_id` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "nome_fantasia": {
+          "d": "Copia o campo `nome_fantasia` de [[tabela:geradores_atg]].",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "razao_social": {
+          "d": "Copia o campo `razao_social` de [[tabela:geradores_atg]].",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cnpj_limpo": {
+          "d": "Copia o campo `cnpj_limpo` de [[tabela:geradores_atg]].",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "iclass_id_cliente": {
+          "d": "Copia o campo `iclass_id_cliente` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "iclass_codigo_cliente": {
+          "d": "Copia o campo `iclass_codigo_cliente` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "num_serie": {
+          "d": "Copia o campo `num_serie` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "num_patrimonio": {
+          "d": "Copia o campo `num_patrimonio` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "descricao": {
+          "d": "Copia o campo `descricao` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "fabricante": {
+          "d": "Copia o campo `fabricante` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "modelo": {
+          "d": "Copia o campo `modelo` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "ativo_id": {
+          "d": "Copia o campo `ativo_id` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "status_ativo": {
+          "d": "Copia o campo `status_ativo` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "tipo_equipamento": {
+          "d": "Copia o campo `tipo_equipamento` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "observacao_ativo": {
+          "d": "Copia o campo `observacao_ativo` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "processado_em": {
+          "d": "Copia o campo `processado_em` de [[tabela:geradores_atg]].",
+          "tags": []
+        },
+        "total_geradores_cliente": {
+          "d": "Quantos geradores o cliente tem (inclui os arquivados).",
+          "tags": [
+            "calculado"
+          ]
+        }
+      },
+      "regras": [
+        "Ordenada por razão social e número de série. **Não exclui** geradores arquivados (diferente de [[tabela:vw_cliente_card]])."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q03)"
+      ]
+    },
+    "generators_com_itens_vencidos": {
+      "documentar": true,
+      "grupo": "Legado",
+      "ordem": 90,
+      "selos": [
+        "legado"
+      ],
+      "titulo": "Itens vencidos da base antiga (view)",
+      "resumo": "View da versão antiga do sistema que listava clientes com algum item de manutenção vencido (456 linhas). Nenhuma tela atual a usa.",
+      "descricao": [
+        "Pelo nome e por um comentário da extração, depende da tabela antiga `INATIVO_generators`. A definição da view não foi extraída nesta documentação. {{nc}} Os valores refletem a base antiga, não a preditiva atual ([[tabela:vw_preditivas]])."
+      ],
+      "campos": {
+        "id": {
+          "d": "Identificador (UUID) do registro antigo."
+        },
+        "cliente": {
+          "d": "Nome do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "vendedor": {
+          "d": "Nome do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "responsavel": {
+          "d": "Responsável.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "email": {
+          "d": "E-mail.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "telefone": {
+          "d": "Telefone.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "cidade": {
+          "d": "Cidade."
+        },
+        "estado": {
+          "d": "Estado."
+        },
+        "item_vencido": {
+          "d": "Qual item está vencido."
+        },
+        "data_vencimento": {
+          "d": "Data de vencimento do item."
+        }
+      },
+      "regras": [
+        "RLS não se aplica (é uma view); privilégios totais para `anon` e `authenticated` (A-003). Expõe dados pessoais (nome, e-mail, telefone)."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q08)"
+      ]
+    },
+    "proximos_vencimentos": {
+      "documentar": true,
+      "grupo": "Legado",
+      "ordem": 91,
+      "selos": [
+        "legado"
+      ],
+      "titulo": "Próximos vencimentos da base antiga (view)",
+      "resumo": "View da versão antiga que listava os próximos vencimentos por cliente (110 linhas). Nenhuma tela atual a usa.",
+      "descricao": [
+        "Mesma situação de [[tabela:generators_com_itens_vencidos]]: depende da base antiga. {{nc}}"
+      ],
+      "campos": {
+        "id": {
+          "d": "Identificador (UUID) do registro antigo."
+        },
+        "cliente": {
+          "d": "Nome do cliente.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "vendedor": {
+          "d": "Nome do vendedor.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "responsavel": {
+          "d": "Responsável.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "email": {
+          "d": "E-mail.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "telefone": {
+          "d": "Telefone.",
+          "tags": [
+            "pessoal"
+          ]
+        },
+        "item": {
+          "d": "Item de manutenção."
+        },
+        "data_vencimento": {
+          "d": "Data de vencimento do item."
+        },
+        "data_agendamento": {
+          "d": "Data de agendamento da manutenção. {{nc}}"
+        }
+      },
+      "regras": [
+        "Privilégios totais para `anon` e `authenticated` (A-003). Expõe dados pessoais."
+      ],
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q08)"
+      ]
+    }
+  },
+  "funcoes": {
+    "criar_gerador": {
+      "tipo": "Chamada pelo front",
+      "resumo": "Cria um gerador para um cliente a partir de um ativo do iClass, copiando os dados do cliente, e registra a criação no histórico.",
+      "regras": [
+        "Exige o `ativo_id` do iClass.",
+        "Não há trava contra criar dois geradores com o mesmo `ativo_id` (nem na função nem no banco).",
+        "Roda com a permissão do dono (SECURITY DEFINER) e não confere quem está chamando: o parâmetro `p_usuario` é só um texto informado pelo chamador.",
+        "Chamada por `src/utils/atgBackend.ts` (`criarGerador`)."
+      ]
+    },
+    "salvar_preditiva": {
+      "tipo": "Chamada pelo front",
+      "resumo": "Grava as datas e observações de um item de preditiva e marca a linha como editada à mão.",
+      "regras": [
+        "Usa `coalesce`: enviar uma data vazia **não apaga** a data antiga, apenas marca `sem_data`.",
+        "Sempre marca `editado_manual = true`.",
+        "O histórico guarda só o que foi enviado, sem o valor de antes.",
+        "Roda com a permissão do dono (SECURITY DEFINER); `p_usuario` não é conferido."
+      ]
+    },
+    "validar_cadastro": {
+      "tipo": "Chamada pelo front",
+      "resumo": "Marca ou desmarca como validado um cliente ou um gerador.",
+      "regras": [
+        "Aceita só as entidades `cliente` e `gerador`; qualquer outra gera erro.",
+        "Grava `validado`, `validado_por` e `validado_em` e registra no histórico a ação `validou` ou `desvalidou`. O histórico atual não tem nenhuma dessas duas ações (consulta Q11), o que combina com a dúvida abaixo.",
+        "O parâmetro de valor se chama `p_valor` no banco, mas o código do front envia `p_validar`. {{nc}} Pelo comportamento padrão do PostgREST, isso deveria resultar em função não encontrada e o front usaria a resposta simulada; não foi testado. Ver Pontos a validar.",
+        "Roda com a permissão do dono; `p_usuario` não é conferido."
+      ]
+    },
+    "consumir_rate_limit_iclass": {
+      "tipo": "Chamada pelos fluxos do n8n",
+      "resumo": "Controla o limite de 25 chamadas ao iClass por minuto: diz se a chamada pode ser feita agora ou quantos segundos esperar.",
+      "regras": [
+        "Valores padrão: limite 25 chamadas e janela de 60 segundos.",
+        "Um único contador para todos os fluxos.",
+        "Trava a linha para duas chamadas simultâneas não passarem juntas.",
+        "Roda com a permissão do dono (SECURITY DEFINER) e não define `search_path` (diferente das três funções chamadas pelo front)."
+      ]
+    },
+    "processar_preditivas": {
+      "tipo": "Importação da planilha",
+      "resumo": "Lê as linhas de uma importação em preditivas_staging, converte datas, compara os nomes com os geradores e grava os resultados em preditivas_atg e oxicatalisador_atg.",
+      "regras": [
+        "Antes de gravar, **apaga** as linhas já existentes desse mesmo `import_id` em preditivas_atg e oxicatalisador_atg, inclusive as editadas à mão. {{nc}} Não se sabe quem chama esta função nem se um mesmo lote pode ser reprocessado.",
+        "Item é \"não se aplica\" se a data realizada, o vencimento ou o status contiver \"aplica\".",
+        "Vencimento ausente = realizada + periodicidade; realizada ausente = vencimento - periodicidade.",
+        "Linhas da planilha sem nome de cliente não são gravadas em preditivas_atg."
+      ]
+    },
+    "match_cliente": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Dado um nome de cliente da planilha, procura os geradores mais parecidos e decide se liga sozinho, pede revisão ou desiste.",
+      "regras": [
+        "Filtro rápido: similaridade acima de 0,15 ou palavra em comum com o nome fantasia.",
+        "Pega os 3 melhores candidatos e decide pelo melhor: nota abaixo de 0,75 = `sem_match`; nome com sufixo G1/G2 = `revisar`; nota de 0,90 ou mais e CNPJ com exatamente um gerador = `auto`; senão `revisar`.",
+        "Só no caso `auto` devolve o `gerador_id`."
+      ]
+    },
+    "score_nomes": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Calcula a nota de 0 a 1 de semelhança entre dois nomes de cliente.",
+      "regras": [
+        "Nota = 0,30 × cobertura do peso das palavras + 0,45 × se a palavra mais rara do nome do banco aparece + 0,25 × parecido (palavras em comum sobre o total com penalidades).",
+        "Palavras raras pesam mais (peso vem da `mv_idf_tokens`)."
+      ]
+    },
+    "norm_nome": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Padroniza um nome: maiúsculas, sem acento, sem LTDA/ME/EPP/EIRELI/S.A./CIA no final e sem pontuação.",
+      "regras": []
+    },
+    "tokens_nome": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Quebra um nome em palavras distintas, ignorando palavras de 1 letra, conectivos (DE, DA, DO, E...) e códigos como G1 e G2.",
+      "regras": []
+    },
+    "sufixo_gerador": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Extrai o número do sufixo G1, G2... do nome, quando existe.",
+      "regras": []
+    },
+    "idf": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Devolve o peso de uma palavra (mais rara = mais peso). Palavra desconhecida vale 6,5.",
+      "regras": [
+        "Lê a view materializada `mv_idf_tokens`."
+      ]
+    },
+    "peso_tokens": {
+      "tipo": "Comparação de nomes",
+      "resumo": "Soma o peso de uma lista de palavras.",
+      "regras": []
+    },
+    "parse_data_pred": {
+      "tipo": "Importação da planilha",
+      "resumo": "Converte o texto de data da planilha em data. Textos vazios, \"00/00/0000\", \"REF\", \"null\" e \"não aplica\" viram vazio.",
+      "regras": [
+        "Tenta primeiro a conversão padrão do banco e só depois `DD/MM/YYYY`. {{nc}} Se o banco interpretar datas como mês/dia, 01/02/2026 seria lido como 2 de janeiro. Conferir com `show datestyle`."
+      ]
+    },
+    "eh_nao_aplica": {
+      "tipo": "Importação da planilha",
+      "resumo": "Diz se um texto indica que o item não se aplica (qualquer texto que contenha \"aplica\").",
+      "regras": [
+        "Como basta conter \"aplica\", textos como \"Aplicado\" também seriam tratados como não aplica. {{nc}}"
+      ]
+    },
+    "decode_html": {
+      "tipo": "Importação da planilha",
+      "resumo": "Troca códigos HTML (&amp;, &quot;, &lt;, &gt;, &apos;, &#39;) pelos caracteres normais.",
+      "regras": [
+        "Nenhum código das funções analisadas a chama. {{nc}} Uso não identificado."
+      ]
+    },
+    "f_unaccent": {
+      "tipo": "Apoio",
+      "resumo": "Versão fixa da função que remove acentos, usada em índices.",
+      "regras": []
+    },
+    "set_atualizado_em": {
+      "tipo": "Gatilho",
+      "resumo": "Preenche `atualizado_em` com a hora atual. Usada nas tabelas orcamentos e ordens_servico.",
+      "regras": []
+    },
+    "tg_set_updated_at": {
+      "tipo": "Gatilho",
+      "resumo": "Preenche `updated_at` com a hora atual. Usada na tabela legada geradores.",
+      "regras": []
+    },
+    "tg_touch_atualizado_em": {
+      "tipo": "Gatilho",
+      "resumo": "Preenche `atualizado_em` com a hora atual. Usada em preditivas_atg e oxicatalisador_atg.",
+      "regras": []
+    }
+  }
+}

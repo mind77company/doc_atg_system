@@ -1,0 +1,383 @@
+{
+  "meta": {
+    "gerado_em": "2026-11-12",
+    "commit": "8db54a9",
+    "alteracoes_nao_commitadas": true,
+    "arquivos_analisados": 46
+  },
+  "tabelas": {
+    "Produtos": [
+      {
+        "arquivo": "src/components/Products/ProductList.tsx",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "Serviços": [
+      {
+        "arquivo": "src/components/Services/ServiceList.tsx",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "geradores": [
+      {
+        "arquivo": "src/pages/Geradores.tsx",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "geradores_atg": [
+      {
+        "arquivo": "src/components/Clientes/FichaTab.tsx",
+        "leitura": true,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/components/Clientes/GeradorModal.tsx",
+        "leitura": false,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/components/Clientes/VincularOsWizard.tsx",
+        "leitura": true,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/pages/Clientes.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/pages/RelatorioGerador.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ],
+    "log_edicoes": [
+      {
+        "arquivo": "src/pages/Historico.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/utils/logEdicoes.ts",
+        "leitura": false,
+        "escrita": true
+      }
+    ],
+    "omie": [
+      {
+        "arquivo": "src/components/Geradores/OmieSearchModal.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ],
+    "omie_clientes": [
+      {
+        "arquivo": "src/components/Clientes/CorrigirIclassWizard.tsx",
+        "leitura": false,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/components/Clientes/CriarClienteWizard.tsx",
+        "leitura": true,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/components/Usuarios/VendedoresSection.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/pages/Clientes.tsx",
+        "leitura": true,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/pages/RelatorioGerador.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ],
+    "orcamentos": [
+      {
+        "arquivo": "src/pages/Orcamentos.tsx",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "ordens_servico": [
+      {
+        "arquivo": "src/pages/Dashboard.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/pages/OrdensServico.tsx",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "oxicatalisador_atg": [
+      {
+        "arquivo": "src/components/Clientes/PreditivaTab.tsx",
+        "leitura": false,
+        "escrita": true
+      }
+    ],
+    "preditiva_itens": [
+      {
+        "arquivo": "src/components/Clientes/PreditivaTab.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ],
+    "preditivas_atg": [
+      {
+        "arquivo": "src/components/Clientes/PreditivaTab.tsx",
+        "leitura": false,
+        "escrita": true
+      }
+    ],
+    "vendedores": [
+      {
+        "arquivo": "src/components/Usuarios/VendedoresSection.tsx",
+        "leitura": true,
+        "escrita": true
+      },
+      {
+        "arquivo": "src/pages/Clientes.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/pages/RelatorioGerador.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "src/pages/Usuarios.tsx",
+        "leitura": true,
+        "escrita": false
+      },
+      {
+        "arquivo": "supabase/functions/manage-users/index.ts",
+        "leitura": true,
+        "escrita": true
+      }
+    ],
+    "vw_cliente_card": [
+      {
+        "arquivo": "src/pages/Clientes.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ],
+    "vw_preditivas": [
+      {
+        "arquivo": "src/components/Clientes/PreditivaTab.tsx",
+        "leitura": true,
+        "escrita": false
+      }
+    ]
+  },
+  "rpcs": {
+    "criar_gerador": [
+      "src/utils/atgBackend.ts"
+    ],
+    "salvar_preditiva": [
+      "src/utils/atgBackend.ts"
+    ],
+    "validar_cadastro": [
+      "src/utils/atgBackend.ts"
+    ]
+  },
+  "webhooks_chamados_pelo_front": {
+    "atualiza-produto": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/webhooks.ts"
+      ]
+    },
+    "atualiza-serv": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/webhooks.ts"
+      ]
+    },
+    "buscar-ativo": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/atgBackend.ts"
+      ]
+    },
+    "buscar-cliente-iclass": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/atgBackend.ts"
+      ]
+    },
+    "buscar-os": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/atgBackend.ts"
+      ]
+    },
+    "criar-cliente": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/atgBackend.ts"
+      ]
+    },
+    "edge:manage-users": {
+      "host": "supabase (edge function)",
+      "arquivos": [
+        "src/pages/Usuarios.tsx",
+        "supabase/functions/manage-users/index.ts"
+      ]
+    },
+    "gerador-por-os": {
+      "host": "main-n8n.1smjgn.easypanel.host",
+      "arquivos": [
+        "src/utils/atgBackend.ts"
+      ]
+    }
+  },
+  "variaveis_ambiente": {
+    "SUPABASE_ANON_KEY": {
+      "origem": "servidor",
+      "arquivos": [
+        "supabase/functions/manage-users/index.ts"
+      ]
+    },
+    "SUPABASE_SERVICE_ROLE_KEY": {
+      "origem": "servidor",
+      "arquivos": [
+        "supabase/functions/manage-users/index.ts"
+      ]
+    },
+    "SUPABASE_URL": {
+      "origem": "servidor",
+      "arquivos": [
+        "supabase/functions/manage-users/index.ts"
+      ]
+    },
+    "VITE_SUPABASE_ANON_KEY": {
+      "origem": "front",
+      "arquivos": [
+        "src/utils/supabase.ts"
+      ]
+    },
+    "VITE_SUPABASE_URL": {
+      "origem": "front",
+      "arquivos": [
+        "src/utils/supabase.ts"
+      ]
+    }
+  },
+  "rotas": [
+    "clientes",
+    "configuracoes",
+    "geradores",
+    "historico",
+    "login",
+    "orcamentos",
+    "ordens-servico",
+    "produtos",
+    "relatorio",
+    "servicos",
+    "usuarios"
+  ],
+  "dependencias": {
+    "dependencies": [
+      "@google/genai",
+      "@supabase/supabase-js",
+      "@tailwindcss/vite",
+      "@tanstack/react-table",
+      "@vitejs/plugin-react",
+      "dotenv",
+      "express",
+      "lucide-react",
+      "motion",
+      "react",
+      "react-dom",
+      "react-hook-form",
+      "recharts",
+      "sonner",
+      "vite",
+      "xlsx",
+      "zod"
+    ],
+    "devDependencies": [
+      "@types/express",
+      "@types/node",
+      "autoprefixer",
+      "esbuild",
+      "tailwindcss",
+      "tsx",
+      "typescript",
+      "vite"
+    ]
+  },
+  "arquivos": [
+    "src/App.tsx",
+    "src/components/Clientes/AdicionarGeradorPorOsWizard.tsx",
+    "src/components/Clientes/AdicionarGeradorWizard.tsx",
+    "src/components/Clientes/CorrigirIclassWizard.tsx",
+    "src/components/Clientes/CriarClienteWizard.tsx",
+    "src/components/Clientes/FichaTab.tsx",
+    "src/components/Clientes/GeradorModal.tsx",
+    "src/components/Clientes/PreditivaTab.tsx",
+    "src/components/Clientes/VincularOsWizard.tsx",
+    "src/components/Geradores/OmieSearchModal.tsx",
+    "src/components/Products/ProductList.tsx",
+    "src/components/Services/ServiceList.tsx",
+    "src/components/Usuarios/VendedoresSection.tsx",
+    "src/components/layout/Sidebar.tsx",
+    "src/components/layout/Topbar.tsx",
+    "src/components/ui/EmptyState.tsx",
+    "src/components/ui/FilterBar.tsx",
+    "src/components/ui/Modal.tsx",
+    "src/components/ui/PeriodFilter.tsx",
+    "src/data/mockData.ts",
+    "src/data/productsServicesMock.ts",
+    "src/main.tsx",
+    "src/pages/Clientes.tsx",
+    "src/pages/Configuracoes.tsx",
+    "src/pages/Dashboard.tsx",
+    "src/pages/DefinirSenhaInicial.tsx",
+    "src/pages/Geradores.tsx",
+    "src/pages/Historico.tsx",
+    "src/pages/Login.tsx",
+    "src/pages/Orcamentos.tsx",
+    "src/pages/OrdensServico.tsx",
+    "src/pages/RelatorioGerador.tsx",
+    "src/pages/Usuarios.tsx",
+    "src/types.ts",
+    "src/utils/atgBackend.ts",
+    "src/utils/date.ts",
+    "src/utils/excel.ts",
+    "src/utils/logEdicoes.ts",
+    "src/utils/mensagensErro.ts",
+    "src/utils/navigation.ts",
+    "src/utils/pages.ts",
+    "src/utils/saudeGerador.ts",
+    "src/utils/supabase.ts",
+    "src/utils/webhooks.ts",
+    "src/vite-env.d.ts",
+    "supabase/functions/manage-users/index.ts"
+  ],
+  "edge_functions": {
+    "manage-users": {
+      "arquivo": "supabase/functions/manage-users/index.ts",
+      "acoes": [
+        "list",
+        "invite",
+        "updateProfile",
+        "setPassword",
+        "toggleActive"
+      ]
+    }
+  }
+}

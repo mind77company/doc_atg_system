@@ -1,0 +1,89 @@
+{
+  "secoes": [
+    {
+      "id": "visao-geral", "titulo": "1. Visão geral", "descricao": "O que é a plataforma, quem usa e como as peças se conectam.",
+      "planejadas": [
+        { "slug": "visao-geral", "titulo": "Visão geral e mapa dos módulos" },
+        { "slug": "perfis-e-permissoes", "titulo": "Perfis e permissões" },
+        { "slug": "arquitetura", "titulo": "Arquitetura e tecnologias" },
+        { "slug": "ambientes", "titulo": "Ambientes" }
+      ]
+    },
+    {
+      "id": "modulos", "titulo": "2. Módulos e telas", "descricao": "Cada tela: o que o usuário vê, regras e tabelas usadas.",
+      "planejadas": [
+        { "slug": "login-e-acesso", "titulo": "Login e acesso" },
+        { "slug": "definir-senha", "titulo": "Definir senha (convite e recuperação)" },
+        { "slug": "dashboard", "titulo": "Dashboard" },
+        { "slug": "ordens-de-servico", "titulo": "Ordens de Serviço" },
+        { "slug": "orcamentos", "titulo": "Orçamentos" },
+        { "slug": "clientes-lista", "titulo": "Clientes e Geradores (lista)" },
+        { "slug": "criar-cliente", "titulo": "Novo Cliente (Omie + iClass)" },
+        { "slug": "corrigir-iclass", "titulo": "Corrigir cadastro iClass" },
+        { "slug": "gerador", "titulo": "Gerador (adicionar, por O.S., detalhe)" },
+        { "slug": "ficha-de-levantamento", "titulo": "Ficha de levantamento" },
+        { "slug": "preditiva-e-oxicatalisador", "titulo": "Preditiva e Oxicatalisador" },
+        { "slug": "relatorio-de-saude", "titulo": "Relatório de Saúde do gerador" },
+        { "slug": "historico-e-reverter", "titulo": "Histórico e reverter" },
+        { "slug": "usuarios-e-vendedores", "titulo": "Usuários e Vendedores" },
+        { "slug": "produtos-e-servicos", "titulo": "Produtos e Serviços" },
+        { "slug": "geradores-legado", "titulo": "Geradores (página legada)" },
+        { "slug": "configuracoes", "titulo": "Configurações" }
+      ]
+    },
+    {
+      "id": "fluxos", "titulo": "3. Fluxos e automações", "descricao": "Automações do n8n, função de usuários e fluxo de convite.",
+      "planejadas": [
+        { "slug": "buscar-cliente-iclass", "titulo": "buscar-cliente-iclass" },
+        { "slug": "buscar-ativo", "titulo": "buscar-ativo" },
+        { "slug": "buscar-os", "titulo": "buscar-os" },
+        { "slug": "gerador-por-os", "titulo": "gerador-por-os" },
+        { "slug": "atualiza-produto", "titulo": "atualiza-produto (forçada)" },
+        { "slug": "atualiza-servico", "titulo": "atualiza-servico (forçada)" },
+        { "slug": "preco-produto-mensal", "titulo": "Preço de produtos (mensal)" },
+        { "slug": "preco-servico-mensal", "titulo": "Preço de serviços (mensal)" },
+        { "slug": "receberorc", "titulo": "receberorc (orçamentos)" },
+        { "slug": "manage-users", "titulo": "Função manage-users" },
+        { "slug": "convite-e-senha", "titulo": "Convite e definição de senha" },
+        { "slug": "importacao-preditivas", "titulo": "Importação da planilha de preditivas" }
+      ]
+    },
+    {
+      "id": "banco", "titulo": "4. Banco de dados", "descricao": "Tabelas, campos, relacionamentos, regras e funções.",
+      "planejadas": [
+        { "slug": "historico-de-mudancas", "titulo": "Migrations e histórico de mudanças" },
+        { "slug": "t-ordens-servico", "titulo": "ordens_servico" },
+        { "slug": "t-orcamentos", "titulo": "orcamentos" },
+        { "slug": "t-produtos", "titulo": "Produtos" },
+        { "slug": "t-servicos", "titulo": "Serviços" },
+        { "slug": "t-geradores", "titulo": "geradores (legado)" },
+        { "slug": "t-omie", "titulo": "omie" }
+      ]
+    },
+    {
+      "id": "integracoes", "titulo": "5. Integrações externas", "descricao": "Supabase, n8n, iClass, Omie, Gmail e UazAPI.",
+      "planejadas": [
+        { "slug": "supabase", "titulo": "Supabase" },
+        { "slug": "n8n", "titulo": "n8n" },
+        { "slug": "iclass", "titulo": "iClass" },
+        { "slug": "omie", "titulo": "Omie" },
+        { "slug": "gmail", "titulo": "Gmail" },
+        { "slug": "uazapi", "titulo": "UazAPI (WhatsApp)" }
+      ]
+    },
+    {
+      "id": "operacao", "titulo": "6. Infraestrutura e operação", "descricao": "Onde roda, variáveis de ambiente, versões e solução de problemas.",
+      "planejadas": [
+        { "slug": "infraestrutura", "titulo": "Infraestrutura" },
+        { "slug": "variaveis-ambiente", "titulo": "Variáveis de ambiente" },
+        { "slug": "subir-atualizar-reverter", "titulo": "Subir, atualizar e reverter" },
+        { "slug": "quando-algo-da-errado", "titulo": "Quando algo dá errado" }
+      ]
+    },
+    {
+      "id": "raiz", "titulo": "7. Glossário e perguntas frequentes", "descricao": "Termos explicados e dúvidas comuns.",
+      "planejadas": [ { "slug": "faq", "titulo": "Perguntas frequentes" } ]
+    },
+    { "id": "controle", "titulo": "8. Controle da documentação", "descricao": "Pontos a validar, achados e histórico.", "planejadas": [] }
+  ]
+}

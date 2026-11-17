@@ -1,0 +1,967 @@
+{
+  "_ajuda": "Itens das páginas 'Pontos a validar' (categoria validar) e 'Achados e inconsistências' (categoria achado). severidade: alerta | inconsistencia | morto | duplicado. 'onde' usa tipo:id (tabela:x, funcao:x, fluxo:x, modulo:x, pagina:x). Nunca colocar valores de segredos aqui.",
+  "itens": [
+    {
+      "id": "V-001",
+      "categoria": "validar",
+      "grupo": "Infraestrutura e operação",
+      "titulo": "Onde a plataforma está hospedada",
+      "descricao": "A equipe informou que a produção roda na Vercel em um domínio próprio da ATG. O repositório não tem arquivo de configuração de hospedagem (sem vercel.json, Docker ou CI), então isso é informação da equipe, não verificada no código. Também não está claro como uma nova versão é publicada e revertida.",
+      "fontes": [
+        "package.json"
+      ],
+      "onde": [
+        "pagina:operacao/infraestrutura"
+      ]
+    },
+    {
+      "id": "V-002",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Quem aciona o fluxo receberorc",
+      "descricao": "O fluxo existe no n8n (recebe orçamentos, grava no Omie, envia e-mail e WhatsApp), mas nenhum arquivo de `src/` o chama, e as tabelas de orçamentos e ordens de serviço estão vazias (0 linhas). Pode ainda não estar integrado.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Recebe_Or_amentos_no_OMIE.json",
+        "docs/data/banco.gerado.json"
+      ],
+      "onde": [
+        "pagina:fluxos/receberorc",
+        "tabela:omie_clientes"
+      ]
+    },
+    {
+      "id": "V-003",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Caminho do webhook de serviços diferente entre front e fluxo",
+      "descricao": "O front chama `/webhook/atualiza-serv` (`src/utils/webhooks.ts`), mas a exportação do fluxo usa o caminho `atualiza-servico`. Pode ser divergência real ou exportação desatualizada. Não foi testado, porque a chamada dispara uma atualização de preços.",
+      "fontes": [
+        "src/utils/webhooks.ts",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json"
+      ],
+      "onde": [
+        "pagina:fluxos/atualiza-servico"
+      ]
+    },
+    {
+      "id": "V-004",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Quem carrega a planilha e quem chama processar_preditivas",
+      "descricao": "Nada no repositório carrega a tabela de rascunho nem chama a função de processamento. Não se sabe se um mesmo lote (`import_id`) pode ser reprocessado. Se puder, a função apaga antes as linhas daquele lote, inclusive as editadas à mão.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04)"
+      ],
+      "onde": [
+        "funcao:processar_preditivas",
+        "tabela:preditivas_staging",
+        "tabela:preditivas_atg"
+      ]
+    },
+    {
+      "id": "V-005",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Quem atualiza a view materializada mv_idf_tokens",
+      "descricao": "A comparação de nomes depende dos pesos de `mv_idf_tokens` (808 linhas). A extensão `pg_cron` não está instalada, então não há job agendado dentro do banco. Quem executa o refresh, e quando, não está claro.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q07)"
+      ],
+      "onde": [
+        "funcao:idf"
+      ]
+    },
+    {
+      "id": "V-006",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Interpretação de datas dd/mm na planilha",
+      "descricao": "A função `parse_data_pred` tenta converter o texto direto para data antes de tentar `DD/MM/YYYY`. Se o banco estiver com formato mês/dia (padrão do Supabase, `ISO, MDY`), uma data como 01/02/2026 seria lida como 2 de janeiro. Confirmar o valor de `show datestyle` e uma amostra de datas importadas.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04)"
+      ],
+      "onde": [
+        "funcao:parse_data_pred"
+      ]
+    },
+    {
+      "id": "V-007",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Origem e significado do match_status sem_planilha",
+      "descricao": "O valor `sem_planilha` está em 1.281 linhas de `preditivas_atg` e 183 de `oxicatalisador_atg`, mas nenhum código analisado o grava. O valor `manual` é aceito pela regra do banco e não é usado.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q01, Q11)"
+      ],
+      "onde": [
+        "tabela:preditivas_atg",
+        "tabela:oxicatalisador_atg"
+      ]
+    },
+    {
+      "id": "V-008",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Alcance de eh_nao_aplica",
+      "descricao": "A função considera \"não se aplica\" qualquer texto que contenha \"aplica\". Textos como \"Aplicado\" também entrariam. Conferir se a planilha tem valores assim.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04)"
+      ],
+      "onde": [
+        "funcao:eh_nao_aplica"
+      ]
+    },
+    {
+      "id": "V-009",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Origem do status de conferência e dos campos de ativo em omie_clientes",
+      "descricao": "O código só mostra `status_conferencia` e grava `OK` ao corrigir o vínculo. Os valores `DIVERGENCIA` e `NAO_ENCONTRADO`, e os campos `codigo_iclass_raw`, `conferido_em`, `observacao`, `ativoId`, `numeroSerieAtivo`, `statusativo` e `observacao_ativo`, vêm de um processo que não está no repositório. Confirmar quem os preenche e o que significam.",
+      "fontes": [
+        "src/components/Clientes/CorrigirIclassWizard.tsx",
+        "docs/data/banco.gerado.json"
+      ],
+      "onde": [
+        "tabela:omie_clientes"
+      ]
+    },
+    {
+      "id": "V-010",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Campo inativo em geradores_atg",
+      "descricao": "A coluna existe no banco, não está no tipo `GeradorAtg` e nenhum arquivo de `src/` a usa. Finalidade não identificada.",
+      "fontes": [
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv",
+        "src/types.ts"
+      ],
+      "onde": [
+        "tabela:geradores_atg"
+      ]
+    },
+    {
+      "id": "V-011",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Arquivar gerador não tem tela",
+      "descricao": "As listas filtram `arquivado = false` e a criação grava `false`, mas não há botão que arquive. O histórico tem 1 registro `arquivou`. Confirmar se o arquivamento é feito direto no banco.",
+      "fontes": [
+        "src/pages/Clientes.tsx",
+        "src/components/Clientes/AdicionarGeradorWizard.tsx"
+      ],
+      "onde": [
+        "tabela:geradores_atg",
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "V-012",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Botão de validar cadastro pode não gravar",
+      "descricao": "A função do banco `validar_cadastro` espera o parâmetro `p_valor`, mas o front envia `p_validar`. Pelo comportamento padrão do PostgREST isso resulta em função não encontrada, e o código trata esse erro como backend não pronto, mostrando sucesso simulado. O histórico não tem nenhuma ação `validou` ou `desvalidou`. Deduzido da leitura, não testado.",
+      "fontes": [
+        "src/utils/atgBackend.ts",
+        "docs/scripts/extracao_banco.sql (Q04, Q11)"
+      ],
+      "onde": [
+        "funcao:validar_cadastro",
+        "tabela:omie_clientes",
+        "tabela:geradores_atg"
+      ]
+    },
+    {
+      "id": "V-013",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Regra de vendedor ver só os próprios clientes",
+      "descricao": "A regra é aplicada apenas na tela. O banco não a impõe (RLS desligado em `omie_clientes`), então a restrição vale só enquanto o acesso passa pelo front.",
+      "fontes": [
+        "src/pages/Clientes.tsx",
+        "docs/scripts/extracao_banco.sql (Q06)"
+      ],
+      "onde": [
+        "tabela:omie_clientes",
+        "tabela:vendedores"
+      ]
+    },
+    {
+      "id": "V-014",
+      "categoria": "validar",
+      "grupo": "Histórico",
+      "titulo": "Reversão de ações de preditiva",
+      "descricao": "A entidade `preditiva` (712 registros no histórico) não está no mapa de reversão de `src/utils/logEdicoes.ts`. Confirmar se a tela de Histórico oferece reverter para ela e como.",
+      "fontes": [
+        "src/utils/logEdicoes.ts",
+        "src/pages/Historico.tsx"
+      ],
+      "onde": [
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "V-015",
+      "categoria": "validar",
+      "grupo": "Tabelas de apoio",
+      "titulo": "Finalidade de tabelas sem uso no front",
+      "descricao": "As tabelas `preditivas_conflito`, `oxicatalisador_conflito`, `iclass_clientes` (lida só pela view `vw_conferencia_iclass`), `usuarios iclass` e `vendedores omie` não aparecem em nenhum arquivo de `src/` nem em função do banco analisada. Foram documentadas com o que se sabe, e a finalidade segue a confirmar.",
+      "fontes": [
+        "docs/data/codigo.gerado.json",
+        "docs/data/banco.gerado.json"
+      ],
+      "onde": [
+        "tabela:preditivas_conflito",
+        "tabela:oxicatalisador_conflito",
+        "tabela:iclass_clientes",
+        "tabela:usuarios iclass",
+        "tabela:vendedores omie"
+      ]
+    },
+    {
+      "id": "V-016",
+      "categoria": "validar",
+      "grupo": "Segurança",
+      "titulo": "Rotação da chave service_role",
+      "descricao": "Não há confirmação de que a chave exposta nos exports do n8n (ver achado A-001) foi trocada.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json"
+      ],
+      "onde": []
+    },
+    {
+      "id": "V-017",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Status rate_limit_excedido do criar-cliente",
+      "descricao": "O front trata um status `rate_limit_excedido` na resposta do fluxo criar-cliente, mas o fluxo exportado nunca o devolve: quando o limite do iClass esgota, responde `iclass_pendente` ou `iclass_sem_id`. A ramificação do front parece sem uso para este fluxo. Confirmar se o fluxo mudou depois de o front ser escrito.",
+      "fontes": [
+        "src/components/Clientes/CriarClienteWizard.tsx",
+        "docs/_fontes_privadas/n8n/Cadastrar_cliente_Iclass.json"
+      ],
+      "onde": [
+        "fluxo:criar-cliente"
+      ]
+    },
+    {
+      "id": "V-019",
+      "categoria": "validar",
+      "grupo": "Clientes e conferência",
+      "titulo": "Selo Pendente iClass depois de corrigir o vínculo",
+      "descricao": "A tela Corrigir cadastro iClass grava `iclass_id_encontrado`, `iclass_nome`, `iclass_codigo_encontrado` e `status_conferencia`, mas não altera `iclass_pendente`, e nenhum outro ponto de `src/` o volta para falso. Pela leitura, um cliente criado com pendência e depois corrigido continuaria com o selo. Não testado.",
+      "fontes": [
+        "src/components/Clientes/CorrigirIclassWizard.tsx",
+        "src/components/Clientes/CriarClienteWizard.tsx"
+      ],
+      "onde": [
+        "modulo:corrigir-iclass",
+        "tabela:omie_clientes"
+      ]
+    },
+    {
+      "id": "V-020",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "buscar-ativo ignora o parâmetro por (patrimônio)",
+      "descricao": "A tela envia `por` (`serialNumber` ou `patrimony`) e o valor. O fluxo exportado consulta o iClass sempre com o filtro `serialNumber`, e a palavra `patrimony` não aparece em nenhum nó. Pela leitura, a busca por patrimônio seria feita como busca por série e retornaria não encontrado. Confirmar com o fluxo em produção, que pode ser mais novo que a exportação.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/buscar_ativo.json",
+        "src/utils/atgBackend.ts"
+      ],
+      "onde": [
+        "fluxo:buscar-ativo",
+        "modulo:gerador"
+      ]
+    },
+    {
+      "id": "V-021",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Cliente do ativo e lista de vários ativos não são usados",
+      "descricao": "O fluxo `buscar-ativo` devolve `cliente` e `codigo` (descobertos pelas ordens de serviço), mas o código da plataforma não os lê, então não se confere se o ativo pertence ao cliente que está sendo editado. Além disso, `buscar-ativo` e `gerador-por-os` só consideram o primeiro equipamento e nunca devolvem `multiplos`, então a tela de escolher entre vários ativos não é alcançada por esses fluxos.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/buscar_ativo.json",
+        "src/components/Clientes/AdicionarGeradorWizard.tsx"
+      ],
+      "onde": [
+        "fluxo:buscar-ativo",
+        "fluxo:gerador-por-os",
+        "modulo:gerador"
+      ]
+    },
+    {
+      "id": "V-022",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "gerador-por-os sem tratamento de falha do iClass",
+      "descricao": "O nó que consulta os equipamentos da O.S. no iClass não tem tratamento de falha, ao contrário dos demais fluxos. Se o iClass devolver erro (por exemplo, O.S. inexistente), o fluxo termina sem resposta ao sistema, que mostra falha de comunicação em vez de não encontrado. Compatível com o erro visto em testes com um número de O.S. inexistente.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Adicionar_Gerador___Via_num_O_S.json"
+      ],
+      "onde": [
+        "fluxo:gerador-por-os"
+      ]
+    },
+    {
+      "id": "V-023",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Número de série devolvido com outro nome em gerador-por-os",
+      "descricao": "O fluxo devolve o número de série na chave `numerodeserie`, mas a tela lê `num_serie`. Pela leitura, o campo Número de Série do formulário de adicionar por O.S. ficaria vazio. Não testado.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Adicionar_Gerador___Via_num_O_S.json",
+        "src/utils/atgBackend.ts"
+      ],
+      "onde": [
+        "fluxo:gerador-por-os"
+      ]
+    },
+    {
+      "id": "V-024",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "buscar-os não confere a O.S. com o ativo",
+      "descricao": "A tela envia `ativo_id` e `codigo_os`, mas o fluxo usa só o código da O.S. na chamada ao iClass; o `ativo_id` não aparece em nenhum nó. Pela leitura, a ficha de uma O.S. de outro equipamento seria aceita, e a conferência fica por conta de quem olha a prévia.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/buscar_os.json",
+        "src/components/Clientes/VincularOsWizard.tsx"
+      ],
+      "onde": [
+        "fluxo:buscar-os",
+        "modulo:ficha-de-levantamento"
+      ]
+    },
+    {
+      "id": "V-025",
+      "categoria": "validar",
+      "grupo": "Preditiva",
+      "titulo": "Mais de uma linha de oxicatalisador por gerador",
+      "descricao": "A tabela `oxicatalisador_atg` não tem restrição de uma linha por gerador, e a tela lê com `maybeSingle()` ignorando o erro. Se um gerador tiver duas linhas, a aba e o relatório mostrariam \"Não informado\" sem aviso. Não foi verificado se existem casos assim.",
+      "fontes": [
+        "src/components/Clientes/PreditivaTab.tsx",
+        "src/pages/RelatorioGerador.tsx",
+        "docs/scripts/extracao_banco.sql (Q01)"
+      ],
+      "onde": [
+        "tabela:oxicatalisador_atg",
+        "modulo:preditiva-e-oxicatalisador"
+      ]
+    },
+    {
+      "id": "V-026",
+      "categoria": "validar",
+      "grupo": "Importação de preditivas",
+      "titulo": "Como as linhas revisar e sem_match são resolvidas",
+      "descricao": "Há 1.197 linhas `revisar` e 2.254 `sem_match` em `preditivas_atg` (e 171 e 317 em `oxicatalisador_atg`), sem gerador. Nenhuma tela do código as revisa, e a aba Preditiva só mostra linhas ligadas a um gerador. Confirmar se a revisão é feita fora da plataforma e o que se espera dessas linhas.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04, Q11)",
+        "src/components/Clientes/PreditivaTab.tsx"
+      ],
+      "onde": [
+        "funcao:match_cliente",
+        "tabela:preditivas_atg"
+      ]
+    },
+    {
+      "id": "V-027",
+      "categoria": "validar",
+      "grupo": "Usuários e acesso",
+      "titulo": "Efeito de desativar um usuário numa sessão já aberta, e proteção da função manage-users",
+      "descricao": "Desativar aplica um bloqueio no Supabase Auth. Não foi verificado se uma sessão já aberta continua valendo até o token expirar. Também não há arquivo de configuração das Edge Functions no repositório, então não dá para confirmar se a verificação de token da plataforma está ligada além da conferência feita dentro da função.",
+      "fontes": [
+        "supabase/functions/manage-users/index.ts"
+      ],
+      "onde": [
+        "fluxo:manage-users",
+        "modulo:usuarios-e-vendedores"
+      ]
+    },
+    {
+      "id": "V-028",
+      "categoria": "validar",
+      "grupo": "Usuários e acesso",
+      "titulo": "Configuração de e-mail do convite fora do repositório",
+      "descricao": "O endereço de retorno do link, o modelo do e-mail, o tempo de validade e o servidor de envio ficam no painel do Supabase. A equipe relatou o limite de envio de e-mails e a possibilidade de usar um servidor próprio, sem registro no repositório. A opção Confirm email foi informada como desativada. Confirmar o estado atual.",
+      "fontes": [
+        "src/utils/mensagensErro.ts"
+      ],
+      "onde": [
+        "fluxo:convite-e-senha"
+      ]
+    },
+    {
+      "id": "V-029",
+      "categoria": "validar",
+      "grupo": "Usuários e acesso",
+      "titulo": "Convite, senha e perfil não ficam no Histórico",
+      "descricao": "Só os vínculos entre login e vendedor geram registro. Convidar, mudar perfil ou páginas, definir senha e desativar um login não deixam rastro na tabela de histórico. Confirmar se isso é intencional ou se há registro de auditoria no Supabase.",
+      "fontes": [
+        "src/pages/Usuarios.tsx"
+      ],
+      "onde": [
+        "modulo:usuarios-e-vendedores",
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "V-018",
+      "categoria": "validar",
+      "grupo": "Fluxos e integrações",
+      "titulo": "Proteção do webhook criar-cliente e comportamento do Omie com cadastro repetido",
+      "descricao": "O nó de entrada do webhook não tem autenticação configurada, e não se sabe se há proteção na frente do n8n. Também não foi verificado o que o Omie faz ao receber duas vezes o mesmo código de integração (`ATG_` + CNPJ), situação possível se a primeira resposta se perder por falha de rede.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Cadastrar_cliente_Iclass.json"
+      ],
+      "onde": [
+        "fluxo:criar-cliente"
+      ]
+    },
+    {
+      "id": "A-001",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Chave service_role do Supabase escrita dentro de dois fluxos do n8n",
+      "descricao": "Os fluxos de atualização forçada de preço de produto e de serviço trazem uma chave do tipo `service_role` em texto, no corpo de uma chamada HTTP. Essa chave ignora todas as regras de segurança do banco. O valor não é reproduzido aqui. Recomenda-se mover para uma credencial do n8n e rotacionar a chave.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-002",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Credenciais do Omie escritas dentro dos fluxos do n8n",
+      "descricao": "Seis fluxos informam a chave e o segredo da API do Omie diretamente no corpo das chamadas: criar-cliente, receberorc, atualização forçada e mensal de produtos e de serviços. Os valores não são reproduzidos aqui. Recomenda-se usar credenciais do n8n.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Cadastrar_cliente_Iclass.json",
+        "docs/_fontes_privadas/n8n/Recebe_Or_amentos_no_OMIE.json"
+      ],
+      "onde": [
+        "fluxo:criar-cliente"
+      ]
+    },
+    {
+      "id": "A-003",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Papéis anon e authenticated com todos os privilégios nas tabelas; RLS desligado na maioria",
+      "descricao": "Na consulta de privilégios (Q12), todas as tabelas e views do esquema público dão todos os privilégios aos papéis `anon` e `authenticated`. O RLS está desligado em `omie_clientes`, `geradores_atg`, `vendedores`, `log_edicoes`, `orcamentos`, `ordens_servico`, `Produtos`, `Serviços`, `geradores` e nas tabelas de conflito. Na prática, quem tiver a chave anon (que vai embutida no front) poderia ler e gravar nessas tabelas pela API do Supabase sem passar pela plataforma. Deduzido da configuração, não testado.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q06, Q12)"
+      ],
+      "onde": [
+        "tabela:omie_clientes",
+        "tabela:geradores_atg",
+        "tabela:vendedores",
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "A-004",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Funções do banco executáveis por qualquer um e que não conferem quem chama",
+      "descricao": "Todas as funções do esquema público podem ser executadas por `PUBLIC`, `anon` e `authenticated` (Q13). `criar_gerador`, `salvar_preditiva` e `validar_cadastro` rodam com a permissão do dono (SECURITY DEFINER), não verificam o usuário logado e recebem o nome do usuário (`p_usuario`) como texto livre, que pode ser falsificado no histórico.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04, Q13)"
+      ],
+      "onde": [
+        "funcao:criar_gerador",
+        "funcao:salvar_preditiva",
+        "funcao:validar_cadastro"
+      ]
+    },
+    {
+      "id": "A-005",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Cópia dos clientes no esquema público com os mesmos privilégios",
+      "descricao": "A tabela `omie_clientes_bkp_20261008` (541 linhas) é uma cópia de `omie_clientes` com todos os privilégios para `anon` e `authenticated` e sem RLS. Os dados pessoais dos clientes ficam duplicados e igualmente expostos.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q06, Q08, Q12)"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-006",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Política de RLS sem efeito em log_edicoes",
+      "descricao": "Existe a política `pol_log_auth`, mas o RLS está desligado na tabela, então a política não é aplicada.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q06)"
+      ],
+      "onde": [
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "A-007",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Parâmetro de validar_cadastro diferente entre front e banco",
+      "descricao": "Veja o ponto V-012: o front envia `p_validar` e o banco espera `p_valor`.",
+      "fontes": [
+        "src/utils/atgBackend.ts",
+        "docs/scripts/extracao_banco.sql (Q04)"
+      ],
+      "onde": [
+        "funcao:validar_cadastro"
+      ]
+    },
+    {
+      "id": "A-008",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "salvar_preditiva não consegue apagar uma data",
+      "descricao": "A função usa `coalesce` nas datas. Enviar uma data vazia mantém a data antiga e só marca `sem_data = true`. A tela de Preditiva pode dar a impressão de que a data foi apagada.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04)"
+      ],
+      "onde": [
+        "funcao:salvar_preditiva",
+        "tabela:preditivas_atg"
+      ]
+    },
+    {
+      "id": "A-009",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Dois geradores com o mesmo ativo do iClass são permitidos",
+      "descricao": "Nem a função `criar_gerador` nem o banco impedem dois geradores com o mesmo `ativo_id`.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q01, Q02, Q04)"
+      ],
+      "onde": [
+        "funcao:criar_gerador",
+        "tabela:geradores_atg"
+      ]
+    },
+    {
+      "id": "A-010",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Função busca_cliente_similar referencia uma tabela que não existe",
+      "descricao": "Na análise inicial do banco, o corpo da função `busca_cliente_similar` usava `public.generators`, que não existe mais (a tabela atual é `geradores_atg`; `generators` virou `INATIVO_generators`). A função não é chamada pelo front. O corpo desta função não está nos resultados guardados da extração final.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q04, versão truncada)"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-011",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "duplicado",
+      "titulo": "Índices e restrições repetidos",
+      "descricao": "Em `preditivas_atg`, a restrição `preditivas_atg_gerador_item_unique` e o índice único parcial `uq_pred_gerador_item` protegem o mesmo par (gerador, item). Em `geradores` (legado), `idx_geradores_ativo` e `idx_geradores_ativo_id` indexam a mesma coluna.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q01, Q02)"
+      ],
+      "onde": [
+        "tabela:preditivas_atg"
+      ]
+    },
+    {
+      "id": "A-012",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Views que dependem de tabela marcada como inativa",
+      "descricao": "As views `generators_com_itens_vencidos` (456 linhas) e `proximos_vencimentos` (110 linhas) dependem da tabela `INATIVO_generators`. Nenhum arquivo de `src/` as usa.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q08)",
+        "docs/data/codigo.gerado.json"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-013",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Views sem uso no front",
+      "descricao": "`vw_conferencia_iclass` e `vw_geradores_atg` não são lidas por nenhum arquivo de `src/`. A segunda não exclui geradores arquivados.",
+      "fontes": [
+        "docs/data/codigo.gerado.json",
+        "docs/scripts/extracao_banco.sql (Q03)"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-014",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Dependências e arquivos sem uso no código",
+      "descricao": "`@google/genai`, `express`, `@tanstack/react-table`, `zod`, `react-hook-form` e `dotenv` estão no `package.json` sem import em `src/`. O `.env.example` e o `metadata.json` ainda falam de Gemini e AI Studio, sem uso. `src/data/mockData.ts` não é importado por ninguém.",
+      "fontes": [
+        "package.json",
+        "src/data/mockData.ts"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-015",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Documentos antigos desatualizados",
+      "descricao": "Os arquivos `docs/diagnostico-sistema.md` e vários `.md` da raiz afirmam, por exemplo, que as funções do banco ainda não existem, o que já não vale. Foram tratados só como pistas.",
+      "fontes": [
+        "docs/diagnostico-sistema.md"
+      ],
+      "onde": []
+    },
+    {
+      "id": "A-017",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Exclusão de cliente ignora geradores arquivados no bloqueio, mas os apaga em cascata",
+      "descricao": "A tela bloqueia a exclusão do cliente quando `n_geradores` é maior que zero, mas essa contagem da view `vw_cliente_card` ignora geradores arquivados. A chave estrangeira de `geradores_atg` apaga todos os geradores do cliente junto com ele. Um cliente que só tenha geradores arquivados pode ser excluído, e os geradores arquivados somem. Deduzido da leitura, não testado.",
+      "fontes": [
+        "src/pages/Clientes.tsx",
+        "docs/scripts/extracao_banco.sql (Q01, Q03)"
+      ],
+      "onde": [
+        "modulo:clientes-lista",
+        "tabela:omie_clientes",
+        "tabela:geradores_atg"
+      ]
+    },
+    {
+      "id": "A-018",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Campo Pesquisar da barra superior sem efeito",
+      "descricao": "O campo \"Pesquisar...\" da barra superior guarda o texto digitado em `App.tsx`, mas nenhuma página lê esse valor. Cada tela usa a própria busca.",
+      "fontes": [
+        "src/App.tsx",
+        "src/components/layout/Topbar.tsx"
+      ],
+      "onde": [
+        "modulo:login-e-acesso"
+      ]
+    },
+    {
+      "id": "A-019",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Notificações da barra superior são dados de exemplo fixos",
+      "descricao": "O sino mostra três avisos escritos no código (`mockNotifications`), que não vêm do banco e não mudam. Parecem sobra do modelo inicial do projeto.",
+      "fontes": [
+        "src/components/layout/Topbar.tsx"
+      ],
+      "onde": [
+        "modulo:login-e-acesso"
+      ]
+    },
+    {
+      "id": "A-016",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Nome da plataforma aparece de três formas",
+      "descricao": "\"QUIRON ATG SYSTEM\" no login e no repositório, \"ATG | Sistema de Ordem de Serviços e Orçamentos\" no `metadata.json` e \"ATG Geradores\" no título da página. Esta documentação usa o primeiro como nome e o segundo como subtítulo.",
+      "fontes": [
+        "metadata.json",
+        "index.html"
+      ],
+      "onde": []
+    },
+    {
+      "id": "V-030",
+      "categoria": "validar",
+      "grupo": "Ordens de serviço e orçamentos",
+      "titulo": "Quem alimenta as tabelas de ordens de serviço e orçamentos",
+      "descricao": "As duas tabelas estão vazias (0 linhas) e nenhuma tela as insere. O fluxo receberorc tem o nó que atualizaria o banco desativado. Confirmar se o módulo ainda será integrado e como as linhas devem chegar (fluxo, Omie ou outro).",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q08)",
+        "docs/_fontes_privadas/n8n/Recebe_Or_amentos_no_OMIE.json"
+      ],
+      "onde": [
+        "modulo:ordens-de-servico",
+        "modulo:orcamentos",
+        "fluxo:receberorc"
+      ]
+    },
+    {
+      "id": "V-031",
+      "categoria": "validar",
+      "grupo": "Ordens de serviço e orçamentos",
+      "titulo": "O que deveria acontecer em Enviar para Faturamento",
+      "descricao": "O botão Enviar para Faturamento só marca o orçamento como processado no banco; não chama nenhum fluxo nem envia nada. Confirmar se o envio ao faturamento deveria acionar o Omie ou outro sistema.",
+      "fontes": [
+        "src/pages/Orcamentos.tsx"
+      ],
+      "onde": [
+        "modulo:orcamentos"
+      ]
+    },
+    {
+      "id": "V-032",
+      "categoria": "validar",
+      "grupo": "Ordens de serviço e orçamentos",
+      "titulo": "Origem do cliente_id de O.S. e orçamentos",
+      "descricao": "As colunas cliente_id são UUID, enquanto o cadastro de clientes usa número inteiro. As telas mostram só Cliente mais os 8 primeiros caracteres do UUID. Confirmar qual era o cadastro de clientes previsto e se esse vínculo será feito.",
+      "fontes": [
+        "src/pages/OrdensServico.tsx",
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv"
+      ],
+      "onde": [
+        "tabela:ordens_servico",
+        "tabela:orcamentos"
+      ]
+    },
+    {
+      "id": "A-020",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Filtros de período fixos em junho de 2026",
+      "descricao": "O componente de período usa 30/06/2026 como \"hoje\" e 01 a 30/06/2026 como \"mês\". O Dashboard, Ordens de Serviço e Orçamentos começam e voltam (em Limpar filtros) nesse mês fixo, e não no mês atual. Hoje as três telas mostrariam junho de 2026 por padrão.",
+      "fontes": [
+        "src/components/ui/PeriodFilter.tsx",
+        "src/pages/Dashboard.tsx",
+        "src/pages/OrdensServico.tsx",
+        "src/pages/Orcamentos.tsx"
+      ],
+      "onde": [
+        "modulo:dashboard",
+        "modulo:ordens-de-servico",
+        "modulo:orcamentos"
+      ]
+    },
+    {
+      "id": "A-021",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Fluxo receberorc parece inacabado",
+      "descricao": "Na exportação: o nó que atualiza o banco está desativado; mensagens de WhatsApp e e-mails têm valores provisórios (por exemplo, \"e\" e \"a\"); um nó que consulta O.S. do iClass numa data fixa está solto, sem ligação; e a exportação traz dados de teste fixados (`pinData`, cerca de 9 mil caracteres), que podem conter dados reais de cliente. O conteúdo não foi copiado para esta documentação.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Recebe_Or_amentos_no_OMIE.json"
+      ],
+      "onde": [
+        "fluxo:receberorc"
+      ]
+    },
+    {
+      "id": "A-022",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Vínculo entre O.S. e orçamento nos dois sentidos",
+      "descricao": "Existem duas chaves estrangeiras opostas (ordens_servico.orcamento_id e orcamentos.os_id). As telas atualizam só o lado que está sendo editado, então os dois lados podem divergir (uma O.S. aponta para um orçamento que aponta para outra O.S.).",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q01)",
+        "src/pages/OrdensServico.tsx",
+        "src/pages/Orcamentos.tsx"
+      ],
+      "onde": [
+        "tabela:ordens_servico",
+        "tabela:orcamentos"
+      ]
+    },
+    {
+      "id": "A-023",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Revert pode sobrescrever alterações mais novas",
+      "descricao": "Reverter um registro reaplica o valor de antes daquele log sem conferir se o registro foi alterado de novo depois. Reverter um log antigo desfaz também as mudanças posteriores nos mesmos campos.",
+      "fontes": [
+        "src/utils/logEdicoes.ts"
+      ],
+      "onde": [
+        "modulo:historico-e-reverter",
+        "tabela:log_edicoes"
+      ]
+    },
+    {
+      "id": "V-033",
+      "categoria": "validar",
+      "grupo": "Catálogo e legado",
+      "titulo": "Busca de código Omie pode não retornar nada",
+      "descricao": "A busca \"Buscar Código do Cliente no Omie\" da página legada de Geradores lê a tabela `omie`, que tem RLS ligado e nenhuma política. Pela configuração, usuários logados não enxergam nenhuma linha. Não testado.",
+      "fontes": [
+        "src/components/Geradores/OmieSearchModal.tsx",
+        "docs/scripts/extracao_banco.sql (Q06)"
+      ],
+      "onde": [
+        "tabela:omie",
+        "modulo:geradores-legado"
+      ]
+    },
+    {
+      "id": "V-034",
+      "categoria": "validar",
+      "grupo": "Catálogo e legado",
+      "titulo": "Resposta dos webhooks forçados de preço",
+      "descricao": "Os fluxos de atualização forçada respondem pelo modo \"responder por nó\", mas o fluxo de produtos não tem nó de resposta e o de serviços tem o nó de resposta desativado. A tela espera uma resposta de sucesso e pode mostrar erro mesmo quando a atualização termina bem, ou aguardar até o fim do processamento paginado. Não testado.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json",
+        "src/utils/webhooks.ts"
+      ],
+      "onde": [
+        "fluxo:atualiza-produto",
+        "fluxo:atualiza-servico"
+      ]
+    },
+    {
+      "id": "V-035",
+      "categoria": "validar",
+      "grupo": "Catálogo e legado",
+      "titulo": "Colunas extras e funções de busca de produtos e serviços",
+      "descricao": "As tabelas de produtos e serviços têm colunas que a tela não usa (termos de compatibilidade, nome normalizado, características) e as funções `buscar_produtos` e `buscar_servicos` existem no banco, mas nenhum arquivo de `src/` as chama. Confirmar quem as usa.",
+      "fontes": [
+        "docs/scripts/extracao_banco.sql (Q02, Q13)"
+      ],
+      "onde": [
+        "tabela:Produtos",
+        "tabela:Serviços"
+      ]
+    },
+    {
+      "id": "A-024",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "A atualização vinda do Omie sobrescreve edições feitas na plataforma",
+      "descricao": "A tela de Produtos permite editar nome, valor, categoria e CFOP e inativar produtos. Os fluxos de atualização escrevem por cima: o mensal regrava `nome_produto` e `valor_unitario`; o forçado regrava também `inativo` (falso quando o Omie não marca inativo). Uma edição ou inativação feita na tela pode ser desfeita na próxima sincronização. O mesmo vale para a inativação de serviços.",
+      "fontes": [
+        "src/components/Products/ProductList.tsx",
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_Pre_o_de_Produto.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_Pre_o_de_Produto_Mensal.json"
+      ],
+      "onde": [
+        "modulo:produtos-e-servicos",
+        "tabela:Produtos"
+      ]
+    },
+    {
+      "id": "A-025",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Atualização forçada de serviços não altera o valor mostrado",
+      "descricao": "O fluxo forçado de serviços grava o preço em `preco_unitario`, mas a tela mostra `nValorDesc`, que só o fluxo mensal atualiza. A descrição também recebe textos diferentes nos dois fluxos (completa no mensal, curta no forçado). Deduzido da leitura, não testado.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Atualiza__o_For_ada_de_pre_o_do_Servi_o.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_pre_o_do_Servi_o_Mensal.json",
+        "src/components/Services/ServiceList.tsx"
+      ],
+      "onde": [
+        "fluxo:atualiza-servico",
+        "fluxo:preco-servico-mensal",
+        "tabela:Serviços"
+      ]
+    },
+    {
+      "id": "A-026",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Limites e lacunas dos fluxos mensais de preço",
+      "descricao": "O mensal de produtos consulta 10 páginas fixas de 200 (até 2.000 produtos; hoje há 903) e o de serviços só a primeira página de 100 (hoje há 41). Os dois só atualizam linhas existentes e não criam novas. Os e-mails de aviso têm campos provisórios. Se o catálogo crescer além dos limites, itens ficam sem atualização.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_Pre_o_de_Produto_Mensal.json",
+        "docs/_fontes_privadas/n8n/Atualiza__o_Autom_tica_de_pre_o_do_Servi_o_Mensal.json"
+      ],
+      "onde": [
+        "fluxo:preco-produto-mensal",
+        "fluxo:preco-servico-mensal"
+      ]
+    },
+    {
+      "id": "A-027",
+      "categoria": "achado",
+      "grupo": "Duplicidades e itens sem uso",
+      "severidade": "morto",
+      "titulo": "Catálogo cai para dados de exemplo quando o banco falha",
+      "descricao": "As telas de Produtos e Serviços usam listas de exemplo (`src/data/productsServicesMock.ts`) quando o Supabase não está configurado ou a consulta falha, avisando só por uma mensagem de erro. Em caso de falha, a pessoa pode ver produtos fictícios como se fossem o catálogo.",
+      "fontes": [
+        "src/components/Products/ProductList.tsx",
+        "src/components/Services/ServiceList.tsx",
+        "src/data/productsServicesMock.ts"
+      ],
+      "onde": [
+        "modulo:produtos-e-servicos"
+      ]
+    },
+    {
+      "id": "A-028",
+      "categoria": "achado",
+      "grupo": "Inconsistências entre código e banco",
+      "severidade": "inconsistencia",
+      "titulo": "Tela de Configurações com texto desatualizado",
+      "descricao": "A tela afirma que \"Clientes ainda utiliza dados locais (tabela em preparação)\" e que o controle de acesso é por Administrador e Usuário Comum. Hoje Clientes usa o banco e existem três perfis. O ambiente \"Produção\" está escrito fixo.",
+      "fontes": [
+        "src/pages/Configuracoes.tsx"
+      ],
+      "onde": [
+        "modulo:configuracoes"
+      ]
+    },
+    {
+      "id": "V-036",
+      "categoria": "validar",
+      "grupo": "Infraestrutura e operação",
+      "titulo": "Limite de linhas por consulta do Supabase",
+      "descricao": "As telas leem tabelas inteiras com `select *` e sem paginação no servidor (por exemplo, Produtos com 903 linhas e Geradores legado com 669). O Supabase costuma limitar cada consulta a 1.000 linhas por padrão, configurável no painel. Se algum catálogo passar disso, a lista seria cortada em silêncio. O valor configurado não está no repositório.",
+      "fontes": [
+        "src/components/Products/ProductList.tsx",
+        "src/pages/Geradores.tsx"
+      ],
+      "onde": [
+        "integracao:supabase",
+        "tabela:Produtos"
+      ]
+    },
+    {
+      "id": "V-037",
+      "categoria": "validar",
+      "grupo": "Infraestrutura e operação",
+      "titulo": "Histórico de mudanças do banco sem migrations",
+      "descricao": "Não há pasta de migrations nem scripts SQL no repositório (só os rastros dos commits e tabelas de cópia com data no nome). Confirmar onde as mudanças de estrutura foram registradas e se há um backup do banco.",
+      "fontes": [
+        "docs/_fontes_privadas/schema/schema_banco_atg_completo.csv"
+      ],
+      "onde": [
+        "pagina:banco/historico-de-mudancas"
+      ]
+    },
+    {
+      "id": "A-029",
+      "categoria": "achado",
+      "grupo": "Alertas de segurança",
+      "severidade": "alerta",
+      "titulo": "Webhooks do n8n sem autenticação",
+      "descricao": "Nenhum dos 8 webhooks exportados tem autenticação configurada no nó de entrada, e os endereços estão escritos no código do navegador. Quem os conhecer pode acioná-los: criar clientes no Omie e no iClass, consumir o limite de chamadas ao iClass e disparar atualizações de preço. Não foi verificada proteção na frente do servidor.",
+      "fontes": [
+        "docs/_fontes_privadas/n8n/",
+        "src/utils/atgBackend.ts",
+        "src/utils/webhooks.ts"
+      ],
+      "onde": [
+        "fluxo:criar-cliente"
+      ]
+    }
+  ]
+}

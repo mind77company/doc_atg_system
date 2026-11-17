@@ -1,0 +1,6431 @@
+{
+  "meta": {
+    "gerado_em": "2026-11-12",
+    "commit": "8db54a9",
+    "alteracoes_nao_commitadas": true
+  },
+  "extensoes": [
+    {
+      "nome": "pg_stat_statements",
+      "versao": "1.11"
+    },
+    {
+      "nome": "pg_trgm",
+      "versao": "1.6"
+    },
+    {
+      "nome": "pgcrypto",
+      "versao": "1.3"
+    },
+    {
+      "nome": "plpgsql",
+      "versao": "1.0"
+    },
+    {
+      "nome": "supabase_vault",
+      "versao": "0.3.1"
+    },
+    {
+      "nome": "unaccent",
+      "versao": "1.1"
+    },
+    {
+      "nome": "uuid-ossp",
+      "versao": "1.1"
+    }
+  ],
+  "objetos": {
+    "generators_com_itens_vencidos": {
+      "nome": "generators_com_itens_vencidos",
+      "tipo": "view",
+      "linhas": 456,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "responsavel",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "telefone",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cidade",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "estado",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item_vencido",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "geradores": {
+      "nome": "geradores",
+      "tipo": "tabela",
+      "linhas": 669,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "os_ficha_id",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "ativo_id_iclass",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "equipamento_codigo_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "equipamento_descricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_codigo_id_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_cnpj",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_ano",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_potencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_tensao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_numero_montagem",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "motor_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "motor_modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "motor_numero_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "motor_oleo_baldes",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "alternador_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "alternador_modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "alternador_numero_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "controlador_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "controlador_modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bomba_injetora_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bomba_injetora_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bomba_injetora_modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bomba_injetora_numero",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_quantidade",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_capacidade",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_prim_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_prim_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_prim_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_sec_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_sec_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_combustivel_sec_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_prim_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_prim_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_prim_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_sec_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_sec_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_lubrificante_sec_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_prim_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_prim_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_prim_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_sec_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_sec_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_agua_sec_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_prim_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_prim_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_prim_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_sec_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_sec_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_separador_sec_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_prim_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_prim_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_prim_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_sec_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_sec_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_sec_fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "radiador_medidas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_preenchimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": "'COMPLETO'::text",
+          "chaves": []
+        },
+        {
+          "nome": "pendencias",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "updated_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_oleo_filtros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_bateria",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_mangueira_combustivel",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_limpeza_qta",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_mangueira_pre_aquecimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_limpeza_quimica_radiador",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_limpeza_quimica_tanque_combustivel",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento_oxicatalisador",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "controlador_comando_manual",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "controlador_comando_automatico",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_transferencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_outros_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_outros_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "filtro_ar_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_alimentacao_metros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_alimentacao_polegadas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_retorno_metros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_retorno_polegadas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_descricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_entrada_metros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_entrada_polegadas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_saida_metros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "pre_aquecimento_saida_polegadas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_diario_capacidade",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_diario_orientacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_diario_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_diario_possui_registro",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_diario_tampa_inspecao",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_principal_capacidade",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_principal_orientacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_principal_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanque_principal_possui_registro",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contencao_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contencao_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "instalacao_carenagem",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "instalacao_tipo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "instalacao_sala_silenciada",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_diametro_polegadas",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_comprimento_metros",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_curvas_qtd",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_pecas_90",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_pecas_45",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_isolamento_termico",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "escapamento_saida",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_espaco_instalacao",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "dados_ficha_json",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_contrato_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contrato_id_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "geradores_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "geradores_os_ficha_id_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (os_ficha_id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "geradores_os_ficha_id_key",
+          "definicao": "CREATE UNIQUE INDEX geradores_os_ficha_id_key ON public.geradores USING btree (os_ficha_id)"
+        },
+        {
+          "nome": "geradores_pkey",
+          "definicao": "CREATE UNIQUE INDEX geradores_pkey ON public.geradores USING btree (id)"
+        },
+        {
+          "nome": "idx_geradores_alternador_serie",
+          "definicao": "CREATE INDEX idx_geradores_alternador_serie ON public.geradores USING btree (alternador_numero_serie)"
+        },
+        {
+          "nome": "idx_geradores_ativo",
+          "definicao": "CREATE INDEX idx_geradores_ativo ON public.geradores USING btree (ativo_id_iclass)"
+        },
+        {
+          "nome": "idx_geradores_ativo_id",
+          "definicao": "CREATE INDEX idx_geradores_ativo_id ON public.geradores USING btree (ativo_id_iclass)"
+        },
+        {
+          "nome": "idx_geradores_cnpj",
+          "definicao": "CREATE INDEX idx_geradores_cnpj ON public.geradores USING btree (cliente_cnpj)"
+        },
+        {
+          "nome": "idx_geradores_motor_serie",
+          "definicao": "CREATE INDEX idx_geradores_motor_serie ON public.geradores USING btree (motor_numero_serie)"
+        },
+        {
+          "nome": "idx_geradores_pendentes",
+          "definicao": "CREATE INDEX idx_geradores_pendentes ON public.geradores USING btree (status_preenchimento) WHERE (status_preenchimento = 'PENDENTE_ADM'::text)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "set_updated_at",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.geradores FOR EACH ROW EXECUTE FUNCTION tg_set_updated_at()"
+        }
+      ],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "geradores_atg": {
+      "nome": "geradores_atg",
+      "tipo": "tabela",
+      "linhas": 478,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('geradores_atg_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "omie_cliente_id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_cliente",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_cliente",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_patrimonio",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "descricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativo_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tipo_equipamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "processado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "codigo_os_ficha_levantamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_os_ficha_levantamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_pesquisa_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ficha_levantamento",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_processado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "validado_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ficha_validada_por_humano",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "ficha_validada_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ficha_validada_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "arquivado",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "arquivado_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "arquivado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "geradores_atg_omie_cliente_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (omie_cliente_id) REFERENCES omie_clientes(id) ON DELETE CASCADE"
+        },
+        {
+          "nome": "geradores_atg_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "geradores_atg_pkey",
+          "definicao": "CREATE UNIQUE INDEX geradores_atg_pkey ON public.geradores_atg USING btree (id)"
+        },
+        {
+          "nome": "idx_geradores_checklist_status",
+          "definicao": "CREATE INDEX idx_geradores_checklist_status ON public.geradores_atg USING btree (checklist_status)"
+        },
+        {
+          "nome": "idx_geradores_cliente",
+          "definicao": "CREATE INDEX idx_geradores_cliente ON public.geradores_atg USING btree (omie_cliente_id)"
+        },
+        {
+          "nome": "idx_geradores_ficha_jsonb",
+          "definicao": "CREATE INDEX idx_geradores_ficha_jsonb ON public.geradores_atg USING gin (ficha_levantamento)"
+        },
+        {
+          "nome": "idx_geradores_nf_trgm",
+          "definicao": "CREATE INDEX idx_geradores_nf_trgm ON public.geradores_atg USING gin (norm_nome(nome_fantasia) gin_trgm_ops)"
+        },
+        {
+          "nome": "idx_geradores_num_serie",
+          "definicao": "CREATE INDEX idx_geradores_num_serie ON public.geradores_atg USING btree (num_serie)"
+        },
+        {
+          "nome": "idx_geradores_os_ficha",
+          "definicao": "CREATE INDEX idx_geradores_os_ficha ON public.geradores_atg USING btree (codigo_os_ficha_levantamento)"
+        },
+        {
+          "nome": "idx_geradores_rs_trgm",
+          "definicao": "CREATE INDEX idx_geradores_rs_trgm ON public.geradores_atg USING gin (norm_nome(razao_social) gin_trgm_ops)"
+        },
+        {
+          "nome": "idx_geradores_status",
+          "definicao": "CREATE INDEX idx_geradores_status ON public.geradores_atg USING btree (status_ativo)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "iclass_clientes": {
+      "nome": "iclass_clientes",
+      "tipo": "tabela",
+      "linhas": 1223,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('iclass_clientes_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "iclass_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "iclass_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cpf_cnpj_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "segmentacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "telefone",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "iclass_clientes_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "iclass_clientes_iclass_id_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (iclass_id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "iclass_clientes_iclass_id_key",
+          "definicao": "CREATE UNIQUE INDEX iclass_clientes_iclass_id_key ON public.iclass_clientes USING btree (iclass_id)"
+        },
+        {
+          "nome": "iclass_clientes_pkey",
+          "definicao": "CREATE UNIQUE INDEX iclass_clientes_pkey ON public.iclass_clientes USING btree (id)"
+        },
+        {
+          "nome": "idx_iclass_cnpj",
+          "definicao": "CREATE INDEX idx_iclass_cnpj ON public.iclass_clientes USING btree (cnpj_limpo)"
+        },
+        {
+          "nome": "idx_iclass_codigo",
+          "definicao": "CREATE INDEX idx_iclass_codigo ON public.iclass_clientes USING btree (iclass_codigo)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_ATG BD": {
+      "nome": "INATIVO_ATG BD",
+      "tipo": "tabela",
+      "linhas": 0,
+      "comentario": "Base cliente",
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "ATG BD_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "ATG BD_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"ATG BD_pkey\" ON public.\"INATIVO_ATG BD\" USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_generators": {
+      "nome": "INATIVO_generators",
+      "tipo": "tabela",
+      "linhas": 757,
+      "comentario": "Tabela principal para histórico de saúde de geradores de energia",
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": "gen_random_uuid()",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "updated_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "cliente",
+          "tipo": "character varying",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "responsavel",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "telefone",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "endereco",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bairro",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cidade",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "estado",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_polegadas",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_proximo_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numero_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "CNPJ LIMPO",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "generators_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "generators_cliente_unique",
+          "tipo": "u",
+          "definicao": "UNIQUE (cliente)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "generators_cliente_unique",
+          "definicao": "CREATE UNIQUE INDEX generators_cliente_unique ON public.\"INATIVO_generators\" USING btree (cliente)"
+        },
+        {
+          "nome": "generators_pkey",
+          "definicao": "CREATE UNIQUE INDEX generators_pkey ON public.\"INATIVO_generators\" USING btree (id)"
+        },
+        {
+          "nome": "idx_bateria_vencimento",
+          "definicao": "CREATE INDEX idx_bateria_vencimento ON public.\"INATIVO_generators\" USING btree (bateria_data_vencimento)"
+        },
+        {
+          "nome": "idx_generators_cidade",
+          "definicao": "CREATE INDEX idx_generators_cidade ON public.\"INATIVO_generators\" USING btree (cidade)"
+        },
+        {
+          "nome": "idx_generators_cliente",
+          "definicao": "CREATE INDEX idx_generators_cliente ON public.\"INATIVO_generators\" USING btree (cliente)"
+        },
+        {
+          "nome": "idx_generators_cnpj",
+          "definicao": "CREATE INDEX idx_generators_cnpj ON public.\"INATIVO_generators\" USING btree (cnpj)"
+        },
+        {
+          "nome": "idx_generators_estado",
+          "definicao": "CREATE INDEX idx_generators_estado ON public.\"INATIVO_generators\" USING btree (estado)"
+        },
+        {
+          "nome": "idx_generators_vendedor",
+          "definicao": "CREATE INDEX idx_generators_vendedor ON public.\"INATIVO_generators\" USING btree (vendedor)"
+        },
+        {
+          "nome": "idx_limpeza_qta_vencimento",
+          "definicao": "CREATE INDEX idx_limpeza_qta_vencimento ON public.\"INATIVO_generators\" USING btree (limpeza_qta_data_vencimento)"
+        },
+        {
+          "nome": "idx_limpeza_radiador_vencimento",
+          "definicao": "CREATE INDEX idx_limpeza_radiador_vencimento ON public.\"INATIVO_generators\" USING btree (limpeza_radiador_data_vencimento)"
+        },
+        {
+          "nome": "idx_limpeza_tanque_vencimento",
+          "definicao": "CREATE INDEX idx_limpeza_tanque_vencimento ON public.\"INATIVO_generators\" USING btree (limpeza_tanque_data_vencimento)"
+        },
+        {
+          "nome": "idx_mangueira_combustivel_vencimento",
+          "definicao": "CREATE INDEX idx_mangueira_combustivel_vencimento ON public.\"INATIVO_generators\" USING btree (mangueira_combustivel_data_vencimento)"
+        },
+        {
+          "nome": "idx_mangueira_preaquecimento_vencimento",
+          "definicao": "CREATE INDEX idx_mangueira_preaquecimento_vencimento ON public.\"INATIVO_generators\" USING btree (mangueira_preaquecimento_data_vencimento)"
+        },
+        {
+          "nome": "idx_oleo_vencimento",
+          "definicao": "CREATE INDEX idx_oleo_vencimento ON public.\"INATIVO_generators\" USING btree (oleo_data_vencimento)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "update_generators_updated_at",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER update_generators_updated_at BEFORE UPDATE ON public.\"INATIVO_generators\" FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()"
+        },
+        {
+          "nome": "update_vencido_before_insert_update",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER update_vencido_before_insert_update BEFORE INSERT OR UPDATE ON public.\"INATIVO_generators\" FOR EACH ROW EXECUTE FUNCTION update_vencido_status()"
+        }
+      ],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_generators_backup_10_02_2026": {
+      "nome": "INATIVO_generators_backup_10_02_2026",
+      "tipo": "tabela",
+      "linhas": 741,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "updated_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "responsavel",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "telefone",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "endereco",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bairro",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cidade",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "estado",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bateria_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_combustivel_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_qta_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mangueira_preaquecimento_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_radiador_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_troca",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "limpeza_tanque_vencido",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_polegadas",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_proximo_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxicatalisador_data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_geradores_atg_bkp_20260710": {
+      "nome": "INATIVO_geradores_atg_bkp_20260710",
+      "tipo": "tabela",
+      "linhas": 464,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "omie_cliente_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_cliente",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_cliente",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_patrimonio",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "descricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativo_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tipo_equipamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "processado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_os_ficha_levantamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_os_ficha_levantamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_pesquisa_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ficha_levantamento",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "checklist_processado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_manutencoes-preditivas": {
+      "nome": "INATIVO_manutencoes-preditivas",
+      "tipo": "tabela",
+      "linhas": 8,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "descricao_ofc",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "descrico_tecnico",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "manutencoes-preditivas_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "manutencoes-preditivas_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"manutencoes-preditivas_pkey\" ON public.\"INATIVO_manutencoes-preditivas\" USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "INATIVO_Novo BD ATG": {
+      "nome": "INATIVO_Novo BD ATG",
+      "tipo": "tabela",
+      "linhas": 0,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "CNPJ LIMPO",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numero_serie_gerador",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "Novo BD ATG_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "Novo BD ATG_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"Novo BD ATG_pkey\" ON public.\"INATIVO_Novo BD ATG\" USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "log_edicoes": {
+      "nome": "log_edicoes",
+      "tipo": "tabela",
+      "linhas": 1324,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('log_edicoes_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "entidade",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "entidade_id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "acao",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "usuario",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "detalhe",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "valor_antes",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "valor_depois",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "log_edicoes_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_log_data",
+          "definicao": "CREATE INDEX idx_log_data ON public.log_edicoes USING btree (criado_em)"
+        },
+        {
+          "nome": "idx_log_entidade",
+          "definicao": "CREATE INDEX idx_log_entidade ON public.log_edicoes USING btree (entidade, entidade_id)"
+        },
+        {
+          "nome": "idx_log_usuario",
+          "definicao": "CREATE INDEX idx_log_usuario ON public.log_edicoes USING btree (usuario)"
+        },
+        {
+          "nome": "log_edicoes_pkey",
+          "definicao": "CREATE UNIQUE INDEX log_edicoes_pkey ON public.log_edicoes USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": [
+          {
+            "nome": "pol_log_auth",
+            "comando": "ALL",
+            "papeis": "{authenticated}",
+            "leitura": "true",
+            "escrita": "true"
+          }
+        ]
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "mv_idf_tokens": {
+      "nome": "mv_idf_tokens",
+      "tipo": "view materializada",
+      "linhas": 808,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "token",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": "",
+          "chaves": []
+        },
+        {
+          "nome": "df",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": "",
+          "chaves": []
+        },
+        {
+          "nome": "idf",
+          "tipo": "numeric(8,4)",
+          "obrigatorio": false,
+          "padrao": "",
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [
+        {
+          "nome": "idx_mv_idf_token",
+          "definicao": "CREATE UNIQUE INDEX idx_mv_idf_token ON public.mv_idf_tokens USING btree (token)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {},
+      "definicao_view": null
+    },
+    "omie": {
+      "nome": "omie",
+      "tipo": "tabela",
+      "linhas": 546,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cod_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "omie_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "omie_pkey",
+          "definicao": "CREATE UNIQUE INDEX omie_pkey ON public.omie USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "omie_clientes": {
+      "nome": "omie_clientes",
+      "tipo": "tabela",
+      "linhas": 541,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('omie_clientes_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_encontrado",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_encontrado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_conferencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "conferido_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativoId",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numeroSerieAtivo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "statusativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "validado_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "iclass_nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_pendente",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "vendedor_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "omie_clientes_vendedor_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (vendedor_id) REFERENCES vendedores(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "omie_clientes_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_omie_cnpj",
+          "definicao": "CREATE INDEX idx_omie_cnpj ON public.omie_clientes USING btree (cnpj_limpo)"
+        },
+        {
+          "nome": "omie_clientes_pkey",
+          "definicao": "CREATE UNIQUE INDEX omie_clientes_pkey ON public.omie_clientes USING btree (id)"
+        },
+        {
+          "nome": "omie_clientes_vendedor_id_idx",
+          "definicao": "CREATE INDEX omie_clientes_vendedor_id_idx ON public.omie_clientes USING btree (vendedor_id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "omie_clientes_bkp_20261008": {
+      "nome": "omie_clientes_bkp_20261008",
+      "tipo": "tabela",
+      "linhas": 541,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_encontrado",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_encontrado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_conferencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "conferido_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativoId",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numeroSerieAtivo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "statusativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "validado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_pendente",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "orcamentos": {
+      "nome": "orcamentos",
+      "tipo": "tabela",
+      "linhas": 0,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": "gen_random_uuid()",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "cod_orcamento",
+          "tipo": "character varying",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "cliente_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "processada",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "os_id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "orcamentos_os_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (os_id) REFERENCES ordens_servico(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "orcamentos_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "orcamentos_cod_orcamento_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (cod_orcamento)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_orc_cliente",
+          "definicao": "CREATE INDEX idx_orc_cliente ON public.orcamentos USING btree (cliente_id)"
+        },
+        {
+          "nome": "idx_orc_criado_em",
+          "definicao": "CREATE INDEX idx_orc_criado_em ON public.orcamentos USING btree (criado_em)"
+        },
+        {
+          "nome": "idx_orc_processada",
+          "definicao": "CREATE INDEX idx_orc_processada ON public.orcamentos USING btree (processada)"
+        },
+        {
+          "nome": "orcamentos_cod_orcamento_key",
+          "definicao": "CREATE UNIQUE INDEX orcamentos_cod_orcamento_key ON public.orcamentos USING btree (cod_orcamento)"
+        },
+        {
+          "nome": "orcamentos_pkey",
+          "definicao": "CREATE UNIQUE INDEX orcamentos_pkey ON public.orcamentos USING btree (id)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "trg_orc_atualizado_em",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER trg_orc_atualizado_em BEFORE UPDATE ON public.orcamentos FOR EACH ROW EXECUTE FUNCTION set_atualizado_em()"
+        }
+      ],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "ordens_servico": {
+      "nome": "ordens_servico",
+      "tipo": "tabela",
+      "linhas": 0,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": "gen_random_uuid()",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "cod_os",
+          "tipo": "character varying",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "cliente_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "processada",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "orcamento_id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "tipo_erro",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "fk_os_orcamento",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (orcamento_id) REFERENCES orcamentos(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "ordens_servico_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "ordens_servico_cod_os_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (cod_os)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_os_cliente",
+          "definicao": "CREATE INDEX idx_os_cliente ON public.ordens_servico USING btree (cliente_id)"
+        },
+        {
+          "nome": "idx_os_criado_em",
+          "definicao": "CREATE INDEX idx_os_criado_em ON public.ordens_servico USING btree (criado_em)"
+        },
+        {
+          "nome": "idx_os_processada",
+          "definicao": "CREATE INDEX idx_os_processada ON public.ordens_servico USING btree (processada)"
+        },
+        {
+          "nome": "ordens_servico_cod_os_key",
+          "definicao": "CREATE UNIQUE INDEX ordens_servico_cod_os_key ON public.ordens_servico USING btree (cod_os)"
+        },
+        {
+          "nome": "ordens_servico_pkey",
+          "definicao": "CREATE UNIQUE INDEX ordens_servico_pkey ON public.ordens_servico USING btree (id)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "trg_os_atualizado_em",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER trg_os_atualizado_em BEFORE UPDATE ON public.ordens_servico FOR EACH ROW EXECUTE FUNCTION set_atualizado_em()"
+        }
+      ],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "oxicatalisador_atg": {
+      "nome": "oxicatalisador_atg",
+      "tipo": "tabela",
+      "linhas": 934,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('oxicatalisador_atg_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "cliente_planilha",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_score",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_status",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": "'sem_match'::text",
+          "chaves": []
+        },
+        {
+          "nome": "possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "situacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bitola",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bitola_pendente",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "editado_manual",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "oxicatalisador_atg_gerador_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (gerador_id) REFERENCES geradores_atg(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "oxicatalisador_atg_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "oxicatalisador_atg_import_id_linha_planilha_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (import_id, linha_planilha)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_oxi_gerador",
+          "definicao": "CREATE INDEX idx_oxi_gerador ON public.oxicatalisador_atg USING btree (gerador_id)"
+        },
+        {
+          "nome": "idx_oxi_situacao",
+          "definicao": "CREATE INDEX idx_oxi_situacao ON public.oxicatalisador_atg USING btree (situacao)"
+        },
+        {
+          "nome": "oxicatalisador_atg_import_id_linha_planilha_key",
+          "definicao": "CREATE UNIQUE INDEX oxicatalisador_atg_import_id_linha_planilha_key ON public.oxicatalisador_atg USING btree (import_id, linha_planilha)"
+        },
+        {
+          "nome": "oxicatalisador_atg_pkey",
+          "definicao": "CREATE UNIQUE INDEX oxicatalisador_atg_pkey ON public.oxicatalisador_atg USING btree (id)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "trg_oxi_touch",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER trg_oxi_touch BEFORE UPDATE ON public.oxicatalisador_atg FOR EACH ROW EXECUTE FUNCTION tg_touch_atualizado_em()"
+        }
+      ],
+      "rls": {
+        "ativo": true,
+        "politicas": [
+          {
+            "nome": "pol_oxi_auth",
+            "comando": "ALL",
+            "papeis": "{authenticated}",
+            "leitura": "true",
+            "escrita": "true"
+          }
+        ]
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "oxicatalisador_conflito": {
+      "nome": "oxicatalisador_conflito",
+      "tipo": "tabela",
+      "linhas": 37,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('oxicatalisador_atg_id_seq'::regclass)",
+          "chaves": []
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_planilha",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_score",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_status",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": "'sem_match'::text",
+          "chaves": []
+        },
+        {
+          "nome": "possui",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "situacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bitola",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bitola_pendente",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "editado_manual",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "arquivado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "preditiva_itens": {
+      "nome": "preditiva_itens",
+      "tipo": "tabela",
+      "linhas": 7,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "codigo",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "nome",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "periodicidade_meses",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ordem",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "preditiva_itens_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (codigo)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "preditiva_itens_pkey",
+          "definicao": "CREATE UNIQUE INDEX preditiva_itens_pkey ON public.preditiva_itens USING btree (codigo)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": [
+          {
+            "nome": "pol_itens_auth",
+            "comando": "SELECT",
+            "papeis": "{authenticated}",
+            "leitura": "true",
+            "escrita": null
+          }
+        ]
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "preditivas_atg": {
+      "nome": "preditivas_atg",
+      "tipo": "tabela",
+      "linhas": 6573,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('preditivas_atg_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "numero_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_planilha",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contrato_ativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY",
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "omie_cliente_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_score",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_status",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": "'sem_match'::text",
+          "chaves": []
+        },
+        {
+          "nome": "match_candidatos",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item_codigo",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE",
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "data_realizada",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "sem_data",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "nao_aplica",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "editado_manual",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "origem_planilha",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "preditivas_atg_match_status_check",
+          "tipo": "c",
+          "definicao": "CHECK ((match_status = ANY (ARRAY['auto'::text, 'revisar'::text, 'sem_match'::text, 'manual'::text, 'sem_planilha'::text])))"
+        },
+        {
+          "nome": "preditivas_atg_gerador_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (gerador_id) REFERENCES geradores_atg(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "preditivas_atg_item_codigo_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (item_codigo) REFERENCES preditiva_itens(codigo)"
+        },
+        {
+          "nome": "preditivas_atg_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "preditivas_atg_gerador_item_unique",
+          "tipo": "u",
+          "definicao": "UNIQUE (gerador_id, item_codigo)"
+        },
+        {
+          "nome": "preditivas_atg_import_id_linha_planilha_item_codigo_key",
+          "tipo": "u",
+          "definicao": "UNIQUE (import_id, linha_planilha, item_codigo)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_pred_cliente_trgm",
+          "definicao": "CREATE INDEX idx_pred_cliente_trgm ON public.preditivas_atg USING gin (norm_nome(cliente_planilha) gin_trgm_ops)"
+        },
+        {
+          "nome": "idx_pred_gerador",
+          "definicao": "CREATE INDEX idx_pred_gerador ON public.preditivas_atg USING btree (gerador_id)"
+        },
+        {
+          "nome": "idx_pred_import",
+          "definicao": "CREATE INDEX idx_pred_import ON public.preditivas_atg USING btree (import_id)"
+        },
+        {
+          "nome": "idx_pred_item",
+          "definicao": "CREATE INDEX idx_pred_item ON public.preditivas_atg USING btree (item_codigo)"
+        },
+        {
+          "nome": "idx_pred_matchstatus",
+          "definicao": "CREATE INDEX idx_pred_matchstatus ON public.preditivas_atg USING btree (match_status)"
+        },
+        {
+          "nome": "idx_pred_venc",
+          "definicao": "CREATE INDEX idx_pred_venc ON public.preditivas_atg USING btree (data_vencimento)"
+        },
+        {
+          "nome": "idx_pred_venc_aplica",
+          "definicao": "CREATE INDEX idx_pred_venc_aplica ON public.preditivas_atg USING btree (data_vencimento) WHERE ((nao_aplica = false) AND (sem_data = false))"
+        },
+        {
+          "nome": "preditivas_atg_gerador_item_unique",
+          "definicao": "CREATE UNIQUE INDEX preditivas_atg_gerador_item_unique ON public.preditivas_atg USING btree (gerador_id, item_codigo)"
+        },
+        {
+          "nome": "preditivas_atg_import_id_linha_planilha_item_codigo_key",
+          "definicao": "CREATE UNIQUE INDEX preditivas_atg_import_id_linha_planilha_item_codigo_key ON public.preditivas_atg USING btree (import_id, linha_planilha, item_codigo)"
+        },
+        {
+          "nome": "preditivas_atg_pkey",
+          "definicao": "CREATE UNIQUE INDEX preditivas_atg_pkey ON public.preditivas_atg USING btree (id)"
+        },
+        {
+          "nome": "uq_pred_gerador_item",
+          "definicao": "CREATE UNIQUE INDEX uq_pred_gerador_item ON public.preditivas_atg USING btree (gerador_id, item_codigo) WHERE (gerador_id IS NOT NULL)"
+        }
+      ],
+      "triggers": [
+        {
+          "nome": "trg_pred_touch",
+          "habilitado": "O",
+          "definicao": "CREATE TRIGGER trg_pred_touch BEFORE UPDATE ON public.preditivas_atg FOR EACH ROW EXECUTE FUNCTION tg_touch_atualizado_em()"
+        }
+      ],
+      "rls": {
+        "ativo": true,
+        "politicas": [
+          {
+            "nome": "pol_pred_auth",
+            "comando": "ALL",
+            "papeis": "{authenticated}",
+            "leitura": "true",
+            "escrita": "true"
+          }
+        ]
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "preditivas_conflito": {
+      "nome": "preditivas_conflito",
+      "tipo": "tabela",
+      "linhas": 259,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('preditivas_atg_id_seq'::regclass)",
+          "chaves": []
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numero_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_planilha",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contrato_ativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "omie_cliente_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_score",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_status",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": "'sem_match'::text",
+          "chaves": []
+        },
+        {
+          "nome": "match_candidatos",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item_codigo",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_realizada",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "sem_data",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "nao_aplica",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "editado_manual",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "origem_planilha",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "arquivado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "preditivas_staging": {
+      "nome": "preditivas_staging",
+      "tipo": "tabela",
+      "linhas": 1506,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": "nextval('preditivas_staging_id_seq'::regclass)",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "numero",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oleo_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bat_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bat_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bat_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "bat_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mcomb_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mcomb_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mcomb_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mcomb_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "qta_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mpre_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mpre_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mpre_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "mpre_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "rad_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "rad_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "rad_obs2",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "rad_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "rad_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanq_realizada",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanq_obs",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanq_obs2",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanq_vencimento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tanq_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "oxi_tem",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "oxi_bitola",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "preditivas_staging_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "idx_staging_import",
+          "definicao": "CREATE INDEX idx_staging_import ON public.preditivas_staging USING btree (import_id)"
+        },
+        {
+          "nome": "preditivas_staging_pkey",
+          "definicao": "CREATE UNIQUE INDEX preditivas_staging_pkey ON public.preditivas_staging USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": [
+          {
+            "nome": "pol_stg_auth",
+            "comando": "ALL",
+            "papeis": "{authenticated}",
+            "leitura": "true",
+            "escrita": "true"
+          }
+        ]
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "Produtos": {
+      "nome": "Produtos",
+      "tipo": "tabela",
+      "linhas": 903,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "cod_produto",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "nome_produto",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "valor_unitario",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "categora_item",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "CFOP",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_interno",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "familia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_familia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "unidade",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ncm",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "caracteristicas",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "termos_compatibilidade",
+          "tipo": "ARRAY",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "caract_sync_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_normalizado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "Produtos_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "uq_cod_produto",
+          "tipo": "u",
+          "definicao": "UNIQUE (cod_produto)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "Produtos_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"Produtos_pkey\" ON public.\"Produtos\" USING btree (id)"
+        },
+        {
+          "nome": "idx_produtos_termos",
+          "definicao": "CREATE INDEX idx_produtos_termos ON public.\"Produtos\" USING gin (termos_compatibilidade)"
+        },
+        {
+          "nome": "idx_produtos_trgm",
+          "definicao": "CREATE INDEX idx_produtos_trgm ON public.\"Produtos\" USING gin (nome_normalizado gin_trgm_ops)"
+        },
+        {
+          "nome": "uq_cod_produto",
+          "definicao": "CREATE UNIQUE INDEX uq_cod_produto ON public.\"Produtos\" USING btree (cod_produto)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "proximos_vencimentos": {
+      "nome": "proximos_vencimentos",
+      "tipo": "view",
+      "linhas": 110,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "responsavel",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "telefone",
+          "tipo": "character varying",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_agendamento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "rate_limit_iclass": {
+      "nome": "rate_limit_iclass",
+      "tipo": "tabela",
+      "linhas": 1,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": "1",
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "janela_inicio",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "contagem",
+          "tipo": "integer",
+          "obrigatorio": true,
+          "padrao": "0",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "singleton",
+          "tipo": "c",
+          "definicao": "CHECK ((id = 1))"
+        },
+        {
+          "nome": "rate_limit_iclass_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "rate_limit_iclass_pkey",
+          "definicao": "CREATE UNIQUE INDEX rate_limit_iclass_pkey ON public.rate_limit_iclass USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "Serviços": {
+      "nome": "Serviços",
+      "tipo": "tabela",
+      "linhas": 41,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "created_at",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        },
+        {
+          "nome": "nCodServ",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "UNIQUE"
+          ]
+        },
+        {
+          "nome": "cDescricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nValorDesc",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_interno",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "descricao_completa",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "preco_unitario",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": "0",
+          "chaves": []
+        },
+        {
+          "nome": "codigo_lc116",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "inativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": "false",
+          "chaves": []
+        },
+        {
+          "nome": "sync_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_normalizado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "Serviços_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        },
+        {
+          "nome": "uq_ncodserv",
+          "tipo": "u",
+          "definicao": "UNIQUE (\"nCodServ\")"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "Serviços_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"Serviços_pkey\" ON public.\"Serviços\" USING btree (id)"
+        },
+        {
+          "nome": "idx_servicos_trgm",
+          "definicao": "CREATE INDEX idx_servicos_trgm ON public.\"Serviços\" USING gin (nome_normalizado gin_trgm_ops)"
+        },
+        {
+          "nome": "uq_ncodserv",
+          "definicao": "CREATE UNIQUE INDEX uq_ncodserv ON public.\"Serviços\" USING btree (\"nCodServ\")"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "usuarios iclass": {
+      "nome": "usuarios iclass",
+      "tipo": "tabela",
+      "linhas": 25,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "usuarios iclass_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "usuarios iclass_pkey",
+          "definicao": "CREATE UNIQUE INDEX \"usuarios iclass_pkey\" ON public.\"usuarios iclass\" USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "vendedores": {
+      "nome": "vendedores",
+      "tipo": "tabela",
+      "linhas": 18,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "nome",
+          "tipo": "text",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "email",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "omie_vendedor_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "auth_user_id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": [
+            "FOREIGN KEY"
+          ]
+        },
+        {
+          "nome": "ativo",
+          "tipo": "boolean",
+          "obrigatorio": true,
+          "padrao": "true",
+          "chaves": []
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": true,
+          "padrao": "now()",
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "vendedores_auth_user_id_fkey",
+          "tipo": "f",
+          "definicao": "FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON DELETE SET NULL"
+        },
+        {
+          "nome": "vendedores_pkey1",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "vendedores_auth_user_uk",
+          "definicao": "CREATE UNIQUE INDEX vendedores_auth_user_uk ON public.vendedores USING btree (auth_user_id) WHERE (auth_user_id IS NOT NULL)"
+        },
+        {
+          "nome": "vendedores_email_uk",
+          "definicao": "CREATE UNIQUE INDEX vendedores_email_uk ON public.vendedores USING btree (lower(email)) WHERE (email IS NOT NULL)"
+        },
+        {
+          "nome": "vendedores_pkey1",
+          "definicao": "CREATE UNIQUE INDEX vendedores_pkey1 ON public.vendedores USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": false,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "vendedores omie": {
+      "nome": "vendedores omie",
+      "tipo": "tabela",
+      "linhas": 17,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": true,
+          "padrao": null,
+          "chaves": [
+            "PRIMARY KEY"
+          ]
+        },
+        {
+          "nome": "Celular",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "Email",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "Nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "Telefone",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "Codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ult-cod-cont",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [
+        {
+          "nome": "vendedores_pkey",
+          "tipo": "p",
+          "definicao": "PRIMARY KEY (id)"
+        }
+      ],
+      "indices": [
+        {
+          "nome": "vendedores_pkey",
+          "definicao": "CREATE UNIQUE INDEX vendedores_pkey ON public.\"vendedores omie\" USING btree (id)"
+        }
+      ],
+      "triggers": [],
+      "rls": {
+        "ativo": true,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": null
+    },
+    "vw_cliente_card": {
+      "nome": "vw_cliente_card",
+      "tipo": "view",
+      "linhas": 541,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_raw",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_omie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_encontrado",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_encontrado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_conferencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_validado",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_validado_por",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "n_geradores",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "n_com_ativo",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "n_com_ficha",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "n_validados",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "primeiro_gerador",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "estado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": " WITH ger AS (\n         SELECT g.omie_cliente_id,\n            count(*) AS n_geradores,\n            count(g.ativo_id) AS n_com_ativo,\n            count(g.ficha_levantamento) AS n_com_ficha,\n            count(*) FILTER (WHERE g.validado) AS n_validados,\n            (array_agg(g.nome_fantasia ORDER BY g.id))[1] AS primeiro_gerador\n           FROM geradores_atg g\n          WHERE g.arquivado = false\n          GROUP BY g.omie_cliente_id\n        )\n SELECT o.id,\n    o.razao_social,\n    o.nome_fantasia,\n    o.cnpj_raw,\n    o.cnpj_limpo,\n    o.codigo_omie,\n    o.iclass_id_encontrado,\n    o.iclass_codigo_encontrado,\n    o.status_conferencia,\n    o.validado AS cliente_validado,\n    o.validado_por AS cliente_validado_por,\n    COALESCE(gr.n_geradores, 0::bigint) AS n_geradores,\n    COALESCE(gr.n_com_ativo, 0::bigint) AS n_com_ativo,\n    COALESCE(gr.n_com_ficha, 0::bigint) AS n_com_ficha,\n    COALESCE(gr.n_validados, 0::bigint) AS n_validados,\n    gr.primeiro_gerador,\n        CASE\n            WHEN o.iclass_id_encontrado IS NULL THEN 'SEM_ICLASS'::text\n            WHEN COALESCE(gr.n_geradores, 0::bigint) = 0 THEN 'SEM_GERADOR'::text\n            WHEN gr.n_com_ficha < gr.n_geradores THEN 'SEM_FICHA'::text\n            WHEN o.validado AND gr.n_validados = gr.n_geradores THEN 'VALIDADO'::text\n            ELSE 'COMPLETO'::text\n        END AS estado\n   FROM omie_clientes o\n     LEFT JOIN ger gr ON gr.omie_cliente_id = o.id;"
+    },
+    "vw_conferencia_iclass": {
+      "nome": "vw_conferencia_iclass",
+      "tipo": "view",
+      "linhas": 541,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "id_iclass_encontrado",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "codigo_iclass_encontrado",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_iclass",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_conferencia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": " SELECT o.id,\n    o.nome_fantasia,\n    o.razao_social,\n    o.cnpj_limpo,\n    o.codigo_iclass_raw AS codigo_iclass_planilha,\n    o.iclass_id_encontrado AS id_iclass_encontrado,\n    o.iclass_codigo_encontrado AS codigo_iclass_encontrado,\n    i.nome AS nome_iclass,\n    i.cpf_cnpj_raw AS cnpj_iclass,\n    o.status_conferencia,\n    o.observacao\n   FROM omie_clientes o\n     LEFT JOIN iclass_clientes i ON i.iclass_id = o.iclass_id_encontrado;"
+    },
+    "vw_geradores_atg": {
+      "nome": "vw_geradores_atg",
+      "tipo": "view",
+      "linhas": 478,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "omie_cliente_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cnpj_limpo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_id_cliente",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "iclass_codigo_cliente",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_patrimonio",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "descricao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ativo_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "tipo_equipamento",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao_ativo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "processado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "total_geradores_cliente",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": " SELECT id,\n    omie_cliente_id,\n    nome_fantasia,\n    razao_social,\n    cnpj_limpo,\n    iclass_id_cliente,\n    iclass_codigo_cliente,\n    num_serie,\n    num_patrimonio,\n    descricao,\n    fabricante,\n    modelo,\n    ativo_id,\n    status_ativo,\n    tipo_equipamento,\n    observacao_ativo,\n    processado_em,\n    count(*) OVER (PARTITION BY omie_cliente_id) AS total_geradores_cliente\n   FROM geradores_atg g\n  ORDER BY razao_social, num_serie;"
+    },
+    "vw_preditivas": {
+      "nome": "vw_preditivas",
+      "tipo": "view",
+      "linhas": 6573,
+      "comentario": null,
+      "colunas": [
+        {
+          "nome": "id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "import_id",
+          "tipo": "uuid",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "linha_planilha",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "cliente_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "vendedor",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "contrato_ativo",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "gerador_id",
+          "tipo": "bigint",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nome_fantasia",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "razao_social",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "num_serie",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "modelo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "fabricante",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_score",
+          "tipo": "numeric",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "match_candidatos",
+          "tipo": "jsonb",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item_codigo",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "item_nome",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "periodicidade_meses",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "ordem",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_realizada",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "data_vencimento",
+          "tipo": "date",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "dias_para_vencer",
+          "tipo": "integer",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "status_planilha",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "sem_data",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "nao_aplica",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "observacao",
+          "tipo": "text",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "editado_manual",
+          "tipo": "boolean",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "timestamp with time zone",
+          "obrigatorio": false,
+          "padrao": null,
+          "chaves": []
+        }
+      ],
+      "restricoes": [],
+      "indices": [],
+      "triggers": [],
+      "rls": {
+        "ativo": null,
+        "politicas": []
+      },
+      "grants": {
+        "anon": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE",
+        "authenticated": "DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE"
+      },
+      "definicao_view": " SELECT p.id,\n    p.import_id,\n    p.linha_planilha,\n    p.cliente_planilha,\n    p.vendedor,\n    p.contrato_ativo,\n    p.gerador_id,\n    g.nome_fantasia,\n    g.razao_social,\n    g.num_serie,\n    g.modelo,\n    g.fabricante,\n    p.match_score,\n    p.match_status,\n    p.match_candidatos,\n    p.item_codigo,\n    i.nome AS item_nome,\n    i.periodicidade_meses,\n    i.ordem,\n    p.data_realizada,\n    p.data_vencimento,\n        CASE\n            WHEN p.data_vencimento IS NULL THEN NULL::integer\n            ELSE p.data_vencimento - (now() AT TIME ZONE 'America/Sao_Paulo'::text)::date\n        END AS dias_para_vencer,\n        CASE\n            WHEN p.nao_aplica THEN 'nao_aplica'::text\n            WHEN p.sem_data THEN 'sem_data'::text\n            WHEN p.data_vencimento IS NULL THEN 'sem_data'::text\n            WHEN p.data_vencimento < (now() AT TIME ZONE 'America/Sao_Paulo'::text)::date THEN 'vencido'::text\n            WHEN p.data_vencimento <= ((now() AT TIME ZONE 'America/Sao_Paulo'::text)::date + 30) THEN 'a_vencer'::text\n            ELSE 'ok'::text\n        END AS status,\n    p.status_planilha,\n    p.sem_data,\n    p.nao_aplica,\n    p.observacao,\n    p.editado_manual,\n    p.atualizado_em\n   FROM preditivas_atg p\n     JOIN preditiva_itens i ON i.codigo = p.item_codigo\n     LEFT JOIN geradores_atg g ON g.id = p.gerador_id;"
+    }
+  },
+  "funcoes": {
+    "consumir_rate_limit_iclass": {
+      "nome": "consumir_rate_limit_iclass",
+      "argumentos": "limite integer DEFAULT 25, janela_segundos integer DEFAULT 60",
+      "retorno": "TABLE(permitido boolean, espera_segundos numeric)",
+      "linguagem": "plpgsql",
+      "security_definer": true,
+      "search_path": null,
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.consumir_rate_limit_iclass(limite integer DEFAULT 25, janela_segundos integer DEFAULT 60)\n RETURNS TABLE(permitido boolean, espera_segundos numeric)\n LANGUAGE plpgsql\n SECURITY DEFINER\nAS $function$\ndeclare\n  linha rate_limit_iclass%rowtype;\nbegin\n  select * into linha from rate_limit_iclass where id = 1 for update;\n\n  if now() - linha.janela_inicio >= (janela_segundos || ' seconds')::interval then\n    update rate_limit_iclass set janela_inicio = now(), contagem = 1 where id = 1;\n    return query select true, 0::numeric;\n  elsif linha.contagem < limite then\n    update rate_limit_iclass set contagem = contagem + 1 where id = 1;\n    return query select true, 0::numeric;\n  else\n    return query select false,\n      extract(epoch from (linha.janela_inicio + (janela_segundos || ' seconds')::interval - now()));\n  end if;\nend;\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "criar_gerador": {
+      "nome": "criar_gerador",
+      "argumentos": "p_omie_cliente_id bigint, p_ativo_id bigint, p_dados jsonb, p_usuario text",
+      "retorno": "geradores_atg",
+      "linguagem": "plpgsql",
+      "security_definer": true,
+      "search_path": "'public'",
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.criar_gerador(p_omie_cliente_id bigint, p_ativo_id bigint, p_dados jsonb, p_usuario text)\n RETURNS geradores_atg\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare r public.geradores_atg;\nbegin\n  if p_ativo_id is null then\n    raise exception 'ativo_id obrigatorio: gerador so pode ser criado com ativo do iClass';\n  end if;\n\n  -- herda cnpj/nome do cliente\n  insert into public.geradores_atg (\n    omie_cliente_id, ativo_id,\n    nome_fantasia, razao_social, cnpj_limpo,\n    iclass_id_cliente, iclass_codigo_cliente,\n    num_serie, num_patrimonio, descricao,\n    fabricante, modelo, status_ativo, tipo_equipamento,\n    processado_em, atualizado_em\n  )\n  select\n    o.id, p_ativo_id,\n    o.nome_fantasia, o.razao_social, o.cnpj_limpo,\n    o.iclass_id_encontrado, o.iclass_codigo_encontrado,\n    p_dados->>'num_serie', p_dados->>'num_patrimonio', p_dados->>'descricao',\n    p_dados->>'fabricante', p_dados->>'modelo',\n    coalesce(p_dados->>'status_ativo','ATIVO'), p_dados->>'tipo_equipamento',\n    now(), now()\n  from public.omie_clientes o\n  where o.id = p_omie_cliente_id\n  returning * into r;\n\n  if not found then\n    raise exception 'cliente % nao encontrado', p_omie_cliente_id;\n  end if;\n\n  insert into public.log_edicoes (entidade, entidade_id, acao, usuario, detalhe)\n  values ('gerador', r.id, 'criou_gerador', p_usuario,\n          jsonb_build_object('ativo_id', p_ativo_id, 'omie_cliente_id', p_omie_cliente_id));\n\n  return r;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "salvar_preditiva": {
+      "nome": "salvar_preditiva",
+      "argumentos": "p_id bigint, p_campos jsonb, p_usuario text",
+      "retorno": "preditivas_atg",
+      "linguagem": "plpgsql",
+      "security_definer": true,
+      "search_path": "'public'",
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.salvar_preditiva(p_id bigint, p_campos jsonb, p_usuario text)\n RETURNS preditivas_atg\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare r public.preditivas_atg;\nbegin\n  update public.preditivas_atg set\n    data_realizada  = coalesce((p_campos->>'data_realizada')::date,  data_realizada),\n    data_vencimento = coalesce((p_campos->>'data_vencimento')::date, data_vencimento),\n    observacao      = coalesce( p_campos->>'observacao',             observacao),\n    nao_aplica      = coalesce((p_campos->>'nao_aplica')::boolean,   nao_aplica),\n    sem_data        = case\n                        when p_campos ? 'data_vencimento'\n                        then (p_campos->>'data_vencimento') is null\n                        else sem_data end,\n    editado_manual  = true,\n    atualizado_em   = now()\n  where id = p_id\n  returning * into r;\n\n  if not found then\n    raise exception 'preditiva % nao encontrada', p_id;\n  end if;\n\n  insert into public.log_edicoes (entidade, entidade_id, acao, usuario, detalhe)\n  values ('preditiva', p_id, 'editou', p_usuario, p_campos);\n\n  return r;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "validar_cadastro": {
+      "nome": "validar_cadastro",
+      "argumentos": "p_entidade text, p_id bigint, p_usuario text, p_valor boolean DEFAULT true",
+      "retorno": "void",
+      "linguagem": "plpgsql",
+      "security_definer": true,
+      "search_path": "'public'",
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.validar_cadastro(p_entidade text, p_id bigint, p_usuario text, p_valor boolean DEFAULT true)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nbegin\n  if p_entidade = 'cliente' then\n    update public.omie_clientes\n      set validado = p_valor,\n          validado_por = case when p_valor then p_usuario else null end,\n          validado_em  = case when p_valor then now() else null end\n    where id = p_id;\n  elsif p_entidade = 'gerador' then\n    update public.geradores_atg\n      set validado = p_valor,\n          validado_por = case when p_valor then p_usuario else null end,\n          validado_em  = case when p_valor then now() else null end\n    where id = p_id;\n  else\n    raise exception 'entidade invalida: % (use cliente ou gerador)', p_entidade;\n  end if;\n\n  if not found then\n    raise exception '% % nao encontrado', p_entidade, p_id;\n  end if;\n\n  insert into public.log_edicoes (entidade, entidade_id, acao, usuario)\n  values (p_entidade, p_id, case when p_valor then 'validou' else 'desvalidou' end, p_usuario);\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "decode_html": {
+      "nome": "decode_html",
+      "argumentos": "txt text",
+      "retorno": "text",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.decode_html(txt text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case when txt is null then null else\n    replace(replace(replace(replace(replace(replace(\n      txt,\n      '&amp;',  '&'),\n      '&apos;', ''''),\n      '&quot;', '\"'),\n      '&#39;',  ''''),\n      '&lt;',   '<'),\n      '&gt;',   '>')\n  end\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "eh_nao_aplica": {
+      "nome": "eh_nao_aplica",
+      "argumentos": "txt text",
+      "retorno": "boolean",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.eh_nao_aplica(txt text)\n RETURNS boolean\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select coalesce(trim(txt), '') ilike '%aplica%'\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "f_unaccent": {
+      "nome": "f_unaccent",
+      "argumentos": "text",
+      "retorno": "text",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.f_unaccent(text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$ select public.unaccent('public.unaccent', $1) $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "idf": {
+      "nome": "idf",
+      "argumentos": "tok text",
+      "retorno": "numeric",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "STABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.idf(tok text)\n RETURNS numeric\n LANGUAGE sql\n STABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\n  select coalesce((select m.idf from public.mv_idf_tokens m where m.token = tok), 6.5::numeric)\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "match_cliente": {
+      "nome": "match_cliente",
+      "argumentos": "p_cliente text",
+      "retorno": "TABLE(gerador_id bigint, omie_cliente_id bigint, cnpj_limpo text, score numeric, match_status text, candidatos jsonb)",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "STABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.match_cliente(p_cliente text)\n RETURNS TABLE(gerador_id bigint, omie_cliente_id bigint, cnpj_limpo text, score numeric, match_status text, candidatos jsonb)\n LANGUAGE plpgsql\n STABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\ndeclare\n  v_norm   text   := public.norm_nome(p_cliente);\n  v_sufixo text   := public.sufixo_gerador(p_cliente);\n  v_tp     text[] := public.tokens_nome(p_cliente);\nbegin\n  return query\n  with cand as (\n    -- pre-filtro barato para nao rodar score_nomes contra os 458.\n    -- trigram com threshold folgado (0.15) + rede de seguranca por token:\n    -- nomes curtos no banco ('AFAM') nao passam no trigram contra uma\n    -- planilha verbosa, mas compartilham token.\n    select g.id, g.omie_cliente_id, g.cnpj_limpo,\n           g.nome_fantasia, g.razao_social,\n           greatest(\n             public.score_nomes(p_cliente, g.nome_fantasia),\n             public.score_nomes(p_cliente, g.razao_social)\n           ) as sc\n    from public.geradores_atg g\n    where similarity(public.norm_nome(g.nome_fantasia), v_norm) > 0.15\n       or similarity(public.norm_nome(g.razao_social),  v_norm) > 0.15\n       or public.tokens_nome(g.nome_fantasia) && v_tp\n  ),\n  top3 as (\n    select * from cand order by sc desc, id asc limit 3\n  ),\n  best as (\n    select t.*,\n           (select count(*) from public.geradores_atg x\n            where x.cnpj_limpo = t.cnpj_limpo) as n_ger\n    from top3 t order by t.sc desc, t.id asc limit 1\n  ),\n  decidido as (\n    select b.*,\n      case\n        when b.sc < 0.75            then 'sem_match'\n        when v_sufixo is not null   then 'revisar'   -- G1/G2: banco nao distingue\n        when b.sc >= 0.90 and b.n_ger = 1 then 'auto'\n        else 'revisar'\n      end as st\n    from best b\n  ),\n  cands_json as (\n    select coalesce(jsonb_agg(jsonb_build_object(\n             'gerador_id',       t.id,\n             'nome_fantasia',    t.nome_fantasia,\n             'razao_social',     t.razao_social,\n             'cnpj',             t.cnpj_limpo,\n             'score',            t.sc,\n             'n_geradores_cnpj', (select count(*) from public.geradores_atg x\n                                  where x.cnpj_limpo = t.cnpj_limpo))\n             order by t.sc desc), '[]'::jsonb) as js\n    from top3 t\n  )\n  select\n    case when d.st = 'auto' then d.id              else null::bigint end,\n    case when d.st = 'auto' then d.omie_cliente_id else null::bigint end,\n    case when d.st = 'sem_match' then null::text   else d.cnpj_limpo end,\n    d.sc,\n    d.st,\n    c.js\n  from decidido d cross join cands_json c;\n\n  -- nenhum candidato passou nem no pre-filtro\n  if not found then\n    return query select null::bigint, null::bigint, null::text,\n                        0::numeric, 'sem_match'::text, '[]'::jsonb;\n  end if;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "norm_nome": {
+      "nome": "norm_nome",
+      "argumentos": "txt text",
+      "retorno": "text",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.norm_nome(txt text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\n  select\n    trim(regexp_replace(\n      regexp_replace(\n        regexp_replace(\n          upper(unaccent(coalesce(txt, ''))),\n          '\\s+(LTDA|ME|EPP|EIRELI|S/?A|SA|S\\.A\\.|CIA)\\.?\\s*$', '', 'g'\n        ),\n        '[^A-Z0-9 ]', ' ', 'g'\n      ),\n      '\\s+', ' ', 'g'\n    ))\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "parse_data_pred": {
+      "nome": "parse_data_pred",
+      "argumentos": "txt text",
+      "retorno": "date",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.parse_data_pred(txt text)\n RETURNS date\n LANGUAGE plpgsql\n IMMUTABLE\nAS $function$\ndeclare t text := trim(coalesce(txt, ''));\nbegin\n  if t = '' or t ilike '00/00/0000' or t ilike '%aplica%'\n     or t ilike '%REF%' or t ilike 'null' then\n    return null;\n  end if;\n  begin return t::date;                 exception when others then null; end;\n  begin return to_date(t,'DD/MM/YYYY'); exception when others then null; end;\n  begin return to_date(t,'YYYY-MM-DD'); exception when others then null; end;\n  return null;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "peso_tokens": {
+      "nome": "peso_tokens",
+      "argumentos": "tk text[]",
+      "retorno": "numeric",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "STABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.peso_tokens(tk text[])\n RETURNS numeric\n LANGUAGE sql\n STABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\n  select coalesce(sum(public.idf(t)), 0)::numeric from unnest(tk) as t\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "processar_preditivas": {
+      "nome": "processar_preditivas",
+      "argumentos": "p_import_id uuid",
+      "retorno": "TABLE(linhas integer, auto integer, revisar integer, sem_match integer)",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.processar_preditivas(p_import_id uuid)\n RETURNS TABLE(linhas integer, auto integer, revisar integer, sem_match integer)\n LANGUAGE plpgsql\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\nbegin\n  delete from public.preditivas_atg     where import_id = p_import_id;\n  delete from public.oxicatalisador_atg where import_id = p_import_id;\n\n  -- match calculado 1x por cliente distinto, reaproveitado nos dois inserts\n  create temp table _mt on commit drop as\n  select s.cliente, m.*\n  from (select distinct cliente from public.preditivas_staging\n        where import_id = p_import_id and cliente is not null) s\n  cross join lateral public.match_cliente(s.cliente) m;\n\n  -- ---------------- PREDITIVAS (7 itens, sem oxicatalisador) ----------\n  with unpiv as (\n    select s.*, v.item_codigo, v.dt_real, v.dt_venc, v.obs, v.st\n    from public.preditivas_staging s\n    cross join lateral (values\n      ('oleo_filtros',        s.oleo_realizada,  s.oleo_vencimento,  s.oleo_obs,  s.oleo_status),\n      ('bateria',             s.bat_realizada,   s.bat_vencimento,   s.bat_obs,   s.bat_status),\n      ('mang_combustivel',    s.mcomb_realizada, s.mcomb_vencimento, s.mcomb_obs, s.mcomb_status),\n      ('limpeza_qta',         s.qta_realizada,   s.qta_vencimento,   s.qta_obs,   s.qta_status),\n      ('mang_preaquecimento', s.mpre_realizada,  s.mpre_vencimento,  s.mpre_obs,  s.mpre_status),\n      ('limpeza_radiador',    s.rad_realizada,   s.rad_vencimento,\n         nullif(concat_ws(' | ', nullif(s.rad_obs,''),  nullif(s.rad_obs2,'')),  ''), s.rad_status),\n      ('limpeza_tanque',      s.tanq_realizada,  s.tanq_vencimento,\n         nullif(concat_ws(' | ', nullif(s.tanq_obs,''), nullif(s.tanq_obs2,'')), ''), s.tanq_status)\n    ) as v(item_codigo, dt_real, dt_venc, obs, st)\n    where s.import_id = p_import_id\n  ),\n  parsed as (\n    select\n      u.import_id, u.linha_planilha, u.numero, u.cliente, u.vendedor,\n      (trim(coalesce(u.ativo,'')) ilike 'sim%') as contrato_ativo,\n      u.item_codigo,\n      public.parse_data_pred(u.dt_real) as d_real,\n      public.parse_data_pred(u.dt_venc) as d_venc,\n      nullif(trim(coalesce(u.obs,'')), '') as observacao,\n      nullif(trim(coalesce(u.st,'')),  '') as status_planilha,\n      (public.eh_nao_aplica(u.dt_real) or public.eh_nao_aplica(u.dt_venc)\n       or public.eh_nao_aplica(u.st))      as nao_aplica,\n      i.periodicidade_meses,\n      to_jsonb(u) - 'import_id'            as origem\n    from unpiv u\n    join public.preditiva_itens i on i.codigo = u.item_codigo\n  ),\n  calc as (\n    select p.*,\n      coalesce(p.d_venc, case when p.d_real is not null and p.periodicidade_meses is not null\n        then (p.d_real + (p.periodicidade_meses || ' months')::interval)::date end) as venc_final,\n      coalesce(p.d_real, case when p.d_venc is not null and p.periodicidade_meses is not null\n        then (p.d_venc - (p.periodicidade_meses || ' months')::interval)::date end) as real_final\n    from parsed p\n  )\n  insert into public.preditivas_atg (\n    import_id, linha_planilha, numero_planilha, cliente_planilha, vendedor,\n    contrato_ativo, gerador_id, omie_cliente_id, cnpj_limpo,\n    match_score, match_status, match_candidatos,\n    item_codigo, data_realizada, data_vencimento,\n    sem_data, nao_aplica, observacao, status_planilha, origem_planilha\n  )\n  select\n    c.import_id, c.linha_planilha, c.numero, c.cliente, c.vendedor,\n    c.contrato_ativo,\n    mt.gerador_id, mt.omie_cliente_id, mt.cnpj_limpo,\n    mt.score, mt.match_status, mt.candidatos,\n    c.item_codigo,\n    case when c.nao_aplica then null else c.real_final end,\n    case when c.nao_aplica then null else c.venc_final end,\n    (not c.nao_aplica and c.venc_final is null),\n    c.nao_aplica,\n    c.observacao, c.status_planilha, c.origem\n  from calc c\n  join _mt mt on mt.cliente = c.cliente;\n\n  -- ---------------- OXICATALISADOR (cadastro) -------------------------\n  insert into public.oxicatalisador_atg (\n    import_id, linha_planilha, cliente_planilha,\n    gerador_id, cnpj_limpo, match_score, match_status,\n    possui, situacao, bitola, bitola_pendente\n  )\n  select\n    s.import_id, s.linha_planilha, s.cliente,\n    mt.gerador_id, mt.cnpj_limpo, mt.score, mt.match_status,\n    case\n      when trim(coalesce(s.oxi_tem,'')) ilike 'sim%' then true\n      when trim(coalesce(s.oxi_tem,'')) ilike 'n_o%' then false\n      else null\n    end,\n    case\n      when trim(coalesce(s.oxi_tem,'')) ilike 'sim%'      then 'sim'\n      when trim(coalesce(s.oxi_tem,'')) ilike 'n_o%'      then 'nao'\n      when trim(coalesce(s.oxi_tem,'')) ilike 'pend%'     then 'pendencia'\n      when trim(coalesce(s.oxi_tem,'')) ilike 'sem info%' then 'sem_informacao'\n      else 'sem_informacao'\n    end,\n    nullif(case when trim(coalesce(s.oxi_bitola,'')) ilike 'pend%'\n                then null else trim(s.oxi_bitola) end, ''),\n    (trim(coalesce(s.oxi_bitola,'')) ilike 'pend%')\n  from public.preditivas_staging s\n  join _mt mt on mt.cliente = s.cliente\n  where s.import_id = p_import_id and s.cliente is not null;\n\n  return query\n  select count(*)::int,\n         count(*) filter (where p.match_status = 'auto')::int,\n         count(*) filter (where p.match_status = 'revisar')::int,\n         count(*) filter (where p.match_status = 'sem_match')::int\n  from public.preditivas_atg p where p.import_id = p_import_id;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "score_nomes": {
+      "nome": "score_nomes",
+      "argumentos": "p_planilha text, p_banco text",
+      "retorno": "numeric",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "STABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.score_nomes(p_planilha text, p_banco text)\n RETURNS numeric\n LANGUAGE plpgsql\n STABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\ndeclare\n  tp text[] := public.tokens_nome(p_planilha);\n  tb text[] := public.tokens_nome(p_banco);\n  inter    text[];\n  sobra_b  text[];\n  sobra_p  text[];\n  w_inter numeric; w_b numeric;\n  cov_b numeric; cov_raro numeric; jac numeric;\n  max_idf numeric; tok_raro text;\n  pen_sb numeric; pen_sp numeric; denom numeric;\n  n_inter int;\nbegin\n  if tp is null or tb is null\n     or array_length(tp,1) is null or array_length(tb,1) is null then\n    return 0;\n  end if;\n\n  select array_agg(t) into inter   from unnest(tb) t where t = any(tp);\n  if inter is null then return 0; end if;\n\n  select array_agg(t) into sobra_b from unnest(tb) t where not (t = any(tp));\n  select array_agg(t) into sobra_p from unnest(tp) t where not (t = any(tb));\n  sobra_b := coalesce(sobra_b, '{}');\n  sobra_p := coalesce(sobra_p, '{}');\n\n  w_inter := public.peso_tokens(inter);\n  w_b     := public.peso_tokens(tb);\n  if w_b = 0 then return 0; end if;\n  cov_b := w_inter / w_b;\n\n  -- token mais raro (maior idf) do nome do banco\n  select t, public.idf(t) into tok_raro, max_idf\n  from unnest(tb) t order by public.idf(t) desc, t asc limit 1;\n  if max_idf is null or max_idf = 0 then return 0; end if;\n\n  cov_raro := case when tok_raro = any(inter) then 1.0 else 0.0 end;\n\n  -- penalidades quadraticas, relativas ao token mais raro do banco.\n  -- token do banco com idf proximo do maximo (ex 'LCB') pune quase 1.0;\n  -- token acessorio (ex 'ARTES') pune pouco.\n  select coalesce(sum(power(public.idf(t) / max_idf, 2)), 0) into pen_sb\n  from unnest(sobra_b) t;\n\n  select coalesce(sum(power(public.idf(t) / max_idf, 2)), 0)\n         * (case when cov_raro = 1.0 then 0.05 else 0.30 end)\n    into pen_sp\n  from unnest(sobra_p) t;\n\n  n_inter := array_length(inter, 1);\n  denom   := n_inter + pen_sb + pen_sp;\n  jac     := case when denom > 0 then n_inter::numeric / denom else 0 end;\n\n  return round((0.30 * cov_b + 0.45 * cov_raro + 0.25 * jac)::numeric, 4);\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "set_atualizado_em": {
+      "nome": "set_atualizado_em",
+      "argumentos": "",
+      "retorno": "trigger",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.set_atualizado_em()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  new.atualizado_em = now();\n  return new;\nend;\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "sufixo_gerador": {
+      "nome": "sufixo_gerador",
+      "argumentos": "txt text",
+      "retorno": "text",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.sufixo_gerador(txt text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\n  select (regexp_match(public.norm_nome(txt), '\\yG([0-9]+)\\y'))[1]\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "tg_set_updated_at": {
+      "nome": "tg_set_updated_at",
+      "argumentos": "",
+      "retorno": "trigger",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.tg_set_updated_at()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  new.updated_at = now();\n  return new;\nend $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "tg_touch_atualizado_em": {
+      "nome": "tg_touch_atualizado_em",
+      "argumentos": "",
+      "retorno": "trigger",
+      "linguagem": "plpgsql",
+      "security_definer": false,
+      "search_path": null,
+      "volatilidade": "VOLATILE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.tg_touch_atualizado_em()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin new.atualizado_em := now(); return new; end $function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    },
+    "tokens_nome": {
+      "nome": "tokens_nome",
+      "argumentos": "txt text",
+      "retorno": "text[]",
+      "linguagem": "sql",
+      "security_definer": false,
+      "search_path": "'public', 'extensions', 'pg_catalog'",
+      "volatilidade": "IMMUTABLE",
+      "corpo": "CREATE OR REPLACE FUNCTION public.tokens_nome(txt text)\n RETURNS text[]\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'public', 'extensions', 'pg_catalog'\nAS $function$\n  select coalesce(array_agg(distinct t), '{}'::text[])\n  from unnest(string_to_array(public.norm_nome(txt), ' ')) as t\n  where length(t) > 1\n    and t not in ('DE','DA','DO','DAS','DOS','E','EM','NA','NO','A','O')\n    and t !~ '^G[0-9]+$'\n$function$\n",
+      "executam": [
+        "PUBLIC",
+        "anon",
+        "authenticated"
+      ]
+    }
+  },
+  "valores": {
+    "geradores_atg.checklist_status": {
+      "(vazio)": 310,
+      "OK": 153,
+      "NAO_ENCONTRADO": 15
+    },
+    "geradores_atg.status_ativo": {
+      "ATIVO": 424,
+      "NAO_ENCONTRADO": 54
+    },
+    "geradores_atg.tipo_equipamento": {
+      "GRUPO GERADOR": 378,
+      "(vazio)": 93,
+      "GERADOR - ATIVO ATG LOCAÇÕES": 6,
+      "CLIENTE NOVO": 1
+    },
+    "log_edicoes.acao": {
+      "editou": 712,
+      "vinculou_ficha": 147,
+      "atribuiu_vendedor": 144,
+      "editou_oxicatalisador": 136,
+      "criou_gerador": 66,
+      "excluiu_definitivamente": 51,
+      "cadastrou_preditiva_padrao": 40,
+      "desativou_vendedor": 10,
+      "editou_vendedor": 5,
+      "corrigiu_iclass": 4,
+      "editou_ficha": 4,
+      "criou_vendedor": 1,
+      "arquivou": 1,
+      "inativou": 1,
+      "vinculou_login": 1,
+      "ativou_vendedor": 1
+    },
+    "log_edicoes.entidade": {
+      "preditiva": 712,
+      "cliente": 154,
+      "gerador": 153,
+      "ficha": 151,
+      "oxicatalisador": 136,
+      "vendedor": 18
+    },
+    "omie_clientes.status_conferencia": {
+      "OK": 463,
+      "NAO_ENCONTRADO": 44,
+      "DIVERGENCIA": 34
+    },
+    "omie_clientes.statusativo": {
+      "(vazio)": 447,
+      "ATIVO": 88,
+      "NAO_ENCONTRADO": 6
+    },
+    "oxicatalisador_atg.match_status": {
+      "sem_match": 317,
+      "auto": 263,
+      "sem_planilha": 183,
+      "revisar": 171
+    },
+    "oxicatalisador_atg.situacao": {
+      "sem_informacao": 531,
+      "sim": 153,
+      "nao": 151,
+      "pendencia": 64,
+      "(vazio)": 35
+    },
+    "preditivas_atg.match_status": {
+      "sem_match": 2254,
+      "auto": 1841,
+      "sem_planilha": 1281,
+      "revisar": 1197
+    },
+    "preditivas_atg.status_planilha": {
+      "(vazio)": 2479,
+      "Vencido": 1927,
+      "OK": 1789,
+      "Não aplica": 378
+    },
+    "vw_preditivas.status": {
+      "vencido": 2575,
+      "sem_data": 1961,
+      "ok": 1445,
+      "nao_aplica": 425,
+      "a_vencer": 167
+    }
+  }
+}

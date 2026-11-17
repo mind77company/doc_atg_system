@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Funções do banco (RPCs e apoio) · QUIRON ATG SYSTEM · Documentação</title>
+<link rel="stylesheet" href="../../assets/tema.css">
+</head>
+<body data-raiz="../../">
+<a class="somente-leitor" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <button class="botao-menu" type="button" aria-label="Abrir menu" aria-expanded="false">Menu</button>
+  <a class="marca" href="../../index.html"><img src="../../assets/img/logo_atg_geradores.png" alt="ATG Geradores"><span>QUIRON ATG SYSTEM<small>Documentação da plataforma</small></span></a>
+  <span class="espaco"></span>
+  <div class="busca-caixa"><input id="busca" type="search" placeholder="Buscar na documentação (tecla /)" autocomplete="off" aria-label="Buscar na documentação"><div class="busca-resultados" role="listbox"></div></div>
+</header>
+<nav class="menu" aria-label="Seções da documentação"><a class="raiz-link" href="../../index.html">Início</a><details><summary>1. Visão geral</summary><ul><li><a href="../../paginas/visao-geral/visao-geral.html">Visão geral e mapa dos módulos</a></li><li><a href="../../paginas/visao-geral/perfis-e-permissoes.html">Perfis e permissões</a></li><li><a href="../../paginas/visao-geral/arquitetura.html">Arquitetura e tecnologias</a></li><li><a href="../../paginas/visao-geral/ambientes.html">Ambientes</a></li></ul></details><details><summary>2. Módulos e telas</summary><ul><li><a href="../../paginas/modulos/clientes-lista.html">Clientes e Geradores (lista)</a></li><li><a href="../../paginas/modulos/login-e-acesso.html">Login e acesso</a></li><li><a href="../../paginas/modulos/definir-senha.html">Definir senha (convite e recuperação)</a></li><li><a href="../../paginas/modulos/criar-cliente.html">Novo Cliente (Omie + iClass)</a></li><li><a href="../../paginas/modulos/corrigir-iclass.html">Corrigir cadastro iClass</a></li><li><a href="../../paginas/modulos/dashboard.html">Dashboard</a></li><li><a href="../../paginas/modulos/usuarios-e-vendedores.html">Usuários e Vendedores</a></li><li><a href="../../paginas/modulos/gerador.html">Gerador (adicionar, por O.S. e detalhe)</a></li><li><a href="../../paginas/modulos/ordens-de-servico.html">Ordens de Serviço</a></li><li><a href="../../paginas/modulos/ficha-de-levantamento.html">Ficha de levantamento</a></li><li><a href="../../paginas/modulos/orcamentos.html">Orçamentos</a></li><li><a href="../../paginas/modulos/preditiva-e-oxicatalisador.html">Preditiva e Oxicatalisador</a></li><li><a href="../../paginas/modulos/relatorio-de-saude.html">Relatório de Saúde do gerador</a></li><li><a href="../../paginas/modulos/historico-e-reverter.html">Histórico e reverter</a></li><li><a href="../../paginas/modulos/produtos-e-servicos.html">Produtos e Serviços</a></li><li><a href="../../paginas/modulos/geradores-legado.html">Geradores (página legada)</a></li><li><a href="../../paginas/modulos/configuracoes.html">Configurações</a></li></ul></details><details><summary>3. Fluxos e automações</summary><ul><li><a href="../../paginas/fluxos/criar-cliente.html">criar-cliente</a></li><li><a href="../../paginas/fluxos/buscar-cliente-iclass.html">buscar-cliente-iclass</a></li><li><a href="../../paginas/fluxos/buscar-ativo.html">buscar-ativo</a></li><li><a href="../../paginas/fluxos/gerador-por-os.html">gerador-por-os</a></li><li><a href="../../paginas/fluxos/buscar-os.html">buscar-os</a></li><li><a href="../../paginas/fluxos/importacao-preditivas.html">Importação da planilha de preditivas</a></li><li><a href="../../paginas/fluxos/manage-users.html">Função manage-users</a></li><li><a href="../../paginas/fluxos/convite-e-senha.html">Convite e definição de senha</a></li><li><a href="../../paginas/fluxos/receberorc.html">receberorc</a></li><li><a href="../../paginas/fluxos/atualiza-produto.html">atualiza-produto (forçada)</a></li><li><a href="../../paginas/fluxos/atualiza-servico.html">atualiza-servico (forçada)</a></li><li><a href="../../paginas/fluxos/preco-produto-mensal.html">Preço de produtos (mensal)</a></li><li><a href="../../paginas/fluxos/preco-servico-mensal.html">Preço de serviços (mensal)</a></li></ul></details><details open><summary>4. Banco de dados</summary><ul><li><a href="../../paginas/banco/visao-geral.html">Banco de dados: visão geral</a></li><li><a href="../../paginas/banco/funcoes.html" class="atual" aria-current="page">Funções do banco (RPCs e apoio)</a></li><li><a href="../../paginas/banco/regras.html">Regras e segurança do banco</a></li><li><a href="../../paginas/banco/valores.html">Valores possíveis de status e tipo</a></li><li><a href="../../paginas/banco/historico-de-mudancas.html">Migrations e histórico de mudanças do banco</a></li><li><span class="grupo-rotulo">Núcleo: clientes e geradores</span></li><li><a href="../../paginas/banco/t-omie-clientes.html">omie_clientes</a></li><li><a href="../../paginas/banco/t-geradores-atg.html">geradores_atg</a></li><li><a href="../../paginas/banco/t-vendedores.html">vendedores</a></li><li><span class="grupo-rotulo">Núcleo: preditiva</span></li><li><a href="../../paginas/banco/t-preditiva-itens.html">preditiva_itens</a></li><li><a href="../../paginas/banco/t-preditivas-atg.html">preditivas_atg</a></li><li><a href="../../paginas/banco/t-oxicatalisador-atg.html">oxicatalisador_atg</a></li><li><a href="../../paginas/banco/t-preditivas-staging.html">preditivas_staging</a></li><li><span class="grupo-rotulo">Núcleo: histórico</span></li><li><a href="../../paginas/banco/t-log-edicoes.html">log_edicoes</a></li><li><span class="grupo-rotulo">Núcleo: suporte</span></li><li><a href="../../paginas/banco/t-rate-limit-iclass.html">rate_limit_iclass</a></li><li><span class="grupo-rotulo">Núcleo: views</span></li><li><a href="../../paginas/banco/t-vw-cliente-card.html">vw_cliente_card</a></li><li><a href="../../paginas/banco/t-vw-preditivas.html">vw_preditivas</a></li><li><span class="grupo-rotulo">Ordens de serviço e orçamentos</span></li><li><a href="../../paginas/banco/t-ordens-servico.html">ordens_servico</a></li><li><a href="../../paginas/banco/t-orcamentos.html">orcamentos</a></li><li><span class="grupo-rotulo">Catálogo de produtos e serviços</span></li><li><a href="../../paginas/banco/t-produtos.html">Produtos</a></li><li><a href="../../paginas/banco/t-servicos.html">Serviços</a></li><li><a href="../../paginas/banco/t-omie.html">omie</a></li><li><a href="../../paginas/banco/t-geradores.html">geradores</a></li><li><span class="grupo-rotulo">Apoio: iClass e Omie</span></li><li><a href="../../paginas/banco/t-iclass-clientes.html">iclass_clientes</a></li><li><a href="../../paginas/banco/t-usuarios-iclass.html">usuarios iclass</a></li><li><a href="../../paginas/banco/t-vendedores-omie.html">vendedores omie</a></li><li><a href="../../paginas/banco/t-vw-conferencia-iclass.html">vw_conferencia_iclass</a></li><li><a href="../../paginas/banco/t-vw-geradores-atg.html">vw_geradores_atg</a></li><li><span class="grupo-rotulo">Apoio: preditivas</span></li><li><a href="../../paginas/banco/t-mv-idf-tokens.html">mv_idf_tokens</a></li><li><a href="../../paginas/banco/t-preditivas-conflito.html">preditivas_conflito</a></li><li><a href="../../paginas/banco/t-oxicatalisador-conflito.html">oxicatalisador_conflito</a></li><li><span class="grupo-rotulo">Legado</span></li><li><a href="../../paginas/banco/t-generators-com-itens-vencidos.html">generators_com_itens_vencidos</a></li><li><a href="../../paginas/banco/t-proximos-vencimentos.html">proximos_vencimentos</a></li></ul></details><details><summary>5. Integrações externas</summary><ul><li><a href="../../paginas/integracoes/supabase.html">Supabase</a></li><li><a href="../../paginas/integracoes/n8n.html">n8n</a></li><li><a href="../../paginas/integracoes/iclass.html">iClass</a></li><li><a href="../../paginas/integracoes/omie.html">Omie</a></li><li><a href="../../paginas/integracoes/gmail.html">Gmail</a></li><li><a href="../../paginas/integracoes/uazapi.html">UazAPI (WhatsApp)</a></li></ul></details><details><summary>6. Infraestrutura e operação</summary><ul><li><a href="../../paginas/operacao/infraestrutura.html">Infraestrutura</a></li><li><a href="../../paginas/operacao/variaveis-ambiente.html">Variáveis de ambiente</a></li><li><a href="../../paginas/operacao/subir-atualizar-reverter.html">Subir, atualizar e reverter</a></li><li><a href="../../paginas/operacao/quando-algo-da-errado.html">Quando algo dá errado</a></li></ul></details><details><summary>7. Glossário e perguntas frequentes</summary><ul><li><a href="../../paginas/glossario.html">Glossário</a></li><li><a href="../../paginas/faq.html">Perguntas frequentes</a></li></ul></details><details><summary>8. Controle da documentação</summary><ul><li><a href="../../paginas/controle/pontos-a-validar.html">Pontos a validar com a equipe</a></li><li><a href="../../paginas/controle/achados.html">Achados e inconsistências</a></li><li><a href="../../paginas/controle/changelog.html">Histórico de alterações da documentação</a></li></ul></details></nav>
+<div class="layout"><div class="pagina">
+<main class="conteudo" id="conteudo">
+<div class="trilha"><a href="../../index.html">Início</a> / 4. Banco de dados</div>
+<h1>Funções do banco (RPCs e apoio)</h1>
+<p class="subtitulo">As funções que a plataforma, o n8n e o próprio banco executam</p>
+<section class="resumo"><span class="rotulo">Resumo simples</span><p>Algumas tarefas são feitas por funções guardadas no próprio banco, em vez de pelo navegador. Isso garante que um conjunto de passos aconteça junto: por exemplo, criar um <a class="termo" href="../../paginas/glossario.html#gerador" title="Ver no glossário">gerador</a> e já registrar no histórico quem o criou.</p><p>Há três tipos: funções que a <strong>plataforma</strong> chama (criar gerador, salvar <a class="termo" href="../../paginas/glossario.html#preditiva" title="Ver no glossário">preditiva</a>, validar cadastro), funções que o <strong><a class="termo" href="../../paginas/glossario.html#n8n" title="Ver no glossário">n8n</a></strong> chama (controle do limite do <a class="termo" href="../../paginas/glossario.html#iclass" title="Ver no glossário">iClass</a>) e funções de <strong>apoio</strong> à importação da <a class="termo" href="../../paginas/glossario.html#planilha-preditivas" title="Ver no glossário">planilha de preditivas</a> e à comparação de nomes.</p></section><h2 id="lista">Lista</h2><div class="tabela-envoltorio"><div class="tabela-barra"><label>Filtrar <input type="search" placeholder="digite para filtrar"></label><span class="contador">19 de 19</span></div><table class="ordenavel"><thead><tr><th>Função</th><th>Papel</th><th>Devolve</th><th>Permissão</th><th>Resumo</th></tr></thead><tbody><tr><td><a href="#consumir-rate-limit-iclass"><code>consumir_rate_limit_iclass</code></a></td><td>Chamada pelos <a class="termo" href="../../paginas/glossario.html#fluxo" title="Ver no glossário">fluxos</a> do n8n</td><td>TABLE(permitido boolean, espera_segundos numeric)</td><td><span class="selo chave">executa com permissão do dono</span></td><td>Controla o limite de 25 chamadas ao iClass por minuto: diz se a chamada pode ser feita agora ou quantos segundos esperar.</td></tr><tr><td><a href="#criar-gerador"><code>criar_gerador</code></a></td><td>Chamada pelo <a class="termo" href="../../paginas/glossario.html#front-end" title="Ver no glossário">front</a></td><td>geradores_atg</td><td><span class="selo chave">executa com permissão do dono</span></td><td>Cria um gerador para um cliente a partir de um ativo do iClass, copiando os dados do cliente, e registra a criação no histórico.</td></tr><tr><td><a href="#decode-html"><code>decode_html</code></a></td><td>Importação da planilha</td><td>text</td><td>permissão de quem chama</td><td>Troca códigos HTML (&amp;amp;, &amp;quot;, &amp;lt;, &amp;gt;, &amp;apos;, &amp;#39;) pelos caracteres normais.</td></tr><tr><td><a href="#eh-nao-aplica"><code>eh_nao_aplica</code></a></td><td>Importação da planilha</td><td>boolean</td><td>permissão de quem chama</td><td>Diz se um texto indica que o item não se aplica (qualquer texto que contenha &quot;aplica&quot;).</td></tr><tr><td><a href="#f-unaccent"><code>f_unaccent</code></a></td><td>Apoio</td><td>text</td><td>permissão de quem chama</td><td>Versão fixa da função que remove acentos, usada em <a class="termo" href="../../paginas/glossario.html#indice" title="Ver no glossário">índices</a>.</td></tr><tr><td><a href="#idf"><code>idf</code></a></td><td>Comparação de nomes</td><td>numeric</td><td>permissão de quem chama</td><td>Devolve o peso de uma palavra (mais rara = mais peso). Palavra desconhecida vale 6,5.</td></tr><tr><td><a href="#match-cliente"><code>match_cliente</code></a></td><td>Comparação de nomes</td><td>TABLE(gerador_id bigint, omie_cliente_id bigint, cnpj_limpo text, score numeric, match_status text, candidatos jsonb)</td><td>permissão de quem chama</td><td>Dado um nome de cliente da planilha, procura os geradores mais parecidos e decide se liga sozinho, pede revisão ou desiste.</td></tr><tr><td><a href="#norm-nome"><code>norm_nome</code></a></td><td>Comparação de nomes</td><td>text</td><td>permissão de quem chama</td><td>Padroniza um nome: maiúsculas, sem acento, sem LTDA/ME/EPP/EIRELI/S.A./CIA no final e sem pontuação.</td></tr><tr><td><a href="#parse-data-pred"><code>parse_data_pred</code></a></td><td>Importação da planilha</td><td>date</td><td>permissão de quem chama</td><td>Converte o texto de data da planilha em data. Textos vazios, &quot;00/00/0000&quot;, &quot;REF&quot;, &quot;null&quot; e &quot;não aplica&quot; viram vazio.</td></tr><tr><td><a href="#peso-tokens"><code>peso_tokens</code></a></td><td>Comparação de nomes</td><td>numeric</td><td>permissão de quem chama</td><td>Soma o peso de uma lista de palavras.</td></tr><tr><td><a href="#processar-preditivas"><code>processar_preditivas</code></a></td><td>Importação da planilha</td><td>TABLE(linhas integer, auto integer, revisar integer, sem_match integer)</td><td>permissão de quem chama</td><td>Lê as linhas de uma importação em preditivas_staging, converte datas, compara os nomes com os geradores e grava os resultados em preditivas_atg e oxicatalisador_atg.</td></tr><tr><td><a href="#salvar-preditiva"><code>salvar_preditiva</code></a></td><td>Chamada pelo front</td><td>preditivas_atg</td><td><span class="selo chave">executa com permissão do dono</span></td><td>Grava as datas e observações de um item de preditiva e marca a linha como editada à mão.</td></tr><tr><td><a href="#score-nomes"><code>score_nomes</code></a></td><td>Comparação de nomes</td><td>numeric</td><td>permissão de quem chama</td><td>Calcula a nota de 0 a 1 de semelhança entre dois nomes de cliente.</td></tr><tr><td><a href="#set-atualizado-em"><code>set_atualizado_em</code></a></td><td><a class="termo" href="../../paginas/glossario.html#trigger" title="Ver no glossário">Gatilho</a></td><td>trigger</td><td>permissão de quem chama</td><td>Preenche `atualizado_em` com a hora atual. Usada nas tabelas orcamentos e ordens_servico.</td></tr><tr><td><a href="#sufixo-gerador"><code>sufixo_gerador</code></a></td><td>Comparação de nomes</td><td>text</td><td>permissão de quem chama</td><td>Extrai o número do sufixo G1, G2... do nome, quando existe.</td></tr><tr><td><a href="#tg-set-updated-at"><code>tg_set_updated_at</code></a></td><td>Gatilho</td><td>trigger</td><td>permissão de quem chama</td><td>Preenche `updated_at` com a hora atual. Usada na tabela legada geradores.</td></tr><tr><td><a href="#tg-touch-atualizado-em"><code>tg_touch_atualizado_em</code></a></td><td>Gatilho</td><td>trigger</td><td>permissão de quem chama</td><td>Preenche `atualizado_em` com a hora atual. Usada em preditivas_atg e oxicatalisador_atg.</td></tr><tr><td><a href="#tokens-nome"><code>tokens_nome</code></a></td><td>Comparação de nomes</td><td>text[]</td><td>permissão de quem chama</td><td>Quebra um nome em palavras distintas, ignorando palavras de 1 letra, conectivos (DE, DA, DO, E...) e códigos como G1 e G2.</td></tr><tr><td><a href="#validar-cadastro"><code>validar_cadastro</code></a></td><td>Chamada pelo front</td><td>void</td><td><span class="selo chave">executa com permissão do dono</span></td><td>Marca ou desmarca como <a class="termo" href="../../paginas/glossario.html#validado" title="Ver no glossário">validado</a> um cliente ou um gerador.</td></tr></tbody></table></div><h2 id="detalhe-de-cada-funcao">Detalhe de cada função</h2><h3 id="consumir-rate-limit-iclass"><code>consumir_rate_limit_iclass</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Controla o limite de 25 chamadas ao iClass por minuto: diz se a chamada pode ser feita agora ou quantos segundos esperar.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>limite integer DEFAULT 25, janela_segundos integer DEFAULT 60</code></td></tr><tr><td>Devolve</td><td><code>TABLE(permitido boolean, espera_segundos numeric)</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td><strong><a class="termo" href="../../paginas/glossario.html#security-definer" title="Ver no glossário">SECURITY DEFINER</a></strong> (usa a permissão do dono da função, ignora o <a class="termo" href="../../paginas/glossario.html#rls" title="Ver no glossário">RLS</a>)</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Valores padrão: limite 25 chamadas e janela de 60 segundos.</li><li>Um único contador para todos os fluxos.</li><li>Trava a linha para duas chamadas simultâneas não passarem juntas.</li><li>Roda com a permissão do dono (SECURITY DEFINER) e não define <code>search_path</code> (diferente das três funções chamadas pelo front).</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.consumir_rate_limit_iclass(limite integer DEFAULT 25, janela_segundos integer DEFAULT 60)
+ RETURNS TABLE(permitido boolean, espera_segundos numeric)
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$
+declare
+  linha rate_limit_iclass%rowtype;
+begin
+  select * into linha from rate_limit_iclass where id = 1 for update;
+
+  if now() - linha.janela_inicio &gt;= (janela_segundos || ' seconds')::interval then
+    update rate_limit_iclass set janela_inicio = now(), contagem = 1 where id = 1;
+    return query select true, 0::numeric;
+  elsif linha.contagem &lt; limite then
+    update rate_limit_iclass set contagem = contagem + 1 where id = 1;
+    return query select true, 0::numeric;
+  else
+    return query select false,
+      extract(epoch from (linha.janela_inicio + (janela_segundos || ' seconds')::interval - now()));
+  end if;
+end;
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="criar-gerador"><code>criar_gerador</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Cria um gerador para um cliente a partir de um ativo do iClass, copiando os dados do cliente, e registra a criação no histórico.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_omie_cliente_id bigint, p_ativo_id bigint, p_dados jsonb, p_usuario text</code></td></tr><tr><td>Devolve</td><td><code>geradores_atg</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td><strong>SECURITY DEFINER</strong> (usa a permissão do dono da função, ignora o RLS)</td></tr><tr><td>search_path fixo</td><td><code>'public'</code></td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td><code>src/utils/atgBackend.ts</code></td></tr></tbody></table></div><h4>Regras</h4><ul><li>Exige o <code>ativo_id</code> do iClass.</li><li>Não há trava contra criar dois geradores com o mesmo <code>ativo_id</code> (nem na função nem no banco).</li><li>Roda com a permissão do dono (SECURITY DEFINER) e não confere quem está chamando: o parâmetro <code>p_usuario</code> é só um texto informado pelo chamador.</li><li>Chamada por <code>src/utils/atgBackend.ts</code> (<code>criarGerador</code>).</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.criar_gerador(p_omie_cliente_id bigint, p_ativo_id bigint, p_dados jsonb, p_usuario text)
+ RETURNS geradores_atg
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare r public.geradores_atg;
+begin
+  if p_ativo_id is null then
+    raise exception 'ativo_id obrigatorio: gerador so pode ser criado com ativo do iClass';
+  end if;
+
+  -- herda cnpj/nome do cliente
+  insert into public.geradores_atg (
+    omie_cliente_id, ativo_id,
+    nome_fantasia, razao_social, cnpj_limpo,
+    iclass_id_cliente, iclass_codigo_cliente,
+    num_serie, num_patrimonio, descricao,
+    fabricante, modelo, status_ativo, tipo_equipamento,
+    processado_em, atualizado_em
+  )
+  select
+    o.id, p_ativo_id,
+    o.nome_fantasia, o.razao_social, o.cnpj_limpo,
+    o.iclass_id_encontrado, o.iclass_codigo_encontrado,
+    p_dados-&gt;&gt;'num_serie', p_dados-&gt;&gt;'num_patrimonio', p_dados-&gt;&gt;'descricao',
+    p_dados-&gt;&gt;'fabricante', p_dados-&gt;&gt;'modelo',
+    coalesce(p_dados-&gt;&gt;'status_ativo','ATIVO'), p_dados-&gt;&gt;'tipo_equipamento',
+    now(), now()
+  from public.omie_clientes o
+  where o.id = p_omie_cliente_id
+  returning * into r;
+
+  if not found then
+    raise exception 'cliente % nao encontrado', p_omie_cliente_id;
+  end if;
+
+  insert into public.log_edicoes (entidade, entidade_id, acao, usuario, detalhe)
+  values ('gerador', r.id, 'criou_gerador', p_usuario,
+          jsonb_build_object('ativo_id', p_ativo_id, 'omie_cliente_id', p_omie_cliente_id));
+
+  return r;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>), chamada em <code>src/utils/atgBackend.ts</code></aside></div></details><h3 id="decode-html"><code>decode_html</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Troca códigos HTML (&amp;amp;, &amp;quot;, &amp;lt;, &amp;gt;, &amp;apos;, &amp;#39;) pelos caracteres normais.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>text</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Nenhum código das funções analisadas a chama. <span class="selo nc">Não confirmado</span> Uso não identificado.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.decode_html(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE
+AS $function$
+  select case when txt is null then null else
+    replace(replace(replace(replace(replace(replace(
+      txt,
+      '&amp;amp;',  '&amp;'),
+      '&amp;apos;', ''''),
+      '&amp;quot;', '&quot;'),
+      '&amp;#39;',  ''''),
+      '&amp;lt;',   '&lt;'),
+      '&amp;gt;',   '&gt;')
+  end
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="eh-nao-aplica"><code>eh_nao_aplica</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Diz se um texto indica que o item não se aplica (qualquer texto que contenha &quot;aplica&quot;).</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>boolean</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Como basta conter &quot;aplica&quot;, textos como &quot;Aplicado&quot; também seriam tratados como não aplica. <span class="selo nc">Não confirmado</span></li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.eh_nao_aplica(txt text)
+ RETURNS boolean
+ LANGUAGE sql
+ IMMUTABLE
+AS $function$
+  select coalesce(trim(txt), '') ilike '%aplica%'
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="f-unaccent"><code>f_unaccent</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Versão fixa da função que remove acentos, usada em índices.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>text</code></td></tr><tr><td>Devolve</td><td><code>text</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.f_unaccent(text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE
+AS $function$ select public.unaccent('public.unaccent', $1) $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="idf"><code>idf</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Devolve o peso de uma palavra (mais rara = mais peso). Palavra desconhecida vale 6,5.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>tok text</code></td></tr><tr><td>Devolve</td><td><code>numeric</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>STABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Lê a <a class="termo" href="../../paginas/glossario.html#view-materializada" title="Ver no glossário"><a class="termo" href="../../paginas/glossario.html#view" title="Ver no glossário">view</a> materializada</a> <code>mv_idf_tokens</code>.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.idf(tok text)
+ RETURNS numeric
+ LANGUAGE sql
+ STABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+  select coalesce((select m.idf from public.mv_idf_tokens m where m.token = tok), 6.5::numeric)
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="match-cliente"><code>match_cliente</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Dado um nome de cliente da planilha, procura os geradores mais parecidos e decide se liga sozinho, pede revisão ou desiste.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_cliente text</code></td></tr><tr><td>Devolve</td><td><code>TABLE(gerador_id bigint, omie_cliente_id bigint, cnpj_limpo text, score numeric, match_status text, candidatos jsonb)</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>STABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Filtro rápido: similaridade acima de 0,15 ou palavra em comum com o nome fantasia.</li><li>Pega os 3 melhores candidatos e decide pelo melhor: nota abaixo de 0,75 = <code>sem_match</code>; nome com sufixo G1/G2 = <code>revisar</code>; nota de 0,90 ou mais e <a class="termo" href="../../paginas/glossario.html#cnpj-cpf" title="Ver no glossário">CNPJ</a> com exatamente um gerador = <code>auto</code>; senão <code>revisar</code>.</li><li>Só no caso <code>auto</code> devolve o <code>gerador_id</code>.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.match_cliente(p_cliente text)
+ RETURNS TABLE(gerador_id bigint, omie_cliente_id bigint, cnpj_limpo text, score numeric, match_status text, candidatos jsonb)
+ LANGUAGE plpgsql
+ STABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+declare
+  v_norm   text   := public.norm_nome(p_cliente);
+  v_sufixo text   := public.sufixo_gerador(p_cliente);
+  v_tp     text[] := public.tokens_nome(p_cliente);
+begin
+  return query
+  with cand as (
+    -- pre-filtro barato para nao rodar score_nomes contra os 458.
+    -- trigram com threshold folgado (0.15) + rede de seguranca por token:
+    -- nomes curtos no banco ('AFAM') nao passam no trigram contra uma
+    -- planilha verbosa, mas compartilham token.
+    select g.id, g.omie_cliente_id, g.cnpj_limpo,
+           g.nome_fantasia, g.razao_social,
+           greatest(
+             public.score_nomes(p_cliente, g.nome_fantasia),
+             public.score_nomes(p_cliente, g.razao_social)
+           ) as sc
+    from public.geradores_atg g
+    where similarity(public.norm_nome(g.nome_fantasia), v_norm) &gt; 0.15
+       or similarity(public.norm_nome(g.razao_social),  v_norm) &gt; 0.15
+       or public.tokens_nome(g.nome_fantasia) &amp;&amp; v_tp
+  ),
+  top3 as (
+    select * from cand order by sc desc, id asc limit 3
+  ),
+  best as (
+    select t.*,
+           (select count(*) from public.geradores_atg x
+            where x.cnpj_limpo = t.cnpj_limpo) as n_ger
+    from top3 t order by t.sc desc, t.id asc limit 1
+  ),
+  decidido as (
+    select b.*,
+      case
+        when b.sc &lt; 0.75            then 'sem_match'
+        when v_sufixo is not null   then 'revisar'   -- G1/G2: banco nao distingue
+        when b.sc &gt;= 0.90 and b.n_ger = 1 then 'auto'
+        else 'revisar'
+      end as st
+    from best b
+  ),
+  cands_json as (
+    select coalesce(jsonb_agg(jsonb_build_object(
+             'gerador_id',       t.id,
+             'nome_fantasia',    t.nome_fantasia,
+             'razao_social',     t.razao_social,
+             'cnpj',             t.cnpj_limpo,
+             'score',            t.sc,
+             'n_geradores_cnpj', (select count(*) from public.geradores_atg x
+                                  where x.cnpj_limpo = t.cnpj_limpo))
+             order by t.sc desc), '[]'::jsonb) as js
+    from top3 t
+  )
+  select
+    case when d.st = 'auto' then d.id              else null::bigint end,
+    case when d.st = 'auto' then d.omie_cliente_id else null::bigint end,
+    case when d.st = 'sem_match' then null::text   else d.cnpj_limpo end,
+    d.sc,
+    d.st,
+    c.js
+  from decidido d cross join cands_json c;
+
+  -- nenhum candidato passou nem no pre-filtro
+  if not found then
+    return query select null::bigint, null::bigint, null::text,
+                        0::numeric, 'sem_match'::text, '[]'::jsonb;
+  end if;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="norm-nome"><code>norm_nome</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Padroniza um nome: maiúsculas, sem acento, sem LTDA/ME/EPP/EIRELI/S.A./CIA no final e sem pontuação.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>text</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.norm_nome(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+  select
+    trim(regexp_replace(
+      regexp_replace(
+        regexp_replace(
+          upper(unaccent(coalesce(txt, ''))),
+          '\s+(LTDA|ME|EPP|EIRELI|S/?A|SA|S\.A\.|CIA)\.?\s*$', '', 'g'
+        ),
+        '[^A-Z0-9 ]', ' ', 'g'
+      ),
+      '\s+', ' ', 'g'
+    ))
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="parse-data-pred"><code>parse_data_pred</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Converte o texto de data da planilha em data. Textos vazios, &quot;00/00/0000&quot;, &quot;REF&quot;, &quot;null&quot; e &quot;não aplica&quot; viram vazio.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>date</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Tenta primeiro a conversão padrão do banco e só depois <code>DD/MM/YYYY</code>. <span class="selo nc">Não confirmado</span> Se o banco interpretar datas como mês/dia, 01/02/2026 seria lido como 2 de janeiro. Conferir com <code>show datestyle</code>.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.parse_data_pred(txt text)
+ RETURNS date
+ LANGUAGE plpgsql
+ IMMUTABLE
+AS $function$
+declare t text := trim(coalesce(txt, ''));
+begin
+  if t = '' or t ilike '00/00/0000' or t ilike '%aplica%'
+     or t ilike '%REF%' or t ilike 'null' then
+    return null;
+  end if;
+  begin return t::date;                 exception when others then null; end;
+  begin return to_date(t,'DD/MM/YYYY'); exception when others then null; end;
+  begin return to_date(t,'YYYY-MM-DD'); exception when others then null; end;
+  return null;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="peso-tokens"><code>peso_tokens</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Soma o peso de uma lista de palavras.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>tk text[]</code></td></tr><tr><td>Devolve</td><td><code>numeric</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>STABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.peso_tokens(tk text[])
+ RETURNS numeric
+ LANGUAGE sql
+ STABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+  select coalesce(sum(public.idf(t)), 0)::numeric from unnest(tk) as t
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="processar-preditivas"><code>processar_preditivas</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Lê as linhas de uma importação em preditivas_staging, converte datas, compara os nomes com os geradores e grava os resultados em preditivas_atg e oxicatalisador_atg.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_import_id uuid</code></td></tr><tr><td>Devolve</td><td><code>TABLE(linhas integer, auto integer, revisar integer, sem_match integer)</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Antes de gravar, <strong>apaga</strong> as linhas já existentes desse mesmo <code>import_id</code> em preditivas_atg e oxicatalisador_atg, inclusive as editadas à mão. <span class="selo nc">Não confirmado</span> Não se sabe quem chama esta função nem se um mesmo lote pode ser reprocessado.</li><li>Item é &quot;não se aplica&quot; se a data realizada, o vencimento ou o status contiver &quot;aplica&quot;.</li><li>Vencimento ausente = realizada + periodicidade; realizada ausente = vencimento - periodicidade.</li><li>Linhas da planilha sem nome de cliente não são gravadas em preditivas_atg.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.processar_preditivas(p_import_id uuid)
+ RETURNS TABLE(linhas integer, auto integer, revisar integer, sem_match integer)
+ LANGUAGE plpgsql
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+begin
+  delete from public.preditivas_atg     where import_id = p_import_id;
+  delete from public.oxicatalisador_atg where import_id = p_import_id;
+
+  -- match calculado 1x por cliente distinto, reaproveitado nos dois inserts
+  create temp table _mt on commit drop as
+  select s.cliente, m.*
+  from (select distinct cliente from public.preditivas_staging
+        where import_id = p_import_id and cliente is not null) s
+  cross join lateral public.match_cliente(s.cliente) m;
+
+  -- ---------------- PREDITIVAS (7 itens, sem oxicatalisador) ----------
+  with unpiv as (
+    select s.*, v.item_codigo, v.dt_real, v.dt_venc, v.obs, v.st
+    from public.preditivas_staging s
+    cross join lateral (values
+      ('oleo_filtros',        s.oleo_realizada,  s.oleo_vencimento,  s.oleo_obs,  s.oleo_status),
+      ('bateria',             s.bat_realizada,   s.bat_vencimento,   s.bat_obs,   s.bat_status),
+      ('mang_combustivel',    s.mcomb_realizada, s.mcomb_vencimento, s.mcomb_obs, s.mcomb_status),
+      ('limpeza_qta',         s.qta_realizada,   s.qta_vencimento,   s.qta_obs,   s.qta_status),
+      ('mang_preaquecimento', s.mpre_realizada,  s.mpre_vencimento,  s.mpre_obs,  s.mpre_status),
+      ('limpeza_radiador',    s.rad_realizada,   s.rad_vencimento,
+         nullif(concat_ws(' | ', nullif(s.rad_obs,''),  nullif(s.rad_obs2,'')),  ''), s.rad_status),
+      ('limpeza_tanque',      s.tanq_realizada,  s.tanq_vencimento,
+         nullif(concat_ws(' | ', nullif(s.tanq_obs,''), nullif(s.tanq_obs2,'')), ''), s.tanq_status)
+    ) as v(item_codigo, dt_real, dt_venc, obs, st)
+    where s.import_id = p_import_id
+  ),
+  parsed as (
+    select
+      u.import_id, u.linha_planilha, u.numero, u.cliente, u.vendedor,
+      (trim(coalesce(u.ativo,'')) ilike 'sim%') as contrato_ativo,
+      u.item_codigo,
+      public.parse_data_pred(u.dt_real) as d_real,
+      public.parse_data_pred(u.dt_venc) as d_venc,
+      nullif(trim(coalesce(u.obs,'')), '') as observacao,
+      nullif(trim(coalesce(u.st,'')),  '') as status_planilha,
+      (public.eh_nao_aplica(u.dt_real) or public.eh_nao_aplica(u.dt_venc)
+       or public.eh_nao_aplica(u.st))      as nao_aplica,
+      i.periodicidade_meses,
+      to_jsonb(u) - 'import_id'            as origem
+    from unpiv u
+    join public.preditiva_itens i on i.codigo = u.item_codigo
+  ),
+  calc as (
+    select p.*,
+      coalesce(p.d_venc, case when p.d_real is not null and p.periodicidade_meses is not null
+        then (p.d_real + (p.periodicidade_meses || ' months')::interval)::date end) as venc_final,
+      coalesce(p.d_real, case when p.d_venc is not null and p.periodicidade_meses is not null
+        then (p.d_venc - (p.periodicidade_meses || ' months')::interval)::date end) as real_final
+    from parsed p
+  )
+  insert into public.preditivas_atg (
+    import_id, linha_planilha, numero_planilha, cliente_planilha, vendedor,
+    contrato_ativo, gerador_id, omie_cliente_id, cnpj_limpo,
+    match_score, match_status, match_candidatos,
+    item_codigo, data_realizada, data_vencimento,
+    sem_data, nao_aplica, observacao, status_planilha, origem_planilha
+  )
+  select
+    c.import_id, c.linha_planilha, c.numero, c.cliente, c.vendedor,
+    c.contrato_ativo,
+    mt.gerador_id, mt.omie_cliente_id, mt.cnpj_limpo,
+    mt.score, mt.match_status, mt.candidatos,
+    c.item_codigo,
+    case when c.nao_aplica then null else c.real_final end,
+    case when c.nao_aplica then null else c.venc_final end,
+    (not c.nao_aplica and c.venc_final is null),
+    c.nao_aplica,
+    c.observacao, c.status_planilha, c.origem
+  from calc c
+  join _mt mt on mt.cliente = c.cliente;
+
+  -- ---------------- OXICATALISADOR (cadastro) -------------------------
+  insert into public.oxicatalisador_atg (
+    import_id, linha_planilha, cliente_planilha,
+    gerador_id, cnpj_limpo, match_score, match_status,
+    possui, situacao, bitola, bitola_pendente
+  )
+  select
+    s.import_id, s.linha_planilha, s.cliente,
+    mt.gerador_id, mt.cnpj_limpo, mt.score, mt.match_status,
+    case
+      when trim(coalesce(s.oxi_tem,'')) ilike 'sim%' then true
+      when trim(coalesce(s.oxi_tem,'')) ilike 'n_o%' then false
+      else null
+    end,
+    case
+      when trim(coalesce(s.oxi_tem,'')) ilike 'sim%'      then 'sim'
+      when trim(coalesce(s.oxi_tem,'')) ilike 'n_o%'      then 'nao'
+      when trim(coalesce(s.oxi_tem,'')) ilike 'pend%'     then 'pendencia'
+      when trim(coalesce(s.oxi_tem,'')) ilike 'sem info%' then 'sem_informacao'
+      else 'sem_informacao'
+    end,
+    nullif(case when trim(coalesce(s.oxi_bitola,'')) ilike 'pend%'
+                then null else trim(s.oxi_bitola) end, ''),
+    (trim(coalesce(s.oxi_bitola,'')) ilike 'pend%')
+  from public.preditivas_staging s
+  join _mt mt on mt.cliente = s.cliente
+  where s.import_id = p_import_id and s.cliente is not null;
+
+  return query
+  select count(*)::int,
+         count(*) filter (where p.match_status = 'auto')::int,
+         count(*) filter (where p.match_status = 'revisar')::int,
+         count(*) filter (where p.match_status = 'sem_match')::int
+  from public.preditivas_atg p where p.import_id = p_import_id;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="salvar-preditiva"><code>salvar_preditiva</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Grava as datas e observações de um item de preditiva e marca a linha como editada à mão.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_id bigint, p_campos jsonb, p_usuario text</code></td></tr><tr><td>Devolve</td><td><code>preditivas_atg</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td><strong>SECURITY DEFINER</strong> (usa a permissão do dono da função, ignora o RLS)</td></tr><tr><td>search_path fixo</td><td><code>'public'</code></td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td><code>src/utils/atgBackend.ts</code></td></tr></tbody></table></div><h4>Regras</h4><ul><li>Usa <code>coalesce</code>: enviar uma data vazia <strong>não apaga</strong> a data antiga, apenas marca <code>sem_data</code>.</li><li>Sempre marca <code>editado_manual = true</code>.</li><li>O histórico guarda só o que foi enviado, sem o valor de antes.</li><li>Roda com a permissão do dono (SECURITY DEFINER); <code>p_usuario</code> não é conferido.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.salvar_preditiva(p_id bigint, p_campos jsonb, p_usuario text)
+ RETURNS preditivas_atg
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare r public.preditivas_atg;
+begin
+  update public.preditivas_atg set
+    data_realizada  = coalesce((p_campos-&gt;&gt;'data_realizada')::date,  data_realizada),
+    data_vencimento = coalesce((p_campos-&gt;&gt;'data_vencimento')::date, data_vencimento),
+    observacao      = coalesce( p_campos-&gt;&gt;'observacao',             observacao),
+    nao_aplica      = coalesce((p_campos-&gt;&gt;'nao_aplica')::boolean,   nao_aplica),
+    sem_data        = case
+                        when p_campos ? 'data_vencimento'
+                        then (p_campos-&gt;&gt;'data_vencimento') is null
+                        else sem_data end,
+    editado_manual  = true,
+    atualizado_em   = now()
+  where id = p_id
+  returning * into r;
+
+  if not found then
+    raise exception 'preditiva % nao encontrada', p_id;
+  end if;
+
+  insert into public.log_edicoes (entidade, entidade_id, acao, usuario, detalhe)
+  values ('preditiva', p_id, 'editou', p_usuario, p_campos);
+
+  return r;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>), chamada em <code>src/utils/atgBackend.ts</code></aside></div></details><h3 id="score-nomes"><code>score_nomes</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Calcula a nota de 0 a 1 de semelhança entre dois nomes de cliente.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_planilha text, p_banco text</code></td></tr><tr><td>Devolve</td><td><code>numeric</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>STABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Regras</h4><ul><li>Nota = 0,30 × cobertura do peso das palavras + 0,45 × se a palavra mais rara do nome do banco aparece + 0,25 × parecido (palavras em comum sobre o total com penalidades).</li><li>Palavras raras pesam mais (peso vem da <code>mv_idf_tokens</code>).</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.score_nomes(p_planilha text, p_banco text)
+ RETURNS numeric
+ LANGUAGE plpgsql
+ STABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+declare
+  tp text[] := public.tokens_nome(p_planilha);
+  tb text[] := public.tokens_nome(p_banco);
+  inter    text[];
+  sobra_b  text[];
+  sobra_p  text[];
+  w_inter numeric; w_b numeric;
+  cov_b numeric; cov_raro numeric; jac numeric;
+  max_idf numeric; tok_raro text;
+  pen_sb numeric; pen_sp numeric; denom numeric;
+  n_inter int;
+begin
+  if tp is null or tb is null
+     or array_length(tp,1) is null or array_length(tb,1) is null then
+    return 0;
+  end if;
+
+  select array_agg(t) into inter   from unnest(tb) t where t = any(tp);
+  if inter is null then return 0; end if;
+
+  select array_agg(t) into sobra_b from unnest(tb) t where not (t = any(tp));
+  select array_agg(t) into sobra_p from unnest(tp) t where not (t = any(tb));
+  sobra_b := coalesce(sobra_b, '{}');
+  sobra_p := coalesce(sobra_p, '{}');
+
+  w_inter := public.peso_tokens(inter);
+  w_b     := public.peso_tokens(tb);
+  if w_b = 0 then return 0; end if;
+  cov_b := w_inter / w_b;
+
+  -- token mais raro (maior idf) do nome do banco
+  select t, public.idf(t) into tok_raro, max_idf
+  from unnest(tb) t order by public.idf(t) desc, t asc limit 1;
+  if max_idf is null or max_idf = 0 then return 0; end if;
+
+  cov_raro := case when tok_raro = any(inter) then 1.0 else 0.0 end;
+
+  -- penalidades quadraticas, relativas ao token mais raro do banco.
+  -- token do banco com idf proximo do maximo (ex 'LCB') pune quase 1.0;
+  -- token acessorio (ex 'ARTES') pune pouco.
+  select coalesce(sum(power(public.idf(t) / max_idf, 2)), 0) into pen_sb
+  from unnest(sobra_b) t;
+
+  select coalesce(sum(power(public.idf(t) / max_idf, 2)), 0)
+         * (case when cov_raro = 1.0 then 0.05 else 0.30 end)
+    into pen_sp
+  from unnest(sobra_p) t;
+
+  n_inter := array_length(inter, 1);
+  denom   := n_inter + pen_sb + pen_sp;
+  jac     := case when denom &gt; 0 then n_inter::numeric / denom else 0 end;
+
+  return round((0.30 * cov_b + 0.45 * cov_raro + 0.25 * jac)::numeric, 4);
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="set-atualizado-em"><code>set_atualizado_em</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Preenche <code>atualizado_em</code> com a hora atual. Usada nas tabelas orcamentos e ordens_servico.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code></code></td></tr><tr><td>Devolve</td><td><code>trigger</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.set_atualizado_em()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+begin
+  new.atualizado_em = now();
+  return new;
+end;
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="sufixo-gerador"><code>sufixo_gerador</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Extrai o número do sufixo G1, G2... do nome, quando existe.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>text</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.sufixo_gerador(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+  select (regexp_match(public.norm_nome(txt), '\yG([0-9]+)\y'))[1]
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="tg-set-updated-at"><code>tg_set_updated_at</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Preenche <code>updated_at</code> com a hora atual. Usada na tabela legada geradores.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code></code></td></tr><tr><td>Devolve</td><td><code>trigger</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.tg_set_updated_at()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+begin
+  new.updated_at = now();
+  return new;
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="tg-touch-atualizado-em"><code>tg_touch_atualizado_em</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Preenche <code>atualizado_em</code> com a hora atual. Usada em preditivas_atg e oxicatalisador_atg.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code></code></td></tr><tr><td>Devolve</td><td><code>trigger</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td>não definido</td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.tg_touch_atualizado_em()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+begin new.atualizado_em := now(); return new; end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="tokens-nome"><code>tokens_nome</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Quebra um nome em palavras distintas, ignorando palavras de 1 letra, conectivos (DE, DA, DO, E...) e códigos como G1 e G2.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>txt text</code></td></tr><tr><td>Devolve</td><td><code>text[]</code></td></tr><tr><td>Linguagem</td><td>sql</td></tr><tr><td>Permissão ao executar</td><td>permissão de quem chama</td></tr><tr><td>search_path fixo</td><td><code>'public', 'extensions', 'pg_catalog'</code></td></tr><tr><td>Volatilidade</td><td>IMMUTABLE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td>não (ou só por fluxos/outras funções)</td></tr></tbody></table></div><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.tokens_nome(txt text)
+ RETURNS text[]
+ LANGUAGE sql
+ IMMUTABLE
+ SET search_path TO 'public', 'extensions', 'pg_catalog'
+AS $function$
+  select coalesce(array_agg(distinct t), '{}'::text[])
+  from unnest(string_to_array(public.norm_nome(txt), ' ')) as t
+  where length(t) &gt; 1
+    and t not in ('DE','DA','DO','DAS','DOS','E','EM','NA','NO','A','O')
+    and t !~ '^G[0-9]+$'
+$function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>)</aside></div></details><h3 id="validar-cadastro"><code>validar_cadastro</code></h3><section class="resumo"><span class="rotulo">Resumo simples</span><p>Marca ou desmarca como validado um cliente ou um gerador.</p></section><details class="tecnico"><summary>Detalhes técnicos<small>: assinatura, regras e código</small></summary><div class="corpo"><div class="tabela-envoltorio"><table><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Parâmetros</td><td><code>p_entidade text, p_id bigint, p_usuario text, p_valor boolean DEFAULT true</code></td></tr><tr><td>Devolve</td><td><code>void</code></td></tr><tr><td>Linguagem</td><td>plpgsql</td></tr><tr><td>Permissão ao executar</td><td><strong>SECURITY DEFINER</strong> (usa a permissão do dono da função, ignora o RLS)</td></tr><tr><td>search_path fixo</td><td><code>'public'</code></td></tr><tr><td>Volatilidade</td><td>VOLATILE</td></tr><tr><td>Quem pode executar</td><td><code>PUBLIC</code>, <code>anon</code>, <code>authenticated</code></td></tr><tr><td>Chamada pelo código do front</td><td><code>src/utils/atgBackend.ts</code></td></tr></tbody></table></div><h4>Regras</h4><ul><li>Aceita só as entidades <code>cliente</code> e <code>gerador</code>; qualquer outra gera erro.</li><li>Grava <code>validado</code>, <code>validado_por</code> e <code>validado_em</code> e registra no histórico a ação <code>validou</code> ou <code>desvalidou</code>. O histórico atual não tem nenhuma dessas duas ações (consulta Q11), o que combina com a dúvida abaixo.</li><li>O parâmetro de valor se chama <code>p_valor</code> no banco, mas o código do front envia <code>p_validar</code>. <span class="selo nc">Não confirmado</span> Pelo comportamento padrão do PostgREST, isso deveria resultar em função não encontrada e o front usaria a resposta <a class="termo" href="../../paginas/glossario.html#mock" title="Ver no glossário">simulada</a>; não foi testado. Ver Pontos a validar.</li><li>Roda com a permissão do dono; <code>p_usuario</code> não é conferido.</li></ul><h4>Código da função</h4><pre><code>CREATE OR REPLACE FUNCTION public.validar_cadastro(p_entidade text, p_id bigint, p_usuario text, p_valor boolean DEFAULT true)
+ RETURNS void
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+begin
+  if p_entidade = 'cliente' then
+    update public.omie_clientes
+      set validado = p_valor,
+          validado_por = case when p_valor then p_usuario else null end,
+          validado_em  = case when p_valor then now() else null end
+    where id = p_id;
+  elsif p_entidade = 'gerador' then
+    update public.geradores_atg
+      set validado = p_valor,
+          validado_por = case when p_valor then p_usuario else null end,
+          validado_em  = case when p_valor then now() else null end
+    where id = p_id;
+  else
+    raise exception 'entidade invalida: % (use cliente ou gerador)', p_entidade;
+  end if;
+
+  if not found then
+    raise exception '% % nao encontrado', p_entidade, p_id;
+  end if;
+
+  insert into public.log_edicoes (entidade, entidade_id, acao, usuario)
+  values (p_entidade, p_id, case when p_valor then 'validou' else 'desvalidou' end, p_usuario);
+end $function$
+</code></pre><aside class="fonte"><span class="rotulo">Fonte</span> banco de dados, extração Q04 (<code>docs/scripts/extracao_banco.sql</code>), chamada em <code>src/utils/atgBackend.ts</code></aside></div></details>
+<footer class="rodape">
+  <p><strong>Verificado em 2026-11-11 no commit 9d680f5.</strong> Documentação interna: descreve a arquitetura da plataforma e não deve ser publicada abertamente.</p>
+  <details><summary>Arquivos-fonte consultados (1)</summary><ul><li><code>docs/scripts/extracao_banco.sql</code></li></ul></details>
+</footer>
+</main>
+<aside class="indice-pagina" aria-label="Nesta página"><strong>Nesta página</strong><ul><li class="n2"><a href="#lista">Lista</a></li><li class="n2"><a href="#detalhe-de-cada-funcao">Detalhe de cada função</a></li><li class="n3"><a href="#consumir-rate-limit-iclass">consumir_rate_limit_iclass</a></li><li class="n3"><a href="#criar-gerador">criar_gerador</a></li><li class="n3"><a href="#decode-html">decode_html</a></li><li class="n3"><a href="#eh-nao-aplica">eh_nao_aplica</a></li><li class="n3"><a href="#f-unaccent">f_unaccent</a></li><li class="n3"><a href="#idf">idf</a></li><li class="n3"><a href="#match-cliente">match_cliente</a></li><li class="n3"><a href="#norm-nome">norm_nome</a></li><li class="n3"><a href="#parse-data-pred">parse_data_pred</a></li><li class="n3"><a href="#peso-tokens">peso_tokens</a></li><li class="n3"><a href="#processar-preditivas">processar_preditivas</a></li><li class="n3"><a href="#salvar-preditiva">salvar_preditiva</a></li><li class="n3"><a href="#score-nomes">score_nomes</a></li><li class="n3"><a href="#set-atualizado-em">set_atualizado_em</a></li><li class="n3"><a href="#sufixo-gerador">sufixo_gerador</a></li><li class="n3"><a href="#tg-set-updated-at">tg_set_updated_at</a></li><li class="n3"><a href="#tg-touch-atualizado-em">tg_touch_atualizado_em</a></li><li class="n3"><a href="#tokens-nome">tokens_nome</a></li><li class="n3"><a href="#validar-cadastro">validar_cadastro</a></li></ul></aside>
+</div></div>
+<button class="voltar-topo" type="button" aria-label="Voltar ao topo">↑</button>
+<script src="../../assets/busca-indice.js"></script>
+
+<script src="../../assets/js/app.js"></script>
+</body>
+</html>

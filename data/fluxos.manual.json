@@ -1,0 +1,219 @@
+{
+  "fluxos": {
+    "criar-cliente": {
+      "titulo": "criar-cliente (cadastro no Omie e no iClass)",
+      "nome_n8n": "Cadastrar cliente Iclass",
+      "nos": {
+        "Webhook": "Recebe a chamada POST do sistema com os dados do cliente. A resposta só é devolvida no final, pela etapa \"Responder ao front\".",
+        "Preparar dados": "Confere se os 13 campos obrigatórios vieram preenchidos, deixa o CNPJ/CPF só com números e monta o código de integração `ATG_` + CNPJ.",
+        "Dados completos?": "Se algum campo obrigatório faltou, segue para \"Resposta campos faltando\". Se está tudo certo, segue para o Omie.",
+        "Criar no Omie": "Chama a API do Omie (`IncluirCliente`) com os dados do cliente. Falha de rede ou de resposta não derruba o fluxo: o resultado é avaliado na etapa seguinte.",
+        "Avaliar Omie": "Considera sucesso só se o Omie respondeu `codigo_status` 0 e devolveu o código do cliente. Guarda o código do cliente no Omie ou a mensagem de erro.",
+        "Omie OK?": "Sucesso: segue para o iClass. Falha: \"Resposta falha Omie\" (nada é criado).",
+        "Guardar dados (Criar iClass)": "Soma 1 ao contador de tentativas de criar o cliente no iClass.",
+        "Checar rate limit (Criar iClass)": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit (Criar iClass)": "Lê `permitido` e `espera_segundos` devolvidos pela função do banco.",
+        "Permitido? (Criar iClass)": "Permitido: cria no iClass. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Criar iClass)": "Se foram menos de 5 tentativas, espera e tenta de novo. Com 5 tentativas, desiste e responde `iclass_pendente` (rate limit).",
+        "Aguardar (Criar iClass)": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Resposta iClass pendente (rate limit)": "O Omie já foi criado, mas o iClass estava sobrecarregado. Responde sucesso parcial `iclass_pendente` para o sistema gravar mesmo assim e o cadastro ser completado depois.",
+        "Criar no iClass": "Chama a API do iClass (`POST /customers/`) com código, nome (razão social), CNPJ/CPF, telefone, celular, e-mail e observação.",
+        "Avaliar iClass": "O iClass responde só `sucesso: true`, sem devolver o identificador do cliente. Aqui se decide se deu certo.",
+        "iClass OK?": "Sucesso: vai buscar o identificador do cliente. Falha: \"Resposta iClass pendente\".",
+        "Guardar dados (Pegar ID)": "Soma 1 ao contador de tentativas de buscar o identificador no iClass.",
+        "Checar rate limit (Pegar ID)": "Mesma checagem de limite, agora antes de consultar o iClass.",
+        "Ler resultado rate limit (Pegar ID)": "Lê `permitido` e `espera_segundos`.",
+        "Permitido? (Pegar ID)": "Permitido: consulta o iClass. Não permitido: \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Pegar ID)": "Menos de 5 tentativas: espera e repete. Senão: \"Resposta iClass sem ID (rate limit)\".",
+        "Aguardar (Pegar ID)": "Espera o tempo indicado pelo banco.",
+        "Resposta iClass sem ID (rate limit)": "O cliente existe nos dois sistemas, mas não deu para confirmar o identificador do iClass agora. Responde `iclass_sem_id`.",
+        "Pegar ID iClass": "Consulta `GET /customers/` filtrando pelo código de integração, para descobrir o identificador do cliente no iClass.",
+        "Montar resposta completa": "Extrai o identificador do cliente das URLs devolvidas pelo iClass (`/customers/<id>/...`), junto com nome e código. Se achou, status `completo`; se não, `iclass_sem_id`.",
+        "Resposta iClass pendente": "O Omie foi criado e o iClass falhou. Responde `iclass_pendente` com o motivo do erro.",
+        "Resposta falha Omie": "O Omie falhou, então nada foi cadastrado em lugar nenhum. Responde `falha_omie` com a mensagem do Omie.",
+        "Resposta campos faltando": "Devolve a lista dos campos obrigatórios que não vieram preenchidos.",
+        "Responder ao front": "Devolve ao sistema, em JSON, a resposta montada por uma das etapas anteriores."
+      }
+    },
+    "buscar-cliente-iclass": {
+      "titulo": "buscar-cliente-iclass (localizar o cliente no iClass)",
+      "nome_n8n": "buscar-cliente-iclass",
+      "nos": {
+        "Webhook1": "Recebe a chamada POST do sistema com o critério de busca (código, nome ou CNPJ) e o valor digitado.",
+        "Preparar busca1": "Escolhe o valor conforme o critério e confere se é válido. No CNPJ, deixa só números. Os campos `gerador_id` e `cliente_id` são apenas repassados e não são usados depois.",
+        "Guardar dados": "Soma 1 ao contador de tentativas de checar o limite de chamadas.",
+        "Checar rate limit iClass1": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit1": "Lê `permitido` e `espera_segundos` devolvidos pelo banco.",
+        "Permitido?1": "Permitido: segue para escolher o critério. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Qual criterio?1": "Direciona para um de quatro caminhos: entrada inválida, busca por código, por CNPJ ou por nome.",
+        "iClass por codigo1": "Consulta `GET /customers` no iClass filtrando pelo código (até 5 resultados). Tempo limite de 15 segundos.",
+        "iClass por CNPJ1": "Consulta `GET /customers` no iClass filtrando pelo CNPJ (até 5 resultados). Tempo limite de 15 segundos.",
+        "iClass por nome1": "Consulta `GET /customers` no iClass filtrando pelo nome (até 10 resultados). Tempo limite de 15 segundos.",
+        "Extrair clientes1": "Lê a lista devolvida pelo iClass. Como o iClass não informa o identificador do cliente diretamente, ele é extraído das URLs (`/customers/<id>/...`). Devolve identificador, nome, código, CNPJ, e-mail e telefone de cada cliente. Sem resultado ou sem identificador, responde `nao_encontrado`.",
+        "Entrada invalida1": "Critério ausente ou valor vazio. Responde `entrada_invalida`.",
+        "Ainda vale tentar?1": "Se foram menos de 5 tentativas, espera e tenta de novo. Senão, desiste com `rate_limit_excedido`.",
+        "Aguardar e tentar de novo1": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Rate limit excedido1": "Responde `rate_limit_excedido` com a mensagem de iClass sobrecarregado.",
+        "Responder ao front1": "Devolve ao sistema, em JSON, o resultado da busca."
+      }
+    },
+    "buscar-ativo": {
+      "titulo": "buscar-ativo (localizar o equipamento no iClass)",
+      "nome_n8n": "buscar-ativo",
+      "nos": {
+        "Webhook": "Recebe a chamada POST do sistema com `por` (`serialNumber` ou `patrimony`) e `valor`.",
+        "Guardar dados (Buscar Equipamento)": "Soma 1 ao contador de tentativas de checar o limite de chamadas ao iClass.",
+        "Checar rate limit (Buscar Equipamento)": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit (Buscar Equipamento)": "Lê `permitido` e `espera_segundos` devolvidos pelo banco.",
+        "Permitido? (Buscar Equipamento)": "Permitido: busca o equipamento no iClass. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Buscar Equipamento)": "Se foram menos de 5 tentativas, espera e tenta de novo. Senão, desiste.",
+        "Aguardar (Buscar Equipamento)": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Rate limit excedido (Buscar Equipamento)": "Desiste sem consultar o iClass e responde `rate_limit_excedido`. Nada foi criado ou alterado.",
+        "iClass - buscar equipamento": "Consulta `GET /equipments` no iClass filtrando por `serialNumber` com o valor recebido. Se a chamada falhar, o fluxo segue como \"sem resultado\".",
+        "Extrair ativo": "Lê o primeiro equipamento devolvido: identificador do ativo, descrição, fabricante, modelo, situação e o endereço das ordens de serviço desse ativo. Sem resultado, marca como não achado.",
+        "Achou o ativo?": "Achou: segue. Não achou: responde `nao_encontrado`.",
+        "Tem OS?": "Se o ativo tem endereço de ordens de serviço, vai buscar o cliente por elas. Senão, devolve o ativo sem cliente.",
+        "Guardar dados (Buscar OS)": "Soma 1 ao contador de tentativas de checar o limite de chamadas ao iClass.",
+        "Checar rate limit (Buscar OS)": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit (Buscar OS)": "Lê `permitido` e `espera_segundos` devolvidos pelo banco.",
+        "Permitido? (Buscar OS)": "Permitido: consulta as ordens de serviço do ativo. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Buscar OS)": "Se foram menos de 5 tentativas, espera e tenta de novo. Senão, desiste.",
+        "Aguardar (Buscar OS)": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Ativo sem cliente (rate limit)": "O limite esgotou na etapa das ordens de serviço. Devolve o ativo encontrado mesmo assim, sem cliente, em vez de descartar o que já achou.",
+        "iClass - ordens de servico": "Consulta as ordens de serviço do ativo no iClass.",
+        "Escolher cliente": "Entre as ordens de serviço, ignora as de clientes internos (\"iclass\" e \"ATG\"), escolhe o cliente que mais aparece e guarda o código do endereço dele. Se sobrarem mais de 5 clientes diferentes, responde `muitos_clientes`. Se não sobrar nenhum, devolve o ativo sem cliente.",
+        "Ativo sem OS": "O ativo existe mas não tem ordens de serviço. Devolve o ativo sem cliente.",
+        "Nao encontrado": "Responde `nao_encontrado`.",
+        "Responder ao front": "Devolve ao sistema, em JSON, o resultado montado por uma das etapas anteriores."
+      }
+    },
+    "buscar-os": {
+      "titulo": "buscar-os (ficha de levantamento de uma O.S.)",
+      "nome_n8n": "buscar-os",
+      "nos": {
+        "Webhook": "Recebe a chamada POST do sistema com `ativo_id` e `codigo_os`.",
+        "Guardar dados (Buscar OS)": "Soma 1 ao contador de tentativas de checar o limite de chamadas ao iClass.",
+        "Checar rate limit (Buscar OS)": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit (Buscar OS)": "Lê `permitido` e `espera_segundos` devolvidos pelo banco.",
+        "Permitido? (Buscar OS)": "Permitido: busca o checklist da O.S. no iClass. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Buscar OS)": "Se foram menos de 5 tentativas, espera e tenta de novo. Senão, desiste.",
+        "Aguardar (Buscar OS)": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Rate limit excedido (Buscar OS)": "Desiste e responde `rate_limit_excedido`.",
+        "iClass - checklist": "Consulta `GET /serviceorders/<código da O.S.>/checklist/` no iClass. Se a chamada falhar, o fluxo segue como \"sem resultado\".",
+        "Traduzir checklist": "Converte as cerca de 125 perguntas soltas do checklist do iClass nos blocos da ficha de levantamento (motor, gerador, alternador, controlador, bateria, bomba injetora, filtros, mangueiras, escapamento). O que não tem campo correspondente vai para `outros`, sem perder nada. Perguntas de foto são ignoradas. Sem checklist, responde `os_sem_checklist`.",
+        "Responder ao front": "Devolve ao sistema, em JSON, o número do checklist e a ficha traduzida, ou o motivo da falha."
+      }
+    },
+    "gerador-por-os": {
+      "titulo": "gerador-por-os (equipamento a partir do número da O.S.)",
+      "nome_n8n": "Adicionar Gerador : Via num O.S",
+      "nos": {
+        "Webhook1": "Recebe a chamada POST do sistema com `codigo_os`.",
+        "Guardar dados (Buscar Equipamento)": "Soma 1 ao contador de tentativas de checar o limite de chamadas ao iClass.",
+        "Checar rate limit (Buscar Equipamento)": "Chama a função do banco `consumir_rate_limit_iclass` para saber se ainda cabe uma chamada ao iClass neste minuto.",
+        "Ler resultado rate limit (Buscar Equipamento)": "Lê `permitido` e `espera_segundos` devolvidos pelo banco.",
+        "Permitido? (Buscar Equipamento)": "Permitido: busca o equipamento da O.S. no iClass. Não permitido: vai para \"Ainda vale tentar?\".",
+        "Ainda vale tentar? (Buscar Equipamento)": "Se foram menos de 5 tentativas, espera e tenta de novo. Senão, desiste.",
+        "Aguardar (Buscar Equipamento)": "Espera o número de segundos indicado pelo banco e volta a checar o limite.",
+        "Rate limit excedido (Buscar Equipamento)": "Desiste e responde `rate_limit_excedido`. Nada foi criado ou alterado.",
+        "iClass - buscar equipamento": "Consulta `GET /serviceorders/<código da O.S.>/equipments` no iClass. Esta chamada não tem tratamento de falha: se der erro, o fluxo termina sem resposta ao sistema.",
+        "Extrair ativo": "Lê o primeiro equipamento da O.S.: identificador do ativo, descrição, fabricante, modelo, situação e número de série (devolvido na chave `numerodeserie`). Sem resultado, marca como não achado.",
+        "Achou o ativo?": "Achou: responde com os dados. Não achou: responde `nao_encontrado`.",
+        "Nao encontrado": "Responde `nao_encontrado`.",
+        "Responder ao front": "Devolve ao sistema, em JSON, o resultado."
+      }
+    },
+    "receberorc": {
+      "titulo": "receberorc (orçamento a partir de um pedido do Omie)",
+      "nome_n8n": "Recebe Orçamentos no OMIE",
+      "nos": {
+        "Webhook": "Recebe a chamada `POST` com o evento do Omie, que traz o número do pedido (`idPedido`) e do cliente (`idCliente`).",
+        "Atualiza o BD de Orçamentos": "Nó do Supabase que atualizaria a tabela de orçamentos. **Está desativado** na exportação, mas continua ligado na sequência (o fluxo passa direto por ele).",
+        "HTTP Request": "Consulta o pedido no Omie (`ConsultarPedido`) pelo número recebido.",
+        "Verifica se pode gerar orçamento": "Lê a observação de venda do pedido (`obs_venda`) e decide: \"Concluído\" gera o orçamento; \"Não gerar\" não faz nada; sem observação, espera; qualquer outro texto cai no caminho de erro.",
+        "Cria o orçamento": "Nó de montagem sem configuração (vazio) na exportação.",
+        "HTTP Request1": "Consulta o cliente no Omie (`ConsultarCliente`) pelo número recebido.",
+        "Transforma wpp": "Monta o número de WhatsApp a partir do telefone do cliente no Omie: remove tudo que não é número, acrescenta o 9 se vier com 8 dígitos e o 55 se faltar.",
+        "Envio de orçamento no Whatsapp Cliente": "Envia mensagem pelo UazAPI para o número montado. O texto da mensagem está com um valor provisório (\"e\") na exportação.",
+        "Envia orçamento por E-mail": "Envia e-mail pelo Gmail. Destinatário, assunto e mensagem estão com valores provisórios na exportação.",
+        "No Operation, do nothing": "Caminho de \"Não gerar\": não faz nada.",
+        "Wait": "Espera 3 minutos quando o pedido ainda não tem observação de venda.",
+        "Segunda verificação no pedido criado": "Consulta o pedido de novo no Omie, depois da espera.",
+        "Verifica se terminou o preenchimento": "Se agora há observação, volta a decidir; se não, segue para o tempo limite.",
+        "Wait1": "Segunda espera, sem tempo configurado na exportação.",
+        "Informa ATG tempo limite": "Envia e-mail à ATG avisando que o pedido não foi preenchido a tempo. Campos provisórios na exportação.",
+        "Verifica se localizou o pedido": "No caminho de erro, vê se o Omie devolveu o pedido: se sim, avisa a ATG por e-mail; se não, avisa o time da Mind pelo WhatsApp.",
+        "Informa erro ao time da ATG": "Envia e-mail de erro à ATG. Campos provisórios na exportação.",
+        "Avisa time Mind que deu erro na execução": "Envia WhatsApp ao time da Mind com o identificador e o nome do fluxo, a hora e o aviso de que nenhuma ação foi tomada.",
+        "HTTP Request2": "Consulta ordens de serviço do iClass em uma data fixa. **Não está ligado a nenhum outro nó**: sobra de teste."
+      }
+    },
+    "preco-produto-mensal": {
+      "titulo": "Preço de produtos (mensal)",
+      "nome_n8n": "Atualização Automática de Preço de Produto Mensal",
+      "nos": {
+        "MENSAL": "Dispara o fluxo a cada 30 dias.",
+        "PG 1": "Pede ao Omie a página 1 da lista de produtos (200 por página).",
+        "PG 2": "Pede ao Omie a página 2 da lista de produtos (200 por página).",
+        "PG 3": "Pede ao Omie a página 3 da lista de produtos (200 por página).",
+        "PG 4": "Pede ao Omie a página 4 da lista de produtos (200 por página).",
+        "PG 5": "Pede ao Omie a página 5 da lista de produtos (200 por página).",
+        "PG 6": "Pede ao Omie a página 6 da lista de produtos (200 por página).",
+        "PG 7": "Pede ao Omie a página 7 da lista de produtos (200 por página).",
+        "PG 8": "Pede ao Omie a página 8 da lista de produtos (200 por página).",
+        "PG 9": "Pede ao Omie a página 9 da lista de produtos (200 por página).",
+        "PG 10": "Pede ao Omie a página 10 da lista de produtos (200 por página). Se falhar, segue por um caminho de erro que não faz nada.",
+        "Merge": "Junta as respostas das 10 páginas.",
+        "No Operation, do nothing": "Caminho de erro da página 10: não faz nada.",
+        "Split Out": "Separa a lista de produtos em uma linha por produto.",
+        "Atualiza Preço": "Para cada produto, **atualiza** a linha de `Produtos` com o mesmo `cod_produto`, gravando `valor_unitario` e `nome_produto` (a descrição do Omie). Só atualiza: produto que ainda não existe na tabela não é criado.",
+        "Avisa que atualizou a tabela de preços": "Envia e-mail pelo Gmail. Destinatário, assunto e mensagem estão com valores provisórios na exportação."
+      }
+    },
+    "preco-servico-mensal": {
+      "titulo": "Preço de serviços (mensal)",
+      "nome_n8n": "Atualização Automática de preço do Serviço Mensal",
+      "nos": {
+        "MENSAL": "Dispara o fluxo a cada 30 dias.",
+        "Lista Serviços": "Pede ao Omie a primeira página do cadastro de serviços (100 registros). Não há páginas seguintes.",
+        "Split Out": "Separa a lista em uma linha por serviço.",
+        "Supabase": "Para cada serviço, **atualiza** a linha de `Serviços` com o mesmo `nCodServ`, gravando `nValorDesc` (preço unitário) e `cDescricao` (descrição completa). Só atualiza: serviço novo não é criado.",
+        "Avisa que atualizou a tabela de preços": "Envia e-mail pelo Gmail. Campos provisórios na exportação."
+      }
+    },
+    "atualiza-produto": {
+      "titulo": "atualiza-produto (atualização forçada de produtos)",
+      "nome_n8n": "Atualização Forçada de Preço de Produto",
+      "nos": {
+        "Sticky Note": "Nota do autor com instruções de configuração do fluxo (trocar chaves antes de ativar). O conteúdo não é reproduzido aqui.",
+        "Webhook Atualizar Produtos": "Recebe a chamada `POST` do botão \"Atualizar Preços\" da tela de Produtos.",
+        "Inicializa Paginacao": "Começa pela página 1.",
+        "Omie - ListarProdutos": "Pede ao Omie a página atual da lista de produtos (200 por página), incluindo as características.",
+        "Parse Produtos": "Converte cada produto do Omie nas colunas de `Produtos`: código, código interno, nome, valor, família, unidade, NCM, inativo (inativo ou bloqueado), características e a lista de termos de compatibilidade. Conta os produtos processados.",
+        "Supabase - Upsert Produtos": "Grava a página no banco por chamada REST com a chave de administrador: insere os produtos novos e atualiza os existentes (pela chave `cod_produto`).",
+        "Controle de Paginas": "Calcula a próxima página e se ainda há mais.",
+        "Tem Mais Paginas?": "Se há mais páginas, espera e repete; senão, vai ao resumo.",
+        "Aguarda 2s": "Espera 2 segundos entre as páginas.",
+        "Resumo Final": "Monta o resumo: páginas processadas, produtos sincronizados e total no Omie.",
+        "Notifica ADM por E-mail": "Enviaria o resumo por e-mail. **Está desativado** e o destinatário é um valor provisório."
+      }
+    },
+    "atualiza-servico": {
+      "titulo": "atualiza-servico (atualização forçada de serviços)",
+      "nome_n8n": "Atualização Forçada de preço do Serviço",
+      "nos": {
+        "Webhook Atualizar Servicos": "Recebe a chamada `POST` em `/webhook/atualiza-servico`. O botão da tela de Serviços chama `/webhook/atualiza-serv` (ver V-003).",
+        "Inicializa Paginacao": "Começa pela página 1.",
+        "Omie - ListarCadastroServico": "Pede ao Omie a página atual do cadastro de serviços (100 por página).",
+        "Parse Servicos": "Converte cada serviço do Omie nas colunas de `Serviços`: código, descrição, código interno, descrição completa, preço unitário (em `preco_unitario`), código LC 116 e inativo. Conta os serviços processados.",
+        "Supabase - Upsert Servicos": "Grava a página no banco por chamada REST com a chave de administrador: insere os novos e atualiza os existentes (pela chave `nCodServ`).",
+        "Controle de Paginas": "Calcula a próxima página e se ainda há mais.",
+        "Tem Mais Paginas?": "Se há mais páginas, espera e repete; senão, vai ao resumo.",
+        "Aguarda 2s": "Espera 2 segundos entre as páginas.",
+        "Resumo Final": "Monta o resumo de serviços sincronizados.",
+        "Responde ao Front End": "Devolveria o resumo ao sistema. **Está desativado.**",
+        "Notifica ADM por E-mail": "Enviaria o resumo por e-mail. **Está desativado**, com destinatário provisório."
+      }
+    }
+  }
+}
